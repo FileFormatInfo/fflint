@@ -6,18 +6,16 @@ import (
 	"github.com/spf13/cobra"
 )
 
+var COMMIT string = "local"
+var LASTMOD string = "1970-01-01T00:00:01-00:00"
+var VERSION = "v0.0.0"
+
 // versionCmd represents the version command
 var versionCmd = &cobra.Command{
 	Use:   "version",
-	Short: "A brief description of your command",
-	Long: `A longer description that spans multiple lines and likely contains examples
-and usage of using your command. For example:
-
-Cobra is a CLI library for Go that empowers applications.
-This application is a tool to generate the needed files
-to quickly create a Cobra application.`,
+	Short: "Prints the version of badger that is installed",
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("version called")
+		fmt.Printf("%s (%s - %s)\n", VERSION, COMMIT, LASTMOD)
 	},
 }
 
