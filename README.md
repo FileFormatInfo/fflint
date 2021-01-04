@@ -5,3 +5,4 @@ Badger is command line programs to make sure that a file is the correct format. 
 ## Credits
 
 * https://github.com/googlefonts/noto-emoji/blob/5628587386c78161f87aa2ca9ddee37c2e8ea212/svg/emoji_u1f9a1.svg
+* https://github.com/spf13/cobra

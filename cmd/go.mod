@@ -1,4 +1,4 @@
-module github.com/FileFormatInfo/badger/cmd
+module github.com/fileformat/badger/cmd
 
 go 1.13
 

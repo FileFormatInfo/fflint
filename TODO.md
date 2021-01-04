@@ -2,9 +2,8 @@
 
 ## MVP
 
-- [ ] run.sh
-- [ ] version command
 - [ ] svg command
+- [ ] expand globs
 - [ ] loop through files
 - [ ] load each file
 - [ ] tests for each file
@@ -39,7 +38,7 @@ Each format will have a list of extensions and mime-types
 ## General options
 
 - charset:ascii|utf-8
-- trailing-newline: on/off/any
+- trailing-newline: on/off/any/only
 - newline format: cr/crlf/lf/any (or dos/unix/mac?)
 - indent: tab/spaces/any
 
@@ -69,16 +68,26 @@ Each format will have a list of extensions and mime-types
 levels:
 
 - silent: just error code
-- standard: 1 line per file with PASS or FAIL
+- quiet (default): 1 line per failing file
 - verbose: 1 line per failing test
-- show-passing: 1 line per test
+- show-passing: include passing tests for quiet/verbose
 
 other options:
 
-- progress; show progress bar (on automatically if output is tty)
-- md5: print md5 hash for each file
+- progress: on/off -  show progress bar (on automatically if output is tty)
+- md5 - print md5 hash for each file
 
-## Other features
+structured output:
+
+- md5sum
+- filename
+- result: pass/fail
+- if per-test output:
+  - test: testid
+  - result: pass/fail
+  - detail: blob of detailed results (line #, etc)
+
+## Distribution
 
 - brew
 - deb
@@ -88,12 +97,24 @@ other options:
 
 ## To consider
 
-- slim binary that only does a single format
 - error if a file exists (to prevent certs/.env/source code)
-- obey .gitignore
+- internal/alternate glob algorithms (or disable internal globbing)
+- obey .gitignore when globbing
 - newline: format `none` means no newlines (but handle trailing-newlines:on)
+- check for file modes (i.e. executable, read-only, etc)
+- slim binaries that only do a single format
 
 ## External Tools
 
 - https://coptr.digipres.org/Category:Validation
 - https://libguides.bodleian.ox.ac.uk/digitalpreservation/validation#:~:text=What%20is%20validation%3F,specific%20file%20format%20must%20follow.
+
+* https://golang.org/pkg/path/filepath/
+
+* https://github.com/JoshVarga/svgparser
+* https://github.com/tealeg/xlsx
+* https://golang.org/pkg/encoding/csv/
+* https://golang.org/pkg/encoding/pem/
+* https://golang.org/pkg/encoding/xml/
+* https://golang.org/pkg/image/jpeg/
+* https://pkg.go.dev/golang.org/x/image@v0.0.0-20201208152932-35266b937fa6/bmp

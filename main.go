@@ -1,6 +1,6 @@
 package main
 
-import "github.com/FileFormatInfo/badger/cmd"
+import "github.com/fileformat/badger/cmd"
 
 func main() {
 	cmd.Execute()
