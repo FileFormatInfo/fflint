@@ -2,38 +2,47 @@
 
 ## MVP
 
-- [ ] svg command
-- [ ] expand globs
-- [ ] loop through files
-- [ ] load each file
-- [ ] tests for each file
+- [ ] load and parse each file
+- [ ] svg tests for each file
+- [ ] context structure
+- [ ] decent output
+
+
+- range parameters (X, M:N, any)
+
+## File Context
+
+- path
+- raw
+- parsed (or specific to format?)
+- success: boolean, starts as true
+- count of tests run/passed/failed/skipped
+- tests map: test_id: status (enum: PENDING/PASS/ERROR/FATAL/SKIPPED) (or array w/results, etc)
 
 ## Formats
 
 Each format will have a list of extensions and mime-types
 
+- binary
 - csv
-- der
-- gif
 - html
-- ini
-- jpeg
 - json
 - pdf
-- pem
-- png
 - svg
-- toml
 - tsv
+- txt
 - xml
 - yaml
-- zip
 
-- Compressed formats (zip, gz, tgz, etc)
+- config files (env, ini, toml)
+- raster image formats (bmp, gif, ico, jpeg, png)
+- crypto formats (crt, csr, der, key, p12, pem)
+- compressed formats (bz2, gz, tar, tgz, zip)
+- markup (asciidoc, markdown, reStructuredText)
 - MSOffice formats
-- Music formats
+- music formats
 - OpenOffice format
-- Video formats
+- video formats
 
 ## General options
 
@@ -41,6 +50,7 @@ Each format will have a list of extensions and mime-types
 - trailing-newline: on/off/any/only
 - newline format: cr/crlf/lf/any (or dos/unix/mac?)
 - indent: tab/spaces/any
+- contains/doesnotcontain: specific text (license declaration/etc)
 
 ## Format specific options
 
@@ -97,6 +107,7 @@ structured output:
 
 ## To consider
 
+- `auto` mode which figures out the command based on the file extension (or contents?)
 - error if a file exists (to prevent certs/.env/source code)
 - internal/alternate glob algorithms (or disable internal globbing)
 - obey .gitignore when globbing
@@ -109,7 +120,14 @@ structured output:
 - https://coptr.digipres.org/Category:Validation
 - https://libguides.bodleian.ox.ac.uk/digitalpreservation/validation#:~:text=What%20is%20validation%3F,specific%20file%20format%20must%20follow.
 
-* https://golang.org/pkg/path/filepath/
+## Go general libraries
+
+- https://golang.org/pkg/path/filepath/
+- https://github.com/zabawaba99/go-gitignore
+- https://github.com/danwakefield/fnmatch
+- https://github.com/syncthing/syncthing/blob/v0.12.0-rc3/lib/fnmatch/fnmatch.go
+
+## Go format libraries
 
 * https://github.com/JoshVarga/svgparser
 * https://github.com/tealeg/xlsx
