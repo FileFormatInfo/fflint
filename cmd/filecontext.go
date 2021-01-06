@@ -7,6 +7,7 @@ import (
 	"io/ioutil"
 	"os"
 	"path/filepath"
+	"strings"
 )
 
 // TestResult: results of a single test
@@ -34,7 +35,7 @@ func (f *FileContext) ReadFile() ([]byte, error) {
 	return ioutil.ReadFile(f.FilePath)
 }
 
-func (f *FileContext) RecordResult(Code string, Success bool, Detail map[string]interface{}) {
+func (f *FileContext) recordResult(Code string, Success bool, Detail map[string]interface{}) {
 	f.tests = append(f.tests, TestResult{
 		Code, Success, Detail,
 	})
@@ -44,7 +45,7 @@ func (f *FileContext) RecordResult(Code string, Success bool, Detail map[string]
 	enc.SetEscapeHTML(false)
 	jsonErr := enc.Encode(Detail)
 
-	fmt.Printf("INFO: %s: %s %s %s\n", f.FilePath, Code, IfThenElse(Success, "PASS", "FAIL"), IfThenElse(jsonErr != nil, jsonErr, buf.String()))
+	fmt.Printf("INFO: %s: %s %s %s\n", f.FilePath, Code, IfThenElse(Success, "PASS", "FAIL"), IfThenElse(jsonErr != nil, jsonErr, strings.TrimRight(buf.String(), "\n")))
 }
 
 func expandGlobs(args []string) ([]FileContext, error) {
@@ -65,14 +66,14 @@ func expandGlobs(args []string) ([]FileContext, error) {
 func basicTests(f FileContext) {
 	fi, err := f.Stat()
 	if err != nil {
-		f.RecordResult("stat", false, map[string]interface{}{"error": err})
+		f.recordResult("stat", false, map[string]interface{}{"error": err})
 		return
 	}
 
-	f.RecordResult("minSize", fi.Size() >= minSize, map[string]interface{}{"size": fi.Size()})
-	f.RecordResult("maxSize", fi.Size() <= maxSize, map[string]interface{}{"size": fi.Size()})
+	//f.RecordResult("minSize", fi.Size() >= minSize, map[string]interface{}{"size": fi.Size()})
+	//f.RecordResult("maxSize", fi.Size() <= maxSize, map[string]interface{}{"size": fi.Size()})
 	if fileSize.Exists() {
-		f.RecordResult("fileSize", fileSize.Check(uint64(fi.Size())), map[string]interface{}{
+		f.recordResult("fileSize", fileSize.Check(uint64(fi.Size())), map[string]interface{}{
 			"actualSize":  fi.Size(),
 			"desiredSize": fileSize.String(),
 		})

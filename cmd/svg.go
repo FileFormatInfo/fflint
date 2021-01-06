@@ -2,10 +2,15 @@ package cmd
 
 import (
 	"fmt"
+	"strconv"
 	"strings"
 
 	"github.com/JoshVarga/svgparser"
 	"github.com/spf13/cobra"
+)
+
+var (
+	svgWidth Range
 )
 
 // svgCmd represents the svg command
@@ -33,15 +38,15 @@ func init() {
 	// Cobra supports local flags which will only run when this command
 	// is called directly, e.g.:
 	// svgCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
+	svgCmd.Flags().Var(&svgWidth, "svgWidth", "Range of allowed SVG widths")
 }
-
 
 func svgCheck(cmd *cobra.Command, args []string) {
 
 	files, _ := expandGlobs(args)
 
 	for _, f := range files {
-		fmt.Printf("INFO: file=%s\n", f.FilePath)
+		//fmt.Printf("INFO: file=%s\n", f.FilePath)
 		basicTests(f)
 
 		bytes, readErr := f.ReadFile()
@@ -53,10 +58,27 @@ func svgCheck(cmd *cobra.Command, args []string) {
 
 		rootElement, parseErr := svgparser.Parse(strings.NewReader(text), false)
 		if parseErr != nil {
-			fmt.Printf("ERROR: unable to parse %s: %s\n", f.FilePath, parseErr)
+			f.recordResult("svgParse", false, map[string]interface{}{
+				"error": parseErr,
+			})
 			continue
 		}
-		fmt.Printf("SVG width: %s\n", rootElement.Attributes["width"])
 
+		if svgWidth.Exists() {
+			widthStr := rootElement.Attributes["width"]
+			width, err := strconv.ParseUint(widthStr, 10, 64)
+			if err != nil {
+				f.recordResult("svgWidth", false, map[string]interface{}{
+					"error": err,
+					"width": widthStr,
+				})
+			} else {
+				f.recordResult("svgWidth", svgWidth.Check(width), map[string]interface{}{
+					"desiredWidth": svgWidth.String(),
+					"actualWidth":  width,
+				})
+			}
+
+		}
 	}
 }
