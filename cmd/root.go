@@ -17,6 +17,7 @@ var (
 	showMissing bool
 	minSize     int64
 	maxSize     int64
+	fileSize    Range
 )
 
 // rootCmd represents the base command when called without any subcommands
@@ -54,6 +55,7 @@ func init() {
 
 	rootCmd.PersistentFlags().Int64Var(&minSize, "min", 0, "Minimum file size")
 	rootCmd.PersistentFlags().Int64Var(&maxSize, "max", 9999999999999, "Maximum file size")
+	rootCmd.PersistentFlags().Var(&fileSize, "size", "Range of allowed file size")
 
 	// Cobra also supports local flags, which will only run
 	// when this action is called directly.

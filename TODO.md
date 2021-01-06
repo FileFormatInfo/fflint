@@ -51,6 +51,7 @@ Each format will have a list of extensions and mime-types
 - newline format: cr/crlf/lf/any (or dos/unix/mac?)
 - indent: tab/spaces/any
 - contains/doesnotcontain: specific text (license declaration/etc)
+- filename rules (snake/camel/lowercase/etc)
 
 ## Format specific options
 
@@ -108,11 +109,15 @@ structured output:
 ## To consider
 
 - `auto` mode which figures out the command based on the file extension (or contents?)
-- error if a file exists (to prevent certs/.env/source code)
+- shell completion
+- generate documentation website
 - internal/alternate glob algorithms (or disable internal globbing)
 - obey .gitignore when globbing
 - newline: format `none` means no newlines (but handle trailing-newlines:on)
 - check for file modes (i.e. executable, read-only, etc)
+
+## Probably not
+- error if a file exists (to prevent certs/.env/source code)
 - slim binaries that only do a single format
 
 ## External Tools

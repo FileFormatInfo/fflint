@@ -2,9 +2,6 @@ package cmd
 
 import (
 	"fmt"
-	"io/ioutil"
-	"os"
-	"path/filepath"
 	"strings"
 
 	"github.com/JoshVarga/svgparser"
@@ -38,51 +35,25 @@ func init() {
 	// svgCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
 }
 
-func expandGlobs(args []string) ([]string, error) {
-	files := []string{}
-
-	for _, arg := range args {
-		argfiles, _ := filepath.Glob(arg)
-		files = append(files, argfiles...)
-	}
-
-	return files, nil
-}
-
-func basicTests(filepath string) {
-	fi, err := os.Stat(filepath)
-	if err != nil {
-		fmt.Printf("ERROR: stat failed\n")
-		return
-	}
-	if fi.Size() < minSize {
-		fmt.Printf("ERROR: too small: %d < %d\n", fi.Size(), minSize)
-		return
-	}
-	if fi.Size() > maxSize {
-		fmt.Printf("ERROR: too big: %d > %d\n", fi.Size(), minSize)
-		return
-	}
-}
 
 func svgCheck(cmd *cobra.Command, args []string) {
 
-	paths, _ := expandGlobs(args)
+	files, _ := expandGlobs(args)
 
-	for _, filepath := range paths {
-		fmt.Printf("INFO: file=%s\n", filepath)
-		basicTests(filepath)
+	for _, f := range files {
+		fmt.Printf("INFO: file=%s\n", f.FilePath)
+		basicTests(f)
 
-		bytes, readErr := ioutil.ReadFile(filepath)
+		bytes, readErr := f.ReadFile()
 		if readErr != nil {
-			fmt.Printf("ERROR: unable to read %s: %s\n", filepath, readErr)
+			fmt.Printf("ERROR: unable to read %s: %s\n", f.FilePath, readErr)
 			continue
 		}
 		text := string(bytes)
 
 		rootElement, parseErr := svgparser.Parse(strings.NewReader(text), false)
 		if parseErr != nil {
-			fmt.Printf("ERROR: unable to parse %s: %s\n", filepath, parseErr)
+			fmt.Printf("ERROR: unable to parse %s: %s\n", f.FilePath, parseErr)
 			continue
 		}
 		fmt.Printf("SVG width: %s\n", rootElement.Attributes["width"])
