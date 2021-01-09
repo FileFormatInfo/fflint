@@ -12,9 +12,10 @@ import (
 
 var (
 	cfgFile     string
+	debug       bool
 	verbose     bool
 	silent      bool
-	showMissing bool
+	showPassing bool
 	minSize     int64
 	maxSize     int64
 	fileSize    Range
@@ -60,6 +61,8 @@ func init() {
 	// Cobra also supports local flags, which will only run
 	// when this action is called directly.
 	rootCmd.PersistentFlags().BoolVarP(&verbose, "verbose", "v", false, "Verbose output")
+	rootCmd.PersistentFlags().BoolVar(&debug, "debug", false, "Debugging output")
+	rootCmd.PersistentFlags().BoolVar(&showPassing, "showPassing", false, "Show passing tests")
 }
 
 // initConfig reads in config file and ENV variables if set.

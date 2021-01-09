@@ -10,7 +10,8 @@ import (
 )
 
 var (
-	svgWidth Range
+	svgHeight Range
+	svgWidth  Range
 )
 
 // svgCmd represents the svg command
@@ -38,7 +39,8 @@ func init() {
 	// Cobra supports local flags which will only run when this command
 	// is called directly, e.g.:
 	// svgCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
-	svgCmd.Flags().Var(&svgWidth, "svgWidth", "Range of allowed SVG widths")
+	svgCmd.Flags().Var(&svgHeight, "height", "Range of allowed SVG heights")
+	svgCmd.Flags().Var(&svgWidth, "width", "Range of allowed SVG widths")
 }
 
 func svgCheck(cmd *cobra.Command, args []string) {
@@ -76,6 +78,22 @@ func svgCheck(cmd *cobra.Command, args []string) {
 				f.recordResult("svgWidth", svgWidth.Check(width), map[string]interface{}{
 					"desiredWidth": svgWidth.String(),
 					"actualWidth":  width,
+				})
+			}
+		}
+
+		if svgHeight.Exists() {
+			heightStr := rootElement.Attributes["height"]
+			height, err := strconv.ParseUint(heightStr, 10, 64)
+			if err != nil {
+				f.recordResult("svgHeight", false, map[string]interface{}{
+					"error":  err,
+					"height": heightStr,
+				})
+			} else {
+				f.recordResult("svgHeight", svgHeight.Check(height), map[string]interface{}{
+					"desiredHeight": svgHeight.String(),
+					"actualheight":  height,
 				})
 			}
 

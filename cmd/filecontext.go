@@ -40,15 +40,30 @@ func (f *FileContext) recordResult(Code string, Success bool, Detail map[string]
 		Code, Success, Detail,
 	})
 
+	if Success && !showPassing {
+		return
+	}
+
 	buf := new(bytes.Buffer)
 	enc := json.NewEncoder(buf)
 	enc.SetEscapeHTML(false)
 	jsonErr := enc.Encode(Detail)
 
-	fmt.Printf("INFO: %s: %s %s %s\n", f.FilePath, Code, IfThenElse(Success, "PASS", "FAIL"), IfThenElse(jsonErr != nil, jsonErr, strings.TrimRight(buf.String(), "\n")))
+	fmt.Printf("INFO: %s %s %s", IfThenElse(Success, "PASS", "FAIL"), Code, f.FilePath)
+
+	if verbose {
+		fmt.Printf("%s", IfThenElse(jsonErr != nil, jsonErr, strings.TrimRight(buf.String(), "\n")))
+	}
+
+	fmt.Printf("\n")
 }
 
 func expandGlobs(args []string) ([]FileContext, error) {
+
+	if debug {
+		fmt.Printf("DEBUG: %d args\n", len(args))
+	}
+
 	files := []FileContext{}
 
 	for _, arg := range args {
@@ -58,6 +73,10 @@ func expandGlobs(args []string) ([]FileContext, error) {
 				FilePath: argfile,
 			})
 		}
+	}
+
+	if debug {
+		fmt.Printf("DEBUG: %d files after arg expansion\n", len(files))
 	}
 
 	return files, nil
@@ -70,8 +89,6 @@ func basicTests(f FileContext) {
 		return
 	}
 
-	//f.RecordResult("minSize", fi.Size() >= minSize, map[string]interface{}{"size": fi.Size()})
-	//f.RecordResult("maxSize", fi.Size() <= maxSize, map[string]interface{}{"size": fi.Size()})
 	if fileSize.Exists() {
 		f.recordResult("fileSize", fileSize.Check(uint64(fi.Size())), map[string]interface{}{
 			"actualSize":  fi.Size(),

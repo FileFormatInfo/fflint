@@ -2,22 +2,16 @@
 
 ## MVP
 
-- [ ] load and parse each file
-- [ ] svg tests for each file
-- [ ] context structure
 - [ ] decent output
-
+- [ ] png cmd
+- [ ] jpeg cmd
+- [ ] meta check: none, contains
+- [ ] viewBox check: range,range,range,range
+- [ ] viewBoxWidth check: range
+- [ ] viewBoxHeight check: range
+- [ ] charset check
 
 - range parameters (X, M:N, any)
-
-## File Context
-
-- path
-- raw
-- parsed (or specific to format?)
-- success: boolean, starts as true
-- count of tests run/passed/failed/skipped
-- tests map: test_id: status (enum: PENDING/PASS/ERROR/FATAL/SKIPPED) (or array w/results, etc)
 
 ## Formats
 
@@ -38,6 +32,7 @@ Each format will have a list of extensions and mime-types
 - raster image formats (bmp, gif, ico, jpeg, png)
 - crypto formats (crt, csr, der, key, p12, pem)
 - compressed formats (bz2, gz, tar, tgz, zip)
+- html scripting: handlebars/php/jsp
 - markup (asciidoc, markdown, reStructuredText)
 - MSOffice formats
 - music formats
@@ -63,12 +58,15 @@ Each format will have a list of extensions and mime-types
 - json:lines
 - jpeg/png:metadata required/optional/none
 - jpeg/png:colorprofile
-- svg:width/height/viewBox
+- svg:viewBox
 - svg:bitmap none/embedded/linked/any
 - svg:font
 - svg:meta
 - svg:optimized
 - pem/der:password:required/optional/none
+- image formats:aspect ratio
+- pdf (and others?):# of pages
+
 
 ## Output
 
