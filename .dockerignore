@@ -1,0 +1,11 @@
+Dockerfile
+.dockerignore
+docs
+.editorconfig
+.git
+.github/workflows
+.gitignore
+LICENSE.txt
+*.md
+*.sh
+*.yaml
