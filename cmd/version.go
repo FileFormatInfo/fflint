@@ -33,8 +33,8 @@ var versionCmd = &cobra.Command{
 				LastMod: LASTMOD,
 				Version: VERSION,
 			}
-			versionJson, _ := json.Marshal(versionData)
-			fmt.Println(string(versionJson))
+			versionJSON, _ := json.Marshal(versionData)
+			fmt.Println(string(versionJSON))
 		} else {
 			fmt.Printf("Badger v%s (%s - %s)\n", VERSION, COMMIT, LASTMOD)
 		}

@@ -10,7 +10,7 @@ import (
 	"strings"
 )
 
-// TestResult: results of a single test
+// TestResult is results of a single test
 type TestResult struct {
 	Code    string
 	Success bool
@@ -97,6 +97,7 @@ func basicTests(f FileContext) {
 	}
 }
 
+// IfThenElse is a substitute for golang missing a ternary operator
 func IfThenElse(condition bool, a interface{}, b interface{}) interface{} {
 	if condition {
 		return a
