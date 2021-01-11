@@ -2,16 +2,29 @@
 
 ## MVP
 
-- [ ] decent output
 - [ ] png cmd
 - [ ] jpeg cmd
+- [ ] decent output
 - [ ] meta check: none, contains
 - [ ] viewBox check: range,range,range,range
 - [ ] viewBoxWidth check: range
 - [ ] viewBoxHeight check: range
+- [ ] range: decimal version
+- [ ] workflows
 - [ ] charset check
 
-- range parameters (X, M:N, any)
+## Documentation/Repo
+
+- [ ] CONTRIBUTING.md
+- [ ] .github/ISSUE_TEMPLATE - new format
+- [ ] .github/ISSUE_TEMPLATE - bug
+- [ ] .github/ISSUE_TEMPLATE - new feature or test
+- [ ] .github/ISSUE_TEMPLATE/config.yaml
+- [ ] .github/ISSUE_TEMPLATE - new format
+- [ ] .github/PULL_REQUEST_TEMPLATE/newpr.md
+- [ ] docs/range.md
+- [ ] docs/glob.md
+
 
 ## Formats
 
@@ -60,7 +73,11 @@ Each format will have a list of extensions and mime-types
 - jpeg/png:colorprofile
 - svg:viewBox
 - svg:bitmap none/embedded/linked/any
+- svg:foreignObject
+- svg:heightUnits true/false/list
+- svg:widthUnits true/false/list
 - svg:font
+- svg:text
 - svg:meta
 - svg:optimized
 - pem/der:password:required/optional/none
