@@ -9,6 +9,7 @@ docs/*/*.json
 .DS_Store
 *.env
 Gemfile.lock
+.github/actions/badger-gha
 .idea/
 .jekyll-metadata
 *.log

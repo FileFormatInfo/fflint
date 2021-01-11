@@ -18,8 +18,8 @@ var VERSION = "0.0.0"
 
 type versionOutput struct {
 	Commit  string `json:"commit"`
-	LastMod string `json:"version"`
-	Version string `json:"lastmod"`
+	LastMod string `json:"lastmod"`
+	Version string `json:"version"`
 }
 
 // versionCmd represents the version command
