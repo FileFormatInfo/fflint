@@ -11,14 +11,13 @@ import (
 )
 
 var (
-	cfgFile     string
-	debug       bool
-	verbose     bool
-	silent      bool
-	showPassing bool
-	minSize     int64
-	maxSize     int64
-	fileSize    Range
+	cfgFile      string
+	debug        bool
+	verbose      bool
+	silent       bool
+	showPassing  bool
+	outputFormat string
+	fileSize     Range
 )
 
 // rootCmd represents the base command when called without any subcommands
@@ -54,8 +53,8 @@ func init() {
 
 	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.badger.yaml)")
 
-	rootCmd.PersistentFlags().Int64Var(&minSize, "min", 0, "Minimum file size")
-	rootCmd.PersistentFlags().Int64Var(&maxSize, "max", 9999999999999, "Maximum file size")
+	//rootCmd.PersistentFlags().Int64Var(&minSize, "min", 0, "Minimum file size")
+	//rootCmd.PersistentFlags().Int64Var(&maxSize, "max", 9999999999999, "Maximum file size")
 	rootCmd.PersistentFlags().Var(&fileSize, "size", "Range of allowed file size")
 
 	// Cobra also supports local flags, which will only run
@@ -63,6 +62,7 @@ func init() {
 	rootCmd.PersistentFlags().BoolVarP(&verbose, "verbose", "v", false, "Verbose output")
 	rootCmd.PersistentFlags().BoolVar(&debug, "debug", false, "Debugging output")
 	rootCmd.PersistentFlags().BoolVar(&showPassing, "showPassing", false, "Show passing tests")
+	rootCmd.PersistentFlags().StringVarP(&outputFormat, "output", "o", "text", "Output format [ json | text ]")
 }
 
 // initConfig reads in config file and ENV variables if set.

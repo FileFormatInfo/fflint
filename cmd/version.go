@@ -1,21 +1,43 @@
 package cmd
 
 import (
+	"encoding/json"
 	"fmt"
 
 	"github.com/spf13/cobra"
 )
 
+// COMMIT will be filled in a build time
 var COMMIT string = "local"
+
+// LASTMOD will be filled in a build time
 var LASTMOD string = "1970-01-01T00:00:01-00:00"
-var VERSION = "v0.0.0"
+
+// VERSION will be filled in a build time
+var VERSION = "0.0.0"
+
+type versionOutput struct {
+	Commit  string `json:"commit"`
+	LastMod string `json:"version"`
+	Version string `json:"lastmod"`
+}
 
 // versionCmd represents the version command
 var versionCmd = &cobra.Command{
 	Use:   "version",
 	Short: "Prints the version of badger that is installed",
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Printf("%s (%s - %s)\n", VERSION, COMMIT, LASTMOD)
+		if outputFormat == "json" {
+			versionData := &versionOutput{
+				Commit:  COMMIT,
+				LastMod: LASTMOD,
+				Version: VERSION,
+			}
+			versionJson, _ := json.Marshal(versionData)
+			fmt.Println(string(versionJson))
+		} else {
+			fmt.Printf("Badger v%s (%s - %s)\n", VERSION, COMMIT, LASTMOD)
+		}
 	},
 }
 
