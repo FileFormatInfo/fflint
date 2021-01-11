@@ -12,11 +12,11 @@ export LASTMOD=$(date -u)
 export COMMIT=local
 
 #go run main.go --max 20000 --min 5000 svg "../vectorlogozone/**/*.svg"
-go run main.go svg \
+go run main.go png \
     --debug \
     --height=64 \
     --showPassing \
     --size=5000:20000 \
     --verbose \
     --width=0: \
-    "/Users/andrew/Downloads/*.svg"
+    "/Users/andrew/Downloads/*.png"
