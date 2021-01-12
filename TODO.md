@@ -2,16 +2,23 @@
 
 ## MVP
 
-- [ ] png cmd
-- [ ] jpeg cmd
-- [ ] decent output
+- [ ] errlevel
+- [ ] sample files in /test
+- [ ] test.sh
+- [ ] move gha Dockerfile to ./github/actions
+- [ ] Dockerfile to run locally, docker-run.sh
+- [ ] workflow: deploy on version.txt change
+- [ ] json output
+- [ ] progress
 - [ ] meta check: none, contains
 - [ ] viewBox check: range,range,range,range
 - [ ] viewBoxWidth check: range
 - [ ] viewBoxHeight check: range
 - [ ] range: decimal version
+- [ ] [width|height]AllowUnits: [commalist|none|*|+], default=*
+- [ ] handlers for [go encoding](https://golang.org/pkg/encoding/) formats
 - [ ] workflows
-- [ ] charset check
+- [ ] handler for text: charset, newline, trailingNewLine
 
 ## Documentation/Repo
 
@@ -24,6 +31,7 @@
 - [ ] .github/PULL_REQUEST_TEMPLATE/newpr.md
 - [ ] docs/range.md
 - [ ] docs/glob.md
+- [ ] [docgen command](https://github.com/spf13/cobra/blob/master/doc/md_docs.md)
 
 
 ## Formats
@@ -149,10 +157,14 @@ structured output:
 
 ## Go format libraries
 
-* https://github.com/JoshVarga/svgparser
 * https://github.com/tealeg/xlsx
-* https://golang.org/pkg/encoding/csv/
-* https://golang.org/pkg/encoding/pem/
-* https://golang.org/pkg/encoding/xml/
-* https://golang.org/pkg/image/jpeg/
+* https://pkg.go.dev/gopkg.in/yaml.v2
+* https://github.com/dsoprea/go-exif or https://github.com/rwcarlsen/goexif
 * https://pkg.go.dev/golang.org/x/image@v0.0.0-20201208152932-35266b937fa6/bmp
+
+
+## domains
+
+- badger.sh
+- badger-ci.com/badgerci.com
+- badger.ci

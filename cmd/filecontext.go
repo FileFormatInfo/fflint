@@ -6,7 +6,6 @@ import (
 	"fmt"
 	"io/ioutil"
 	"os"
-	"path/filepath"
 	"strings"
 )
 
@@ -44,42 +43,21 @@ func (f *FileContext) recordResult(Code string, Success bool, Detail map[string]
 		return
 	}
 
-	buf := new(bytes.Buffer)
-	enc := json.NewEncoder(buf)
-	enc.SetEscapeHTML(false)
-	jsonErr := enc.Encode(Detail)
-
-	fmt.Printf("INFO: %s %s %s", IfThenElse(Success, "PASS", "FAIL"), Code, f.FilePath)
-
-	if verbose {
-		fmt.Printf("%s", IfThenElse(jsonErr != nil, jsonErr, strings.TrimRight(buf.String(), "\n")))
-	}
-
-	fmt.Printf("\n")
-}
-
-func expandGlobs(args []string) ([]FileContext, error) {
-
-	if debug {
-		fmt.Printf("DEBUG: %d args\n", len(args))
-	}
-
-	files := []FileContext{}
-
-	for _, arg := range args {
-		argfiles, _ := filepath.Glob(arg)
-		for _, argfile := range argfiles {
-			files = append(files, FileContext{
-				FilePath: argfile,
-			})
+	if outputFormat == "json" {
+		fmt.Printf("%s\n", encodeJSON(map[string]interface{}{
+			"detail":  Detail,
+			"file":    f.FilePath,
+			"success": Success,
+			"test":    Code,
+		}))
+	} else {
+		fmt.Printf("INFO: %s %s %s", IfThenElse(Success, "PASS", "FAIL"), Code, f.FilePath)
+		if verbose && Detail != nil {
+			fmt.Printf("%s", encodeJSON(Detail))
 		}
-	}
 
-	if debug {
-		fmt.Printf("DEBUG: %d files after arg expansion\n", len(files))
+		fmt.Printf("\n")
 	}
-
-	return files, nil
 }
 
 func basicTests(f FileContext) {
@@ -95,6 +73,21 @@ func basicTests(f FileContext) {
 			"desiredSize": fileSize.String(),
 		})
 	}
+}
+
+func encodeJSON(data map[string]interface{}) string {
+
+	buf := new(bytes.Buffer)
+	enc := json.NewEncoder(buf)
+	enc.SetEscapeHTML(false)
+	jsonErr := enc.Encode(data)
+
+	if jsonErr != nil {
+		// can this happen?
+		return jsonErr.Error()
+	}
+
+	return strings.TrimRight(buf.String(), "\n")
 }
 
 // IfThenElse is a substitute for golang missing a ternary operator

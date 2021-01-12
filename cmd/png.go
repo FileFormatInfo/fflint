@@ -2,7 +2,6 @@ package cmd
 
 import (
 	"bytes"
-	"fmt"
 	"image/jpeg"
 
 	"github.com/spf13/cobra"
@@ -18,7 +17,7 @@ var jpegCmd = &cobra.Command{
 	Use:   "jpeg",
 	Short: "test JPEG images",
 	Long:  `Validate that your JPEG files are valid`,
-	Run:   jpegCheck,
+	Run:   makeFileCommand(jpegCheck),
 }
 
 func init() {
@@ -28,44 +27,40 @@ func init() {
 	jpegCmd.Flags().Var(&jpegWidth, "width", "Range of allowed JPEG widths")
 }
 
-func jpegCheck(cmd *cobra.Command, args []string) {
+func jpegCheck(f FileContext) {
 
-	files, _ := expandGlobs(args)
+	data, readErr := f.ReadFile()
+	if readErr != nil {
+		f.recordResult("fileRead", false, map[string]interface{}{
+			"error": readErr,
+		})
+		return
+	}
 
-	for _, f := range files {
-		basicTests(f)
+	image, parseErr := jpeg.Decode(bytes.NewReader(data))
 
-		data, readErr := f.ReadFile()
-		if readErr != nil {
-			fmt.Printf("ERROR: unable to read %s: %s\n", f.FilePath, readErr)
-			continue
-		}
+	if parseErr != nil {
+		f.recordResult("jpegParse", false, map[string]interface{}{
+			"error": parseErr,
+		})
+		return
+	}
 
-		image, parseErr := jpeg.Decode(bytes.NewReader(data))
+	bounds := image.Bounds()
 
-		if parseErr != nil {
-			f.recordResult("jpegParse", false, map[string]interface{}{
-				"error": parseErr,
-			})
-			continue
-		}
+	if jpegWidth.Exists() {
+		width := bounds.Max.X - bounds.Min.X
+		f.recordResult("jpegWidth", jpegWidth.Check(uint64(width)), map[string]interface{}{
+			"desiredWidth": jpegWidth.String(),
+			"actualWidth":  width,
+		})
+	}
 
-		bounds := image.Bounds()
-
-		if jpegWidth.Exists() {
-			width := bounds.Max.X - bounds.Min.X
-			f.recordResult("jpegWidth", jpegWidth.Check(uint64(width)), map[string]interface{}{
-				"desiredWidth": jpegWidth.String(),
-				"actualWidth":  width,
-			})
-		}
-
-		if jpegHeight.Exists() {
-			height := bounds.Max.Y - bounds.Min.Y
-			f.recordResult("jpegHeight", jpegHeight.Check(uint64(height)), map[string]interface{}{
-				"desiredHeight": jpegHeight.String(),
-				"actualheight":  height,
-			})
-		}
+	if jpegHeight.Exists() {
+		height := bounds.Max.Y - bounds.Min.Y
+		f.recordResult("jpegHeight", jpegHeight.Check(uint64(height)), map[string]interface{}{
+			"desiredHeight": jpegHeight.String(),
+			"actualheight":  height,
+		})
 	}
 }
