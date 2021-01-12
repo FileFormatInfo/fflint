@@ -2,33 +2,33 @@ package cmd
 
 import (
 	"bytes"
-	"image/png"
+	"image/jpeg"
 
 	"github.com/spf13/cobra"
 )
 
 var (
-	pngHeight Range
-	pngWidth  Range
+	jpegHeight Range
+	jpegWidth  Range
 )
 
-// pngCmd represents the png command
-var pngCmd = &cobra.Command{
+// jpegCmd represents the jpeg command
+var jpegCmd = &cobra.Command{
 	Args:  cobra.MinimumNArgs(1),
-	Use:   "png",
-	Short: "test png images",
-	Long:  `Validate that your png files are valid`,
-	RunE:  makeFileCommand(pngCheck),
+	Use:   "jpeg",
+	Short: "test JPEG images",
+	Long:  `Validate that your JPEG files are valid`,
+	RunE:   makeFileCommand(jpegCheck),
 }
 
 func init() {
-	rootCmd.AddCommand(pngCmd)
+	rootCmd.AddCommand(jpegCmd)
 
-	pngCmd.Flags().Var(&pngHeight, "height", "Range of allowed PNG heights")
-	pngCmd.Flags().Var(&pngWidth, "width", "Range of allowed PNG widths")
+	jpegCmd.Flags().Var(&jpegHeight, "height", "Range of allowed JPEG heights")
+	jpegCmd.Flags().Var(&jpegWidth, "width", "Range of allowed JPEG widths")
 }
 
-func pngCheck(f *FileContext) {
+func jpegCheck(f *FileContext) {
 
 	data, readErr := f.ReadFile()
 	if readErr != nil {
@@ -38,10 +38,10 @@ func pngCheck(f *FileContext) {
 		return
 	}
 
-	image, parseErr := png.Decode(bytes.NewReader(data))
+	image, parseErr := jpeg.Decode(bytes.NewReader(data))
 
 	if parseErr != nil {
-		f.recordResult("pngParse", false, map[string]interface{}{
+		f.recordResult("jpegParse", false, map[string]interface{}{
 			"error": parseErr,
 		})
 		return
@@ -49,18 +49,18 @@ func pngCheck(f *FileContext) {
 
 	bounds := image.Bounds()
 
-	if pngWidth.Exists() {
+	if jpegWidth.Exists() {
 		width := bounds.Max.X - bounds.Min.X
-		f.recordResult("pngWidth", pngWidth.Check(uint64(width)), map[string]interface{}{
-			"desiredWidth": pngWidth.String(),
+		f.recordResult("jpegWidth", jpegWidth.Check(uint64(width)), map[string]interface{}{
+			"desiredWidth": jpegWidth.String(),
 			"actualWidth":  width,
 		})
 	}
 
-	if pngHeight.Exists() {
+	if jpegHeight.Exists() {
 		height := bounds.Max.Y - bounds.Min.Y
-		f.recordResult("pngHeight", pngHeight.Check(uint64(height)), map[string]interface{}{
-			"desiredHeight": pngHeight.String(),
+		f.recordResult("jpegHeight", jpegHeight.Check(uint64(height)), map[string]interface{}{
+			"desiredHeight": jpegHeight.String(),
 			"actualheight":  height,
 		})
 	}
