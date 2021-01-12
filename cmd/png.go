@@ -14,10 +14,11 @@ var (
 
 // jpegCmd represents the jpeg command
 var jpegCmd = &cobra.Command{
+	Args:  cobra.MinimumNArgs(1),
 	Use:   "jpeg",
 	Short: "test JPEG images",
 	Long:  `Validate that your JPEG files are valid`,
-	Run:   makeFileCommand(jpegCheck),
+	RunE:   makeFileCommand(jpegCheck),
 }
 
 func init() {
@@ -27,7 +28,7 @@ func init() {
 	jpegCmd.Flags().Var(&jpegWidth, "width", "Range of allowed JPEG widths")
 }
 
-func jpegCheck(f FileContext) {
+func jpegCheck(f *FileContext) {
 
 	data, readErr := f.ReadFile()
 	if readErr != nil {

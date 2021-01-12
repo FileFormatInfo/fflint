@@ -24,6 +24,7 @@ type versionOutput struct {
 
 // versionCmd represents the version command
 var versionCmd = &cobra.Command{
+	Args:  cobra.NoArgs,
 	Use:   "version",
 	Short: "Prints the version of badger that is installed",
 	Run: func(cmd *cobra.Command, args []string) {

@@ -15,15 +15,11 @@ var (
 
 // svgCmd represents the svg command
 var svgCmd = &cobra.Command{
+	Args:  cobra.MinimumNArgs(1),
 	Use:   "svg",
-	Short: "A brief description of your command",
-	Long: `A longer description that spans multiple lines and likely contains examples
-and usage of using your command. For example:
-
-Cobra is a CLI library for Go that empowers applications.
-This application is a tool to generate the needed files
-to quickly create a Cobra application.`,
-	Run: makeFileCommand(svgCheck),
+	Short: "test svg images",
+	Long:  `Validate that your svg files are valid`,
+	RunE:  makeFileCommand(svgCheck),
 }
 
 func init() {
@@ -34,7 +30,7 @@ func init() {
 	//svgCmd.Flags().Var(&svgViewBox, "viewBox", "Ranges of allowed SVG viewBox values")
 }
 
-func svgCheck(f FileContext) {
+func svgCheck(f *FileContext) {
 
 	bytes, readErr := f.ReadFile()
 	if readErr != nil {

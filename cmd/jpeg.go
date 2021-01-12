@@ -14,10 +14,11 @@ var (
 
 // pngCmd represents the png command
 var pngCmd = &cobra.Command{
+	Args:  cobra.MinimumNArgs(1),
 	Use:   "png",
 	Short: "test png images",
 	Long:  `Validate that your png files are valid`,
-	Run:   makeFileCommand(pngCheck),
+	RunE:  makeFileCommand(pngCheck),
 }
 
 func init() {
@@ -27,7 +28,7 @@ func init() {
 	pngCmd.Flags().Var(&pngWidth, "width", "Range of allowed PNG widths")
 }
 
-func pngCheck(f FileContext) {
+func pngCheck(f *FileContext) {
 
 	data, readErr := f.ReadFile()
 	if readErr != nil {

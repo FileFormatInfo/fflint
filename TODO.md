@@ -138,6 +138,7 @@ structured output:
 - obey .gitignore when globbing
 - newline: format `none` means no newlines (but handle trailing-newlines:on)
 - check for file modes (i.e. executable, read-only, etc)
+- support [`--version`](https://github.com/spf13/cobra#version-flag)
 
 ## Probably not
 - error if a file exists (to prevent certs/.env/source code)

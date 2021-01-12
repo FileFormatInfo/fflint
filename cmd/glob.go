@@ -33,17 +33,29 @@ func expandGlobs(args []string) ([]FileContext, error) {
 	return files, nil
 }
 
-func makeFileCommand(checkFn func(FileContext)) func(cmd *cobra.Command, args []string) {
+func makeFileCommand(checkFn func(*FileContext)) func(cmd *cobra.Command, args []string) error {
 
-	return func(cmd *cobra.Command, args []string) {
+	return func(cmd *cobra.Command, args []string) error {
+
+		total := 0
+		bad := 0
 
 		files, _ := expandGlobs(args)
 
 		for _, f := range files {
-			basicTests(f)
+			basicTests(&f)
 
-			checkFn(f)
+			checkFn(&f)
+
+			total++
+			if !f.success() {
+				bad++
+			}
 		}
+		if debug {
+			fmt.Printf("DEBUG: %d files, %d bad", total, bad)
+		}
+		return nil
 	}
 
 }

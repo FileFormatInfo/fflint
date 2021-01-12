@@ -60,7 +60,18 @@ func (f *FileContext) recordResult(Code string, Success bool, Detail map[string]
 	}
 }
 
-func basicTests(f FileContext) {
+func (f *FileContext) success() bool {
+
+	for _, test := range f.tests {
+		if !test.Success {
+			return false
+		}
+	}
+
+	return true
+}
+
+func basicTests(f *FileContext) {
 	fi, err := f.Stat()
 	if err != nil {
 		f.recordResult("stat", false, map[string]interface{}{"error": err})
