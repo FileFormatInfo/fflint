@@ -59,8 +59,9 @@ func init() {
 
 	// Cobra also supports local flags, which will only run
 	// when this action is called directly.
-	rootCmd.PersistentFlags().BoolVarP(&verbose, "verbose", "v", false, "Verbose output")
+	rootCmd.PersistentFlags().BoolVarP(&verbose, "verbose", "v", false, "Verbose output with individual tests")
 	rootCmd.PersistentFlags().BoolVar(&debug, "debug", false, "Debugging output")
+	rootCmd.PersistentFlags().BoolVar(&silent, "silent", false, "No per-test output")
 	rootCmd.PersistentFlags().BoolVar(&showPassing, "showPassing", false, "Show passing tests")
 	rootCmd.PersistentFlags().StringVarP(&outputFormat, "output", "o", "text", "Output format [ json | text ]")
 }

@@ -39,6 +39,10 @@ func (f *FileContext) recordResult(Code string, Success bool, Detail map[string]
 		Code, Success, Detail,
 	})
 
+	if silent {
+		return
+	}
+
 	if Success && !showPassing {
 		return
 	}
@@ -58,6 +62,10 @@ func (f *FileContext) recordResult(Code string, Success bool, Detail map[string]
 
 		fmt.Printf("\n")
 	}
+}
+
+func (f *FileContext) reset() {
+	f.tests = nil
 }
 
 func (f *FileContext) success() bool {
