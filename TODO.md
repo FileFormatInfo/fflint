@@ -2,23 +2,41 @@
 
 ## MVP
 
-- [ ] errlevel
-- [ ] sample files in /test
-- [ ] test.sh
+- [ ] coming soon website
+- [ ] domain on dashboard
+- [ ] doublestar globbing
+- [ ] directory/package re-org (internal, internal/formats, internal/commands, cmd/badger) [std](https://github.com/golang-standards/project-layout)
+- [ ] --showFile
+- [ ] --showTest
+- [ ] --showDetail
+- [ ] --showPassing
+- [ ] --showDebug (to stderr)
+- [ ] each --verbose increments a --showXxx level
+- [ ] dual license
+- [ ] contributor agreement
 - [ ] move gha Dockerfile to ./github/actions
+- [ ] config file to support multiple sections, each with its own action and glob
 - [ ] Dockerfile to run locally, docker-run.sh
-- [ ] workflow: deploy on version.txt change
-- [ ] json output
-- [ ] progress
-- [ ] meta check: none, contains
-- [ ] viewBox check: range,range,range,range
-- [ ] viewBoxWidth check: range
-- [ ] viewBoxHeight check: range
-- [ ] range: decimal version
-- [ ] [width|height]AllowUnits: [commalist|none|*|+], default=*
+- [ ] png/jpeg/svg: meta check: none, contains
+- [ ] range type: decimal version
+- [ ] rangeArray type: for svg viewBox test
+- [ ] ratio type: decimal or x:y or decimal:decimal
+- [ ] aspectRatio test: all image types
+- [ ] svg: viewBox check: range,range,range,range
+- [ ] svg: viewBoxWidth check: range
+- [ ] svg: viewBoxHeight check: range
+- [ ] svg: [width|height]AllowUnits: [commalist|none|*|+], default=*
 - [ ] handlers for [go encoding](https://golang.org/pkg/encoding/) formats
-- [ ] workflows
-- [ ] handler for text: charset, newline, trailingNewLine
+- [ ] workflow: test
+- [ ] workflow: release (on version.txt change)
+- [ ] text handler: charset, newline, trailingNewLine
+- [ ] basic handler: just the basic tests
+- [ ] filename test: regex/camel/kebab/pascal/snake/lowercase/urlsafe/none/etc
+- [ ] glob: handle [homedir](https://github.com/mitchellh/go-homedir)
+- [ ] glob: --recursion flag and handle directories
+- [ ] find command: find files by extension or filetype
+- [ ] mimetype: alterate library [h2non/filetype](https://github.com/h2non/filetype)
+- [ ] mimetype: alterate library [gabriel-vasile/mimetype](https://github.com/gabriel-vasile/mimetype)
 
 ## Documentation/Repo
 
@@ -27,12 +45,14 @@
 - [ ] .github/ISSUE_TEMPLATE - bug
 - [ ] .github/ISSUE_TEMPLATE - new feature or test
 - [ ] .github/ISSUE_TEMPLATE/config.yaml
-- [ ] .github/ISSUE_TEMPLATE - new format
 - [ ] .github/PULL_REQUEST_TEMPLATE/newpr.md
-- [ ] docs/range.md
+- [ ] docs/types/range.md
+- [ ] docs/types/ratio.md
+- [ ] docs/tests/*.md
+- [ ] docs/commands/*.md
 - [ ] docs/glob.md
+- [ ] docs/newformat.md - checklist for adding a new format
 - [ ] [docgen command](https://github.com/spf13/cobra/blob/master/doc/md_docs.md)
-
 
 ## Formats
 
@@ -60,14 +80,14 @@ Each format will have a list of extensions and mime-types
 - OpenOffice format
 - video formats
 
-## General options
+## Text tests (should work with all text formats)
 
 - charset:ascii|utf-8
 - trailing-newline: on/off/any/only
 - newline format: cr/crlf/lf/any (or dos/unix/mac?)
 - indent: tab/spaces/any
 - contains/doesnotcontain: specific text (license declaration/etc)
-- filename rules (snake/camel/lowercase/etc)
+- unicode: list of unicode character ranges allowed
 
 ## Format specific options
 
@@ -88,10 +108,9 @@ Each format will have a list of extensions and mime-types
 - svg:text
 - svg:meta
 - svg:optimized
-- pem/der:password:required/optional/none
+- pem/der:password required/optional/none
 - image formats:aspect ratio
 - pdf (and others?):# of pages
-
 
 ## Output
 
@@ -123,11 +142,21 @@ structured output:
 
 ## Distribution
 
-- brew
+- github release
+- brew [example](https://github.com/yudai/homebrew-gotty)
 - deb
 - github action
 - Docker container
 - website
+
+## Cache
+
+- only makes sense when multiple commands are run
+- cache command (hidden)
+- same globbing
+- filesize check becomes cache load parameters
+- max cache size parameter
+
 
 ## To consider
 
@@ -139,10 +168,13 @@ structured output:
 - newline: format `none` means no newlines (but handle trailing-newlines:on)
 - check for file modes (i.e. executable, read-only, etc)
 - support [`--version`](https://github.com/spf13/cobra#version-flag)
+- [localization](https://pkg.go.dev/golang.org/x/text@v0.3.5/message)
+- minimum file sizes
 
 ## Probably not
 - error if a file exists (to prevent certs/.env/source code)
 - slim binaries that only do a single format
+- file locking
 
 ## External Tools
 
@@ -155,6 +187,7 @@ structured output:
 - https://github.com/zabawaba99/go-gitignore
 - https://github.com/danwakefield/fnmatch
 - https://github.com/syncthing/syncthing/blob/v0.12.0-rc3/lib/fnmatch/fnmatch.go
+- https://golang.org/pkg/net/http/#DetectContentType
 
 ## Go format libraries
 
@@ -162,7 +195,8 @@ structured output:
 * https://pkg.go.dev/gopkg.in/yaml.v2
 * https://github.com/dsoprea/go-exif or https://github.com/rwcarlsen/goexif
 * https://pkg.go.dev/golang.org/x/image@v0.0.0-20201208152932-35266b937fa6/bmp
-
+* https://github.com/xeipuuv/gojsonschema
+* https://github.com/hashicorp/hcl
 
 ## domains
 

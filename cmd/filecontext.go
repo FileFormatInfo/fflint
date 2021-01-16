@@ -94,7 +94,7 @@ func basicTests(f *FileContext) {
 	}
 }
 
-func encodeJSON(data map[string]interface{}) string {
+func encodeJSON(data interface{}) string {
 
 	buf := new(bytes.Buffer)
 	enc := json.NewEncoder(buf)

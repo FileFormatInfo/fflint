@@ -13,11 +13,13 @@ import (
 var (
 	cfgFile      string
 	debug        bool
+	progress     bool
 	verbose      bool
 	silent       bool
 	showPassing  bool
 	outputFormat string
 	fileSize     Range
+	globber      Globber
 )
 
 // rootCmd represents the base command when called without any subcommands
@@ -56,10 +58,12 @@ func init() {
 	//rootCmd.PersistentFlags().Int64Var(&minSize, "min", 0, "Minimum file size")
 	//rootCmd.PersistentFlags().Int64Var(&maxSize, "max", 9999999999999, "Maximum file size")
 	rootCmd.PersistentFlags().Var(&fileSize, "size", "Range of allowed file size")
+	rootCmd.PersistentFlags().Var(&globber, "glob", "Glob algorith to use")
 
 	// Cobra also supports local flags, which will only run
 	// when this action is called directly.
 	rootCmd.PersistentFlags().BoolVarP(&verbose, "verbose", "v", false, "Verbose output with individual tests")
+	rootCmd.PersistentFlags().BoolVar(&progress, "progress", true, "Show progress bar")
 	rootCmd.PersistentFlags().BoolVar(&debug, "debug", false, "Debugging output")
 	rootCmd.PersistentFlags().BoolVar(&silent, "silent", false, "No per-test output")
 	rootCmd.PersistentFlags().BoolVar(&showPassing, "showPassing", false, "Show passing tests")
