@@ -18,21 +18,19 @@
 - [ ] workflow: test
 - [ ] all commands: tests
 
+## MVP 2
+
 - [ ] handlers for [go encoding](https://golang.org/pkg/encoding/) formats
-- [ ] config file to support multiple sections, each with its own action and glob
 - [ ] Dockerfile to run locally, docker-run.sh
 - [ ] workflow: release (on version.txt change)
 - [ ] text handler: charset, newline, trailingNewLine
-- [ ] basic handler: just the basic tests
-- [ ] filename test: regex/camel/kebab/pascal/snake/lowercase/urlsafe/none/etc
-- [ ] find command: find files by extension or filetype
-- [ ] mimetype: alterate library [h2non/filetype](https://github.com/h2non/filetype)
-- [ ] mimetype: alterate library [gabriel-vasile/mimetype](https://github.com/gabriel-vasile/mimetype)
-- [ ] png/jpeg/svg: meta check: none, contains
-- [ ] glob: --recursion flag and handle directories
 - [ ] glob: handle files via [stdin](https://www.socketloop.com/tutorials/golang-check-if-os-stdin-input-data-is-piped-or-from-terminal)
-- [ ] glob: alternative globber [mattn/go-zglob](https://github.com/mattn/go-zglob)
 - [ ] nicer formatting of numbers in text output [x/text/message](https://pkg.go.dev/golang.org/x/text/message)
+
+## MVP 3
+
+- [ ] cache ReadFile results
+- [ ] config file to support multiple sections, each with its own action and glob
 
 ## Documentation/Repo
 
@@ -77,7 +75,7 @@ Each format will have a list of extensions and mime-types
 - OpenOffice format
 - video formats
 
-## Text tests (should work with all text formats)
+## Text tests (should work with other text formats)
 
 - charset:ascii|utf-8
 - trailing-newline: on/off/any/only
@@ -109,34 +107,6 @@ Each format will have a list of extensions and mime-types
 - image formats:aspect ratio
 - pdf (and others?):# of pages
 
-## Output
-
-- JSON-lines
-- text
-- yaml: similar to JSON, but grouped by file
-
-levels:
-
-- silent: just error code
-- quiet (default): 1 line per failing file
-- verbose: 1 line per failing test
-- show-passing: include passing tests for quiet/verbose
-
-other options:
-
-- progress: on/off -  show progress bar (on automatically if output is tty)
-- md5 - print md5 hash for each file
-
-structured output:
-
-- md5sum
-- filename
-- result: pass/fail
-- if per-test output:
-  - test: testid
-  - result: pass/fail
-  - detail: blob of detailed results (line #, etc)
-
 ## Distribution
 
 - github release
@@ -157,6 +127,16 @@ structured output:
 
 ## To consider
 
+- [ ] basic handler: just the basic tests
+- [ ] glob: alternative globber [mattn/go-zglob](https://github.com/mattn/go-zglob)
+- [ ] filename test: regex/camel/kebab/pascal/snake/lowercase/urlsafe/none/etc
+- [ ] find command: find files by extension or filetype
+- [ ] mimetype: alterate library [h2non/filetype](https://github.com/h2non/filetype)
+- [ ] mimetype: alterate library [gabriel-vasile/mimetype](https://github.com/gabriel-vasile/mimetype)
+- [ ] png/jpeg/svg: meta check: none, contains
+- [ ] glob: --recursion flag and handle directories
+- [ ] output yaml: similar to JSON, but grouped by file, etc
+- [ ] output md5: print md5 hash for each file
 - `auto` mode which figures out the command based on the file extension (or contents?)
 - shell completion
 - generate documentation website

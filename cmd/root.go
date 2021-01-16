@@ -28,12 +28,7 @@ var (
 var rootCmd = &cobra.Command{
 	Use:   "badger",
 	Short: "Badgers you if your file formats are invalid",
-	Long: `A longer description that spans multiple lines and likely contains
-examples and usage of using your application. For example:
-
-Cobra is a CLI library for Go that empowers applications.
-This application is a tool to generate the needed files
-to quickly create a Cobra application.`,
+	Long:  `See [www.badger.sh](https://www.badger.sh/) for detailed instructions`,
 	// Uncomment the following line if your bare application
 	// has an action associated with it:
 	//	Run: func(cmd *cobra.Command, args []string) { },
@@ -43,7 +38,7 @@ to quickly create a Cobra application.`,
 // This is called by main.main(). It only needs to happen once to the rootCmd.
 func Execute() {
 	if err := rootCmd.Execute(); err != nil {
-		fmt.Println(err)
+		fmt.Fprintf(os.Stderr, "ERROR: unable to execute root command: %s\n", err.Error())
 		os.Exit(1)
 	}
 }
@@ -83,7 +78,7 @@ func initConfig() {
 		// Find home directory.
 		home, err := homedir.Dir()
 		if err != nil {
-			fmt.Println(err)
+			fmt.Fprintf(os.Stderr, "ERROR: unable to get home directory: %s\n", err.Error())
 			os.Exit(1)
 		}
 
