@@ -1,0 +1,5 @@
+#
+# robots.txt for badger
+#
+User-Agent: *
+Disallow: /honeypot.txt
