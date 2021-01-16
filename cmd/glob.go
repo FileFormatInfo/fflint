@@ -5,6 +5,7 @@ import (
 	"path/filepath"
 
 	"github.com/bmatcuk/doublestar/v3"
+	"github.com/mitchellh/go-homedir"
 	"github.com/spf13/cobra"
 )
 
@@ -41,11 +42,22 @@ func (g *Globber) Type() string {
 	return "Glob algorithm"
 }
 
+func homedirExpand(arg string) string {
+	expanded, err := homedir.Expand(arg)
+	if err != nil {
+		if debug {
+			fmt.Printf("DEBUG: error while expanding homedir %s\n", err.Error())
+		}
+		return arg
+	}
+	return expanded
+}
+
 func doublestarExpander(args []string) ([]FileContext, error) {
 	files := []FileContext{}
 
 	for _, arg := range args {
-		argfiles, _ := doublestar.Glob(arg)
+		argfiles, _ := doublestar.Glob(homedirExpand(arg))
 		for _, argfile := range argfiles {
 
 			fc := FileContext{
@@ -79,7 +91,7 @@ func noExpander(args []string) ([]FileContext, error) {
 
 	for _, arg := range args {
 		fc := FileContext{
-			FilePath: arg,
+			FilePath: homedirExpand(arg),
 		}
 
 		fi, statErr := fc.Stat()
@@ -107,7 +119,7 @@ func golangExpander(args []string) ([]FileContext, error) {
 	files := []FileContext{}
 
 	for _, arg := range args {
-		argfiles, _ := filepath.Glob(arg)
+		argfiles, _ := filepath.Glob(homedirExpand(arg))
 		for _, argfile := range argfiles {
 
 			fc := FileContext{

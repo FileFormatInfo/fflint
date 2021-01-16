@@ -2,7 +2,6 @@
 
 ## MVP
 
-- [ ] glob: handle [homedir](https://github.com/mitchellh/go-homedir)
 - [ ] directory/package re-org (internal, internal/formats, internal/commands, cmd/badger) [std](https://github.com/golang-standards/project-layout)
 - [ ] --showFile
 - [ ] --showTest
