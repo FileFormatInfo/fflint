@@ -2,41 +2,43 @@
 
 ## MVP
 
-- [ ] coming soon website
-- [ ] domain on dashboard
-- [ ] doublestar globbing
+- [ ] glob: handle [homedir](https://github.com/mitchellh/go-homedir)
 - [ ] directory/package re-org (internal, internal/formats, internal/commands, cmd/badger) [std](https://github.com/golang-standards/project-layout)
 - [ ] --showFile
 - [ ] --showTest
 - [ ] --showDetail
 - [ ] --showPassing
-- [ ] --showDebug (to stderr)
-- [ ] each --verbose increments a --showXxx level
+- [ ] --debug (to stderr)
 - [ ] dual license
-- [ ] contributor agreement
+- [ ] contributor agreement (or placeholder)
 - [ ] move gha Dockerfile to ./github/actions
-- [ ] config file to support multiple sections, each with its own action and glob
-- [ ] Dockerfile to run locally, docker-run.sh
-- [ ] png/jpeg/svg: meta check: none, contains
+
 - [ ] range type: decimal version
 - [ ] rangeArray type: for svg viewBox test
 - [ ] ratio type: decimal or x:y or decimal:decimal
-- [ ] aspectRatio test: all image types
 - [ ] svg: viewBox check: range,range,range,range
 - [ ] svg: viewBoxWidth check: range
 - [ ] svg: viewBoxHeight check: range
 - [ ] svg: [width|height]AllowUnits: [commalist|none|*|+], default=*
-- [ ] handlers for [go encoding](https://golang.org/pkg/encoding/) formats
+- [ ] aspectRatio test: all image types
 - [ ] workflow: test
+- [ ] all commands: tests
+
+- [ ] handlers for [go encoding](https://golang.org/pkg/encoding/) formats
+- [ ] config file to support multiple sections, each with its own action and glob
+- [ ] Dockerfile to run locally, docker-run.sh
 - [ ] workflow: release (on version.txt change)
 - [ ] text handler: charset, newline, trailingNewLine
 - [ ] basic handler: just the basic tests
 - [ ] filename test: regex/camel/kebab/pascal/snake/lowercase/urlsafe/none/etc
-- [ ] glob: handle [homedir](https://github.com/mitchellh/go-homedir)
-- [ ] glob: --recursion flag and handle directories
 - [ ] find command: find files by extension or filetype
 - [ ] mimetype: alterate library [h2non/filetype](https://github.com/h2non/filetype)
 - [ ] mimetype: alterate library [gabriel-vasile/mimetype](https://github.com/gabriel-vasile/mimetype)
+- [ ] png/jpeg/svg: meta check: none, contains
+- [ ] glob: --recursion flag and handle directories
+- [ ] glob: handle files via [stdin](https://www.socketloop.com/tutorials/golang-check-if-os-stdin-input-data-is-piped-or-from-terminal)
+- [ ] glob: alternative globber [mattn/go-zglob](https://github.com/mattn/go-zglob)
+
 
 ## Documentation/Repo
 
@@ -46,11 +48,12 @@
 - [ ] .github/ISSUE_TEMPLATE - new feature or test
 - [ ] .github/ISSUE_TEMPLATE/config.yaml
 - [ ] .github/PULL_REQUEST_TEMPLATE/newpr.md
-- [ ] docs/types/range.md
-- [ ] docs/types/ratio.md
-- [ ] docs/tests/*.md
+- [ ] docs/flags/range.md
+- [ ] docs/flags/ratio.md
+- [ ] docs/flags/index.md
+- [ ] docs/files.md - globbing
+- [ ] docs/tests/index.md
 - [ ] docs/commands/*.md
-- [ ] docs/glob.md
 - [ ] docs/newformat.md - checklist for adding a new format
 - [ ] [docgen command](https://github.com/spf13/cobra/blob/master/doc/md_docs.md)
 
@@ -175,6 +178,12 @@ structured output:
 - error if a file exists (to prevent certs/.env/source code)
 - slim binaries that only do a single format
 - file locking
+- each --verbose increments a --showXxx level
+- glob: alternative globber: [godo](https://github.com/go-godo/godo/blob/master/glob.go)
+
+## Links
+
+https://www.client9.com/golang-globs-and-the-double-star-glob-operator/
 
 ## External Tools
 

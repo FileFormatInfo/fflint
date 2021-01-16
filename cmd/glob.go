@@ -4,15 +4,17 @@ import (
 	"fmt"
 	"path/filepath"
 
+	"github.com/bmatcuk/doublestar/v3"
 	"github.com/spf13/cobra"
 )
 
 type globFn = func(args []string) ([]FileContext, error)
 
 var globFunctions = map[string]globFn{
-	"golang": golangExpander,
-	"":       golangExpander,
-	"none":   noExpander,
+	"":           doublestarExpander,
+	"doublestar": doublestarExpander,
+	"golang":     golangExpander,
+	"none":       noExpander,
 }
 
 // Globber is an optional min/max pair
@@ -37,6 +39,34 @@ func (g *Globber) Set(newValue string) error {
 // Type is a description of range
 func (g *Globber) Type() string {
 	return "Glob algorithm"
+}
+
+func doublestarExpander(args []string) ([]FileContext, error) {
+	files := []FileContext{}
+
+	for _, arg := range args {
+		argfiles, _ := doublestar.Glob(arg)
+		for _, argfile := range argfiles {
+
+			fc := FileContext{
+				FilePath: argfile,
+			}
+
+			fi, statErr := fc.Stat()
+			if statErr != nil {
+				//LATER
+				continue
+			}
+			if fi.IsDir() {
+				//LATER: or recurse?
+				continue
+			}
+
+			files = append(files, fc)
+		}
+	}
+
+	return files, nil
 }
 
 func noExpander(args []string) ([]FileContext, error) {
