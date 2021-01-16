@@ -26,6 +26,8 @@ LATER
 
 [GNU Affero General Public License v3.0](LICENSE.txt)
 
+For anyone who cannot use AGPL software, commercial license is available.<!-- LATER: link to pricing page on website -->
+
 ## Credits
 
 [![bash](https://www.vectorlogo.zone/logos/gnu_bash/gnu_bash-ar21.svg)](https://www.gnu.org/software/bash/ "scripting")

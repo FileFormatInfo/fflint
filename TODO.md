@@ -34,12 +34,6 @@
 
 ## Documentation/Repo
 
-- [ ] CONTRIBUTING.md
-- [ ] .github/ISSUE_TEMPLATE - new format
-- [ ] .github/ISSUE_TEMPLATE - bug
-- [ ] .github/ISSUE_TEMPLATE - new feature or test
-- [ ] .github/ISSUE_TEMPLATE/config.yaml
-- [ ] .github/PULL_REQUEST_TEMPLATE/newpr.md
 - [ ] docs/flags/range.md
 - [ ] docs/flags/ratio.md
 - [ ] docs/flags/index.md
@@ -47,6 +41,7 @@
 - [ ] docs/tests/index.md
 - [ ] docs/commands/*.md
 - [ ] docs/newformat.md - checklist for adding a new format
+- [ ] docs/pricing.md
 - [ ] [docgen command](https://github.com/spf13/cobra/blob/master/doc/md_docs.md)
 
 ## Formats
