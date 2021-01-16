@@ -2,6 +2,7 @@ package cmd
 
 import (
 	"fmt"
+	"os"
 	"path/filepath"
 
 	"github.com/bmatcuk/doublestar/v3"
@@ -46,7 +47,7 @@ func homedirExpand(arg string) string {
 	expanded, err := homedir.Expand(arg)
 	if err != nil {
 		if debug {
-			fmt.Printf("DEBUG: error while expanding homedir %s\n", err.Error())
+			fmt.Fprintf(os.Stderr, "DEBUG: error while expanding homedir %s\n", err.Error())
 		}
 		return arg
 	}
@@ -83,10 +84,6 @@ func doublestarExpander(args []string) ([]FileContext, error) {
 
 func noExpander(args []string) ([]FileContext, error) {
 
-	if debug {
-		fmt.Printf("DEBUG: %d args\n", len(args))
-	}
-
 	files := []FileContext{}
 
 	for _, arg := range args {
@@ -112,10 +109,6 @@ func noExpander(args []string) ([]FileContext, error) {
 
 func golangExpander(args []string) ([]FileContext, error) {
 
-	if debug {
-		fmt.Printf("DEBUG: %d args\n", len(args))
-	}
-
 	files := []FileContext{}
 
 	for _, arg := range args {
@@ -140,10 +133,6 @@ func golangExpander(args []string) ([]FileContext, error) {
 		}
 	}
 
-	if debug {
-		fmt.Printf("DEBUG: %d files after arg expansion\n", len(files))
-	}
-
 	return files, nil
 }
 
@@ -153,8 +142,15 @@ func makeFileCommand(checkFn func(*FileContext)) func(cmd *cobra.Command, args [
 
 		total := 0
 		bad := 0
+		good := 0
 
+		if debug {
+			fmt.Fprintf(os.Stderr, "DEBUG: %d args\n", len(args))
+		}
 		files, _ := globFunctions[globber.String()](args)
+		if debug {
+			fmt.Fprintf(os.Stderr, "DEBUG: %d files after arg expansion\n", len(files))
+		}
 
 		ProgressStart(len(files))
 
@@ -164,16 +160,44 @@ func makeFileCommand(checkFn func(*FileContext)) func(cmd *cobra.Command, args [
 			checkFn(&fc)
 
 			total++
-			if !fc.success() {
+			success := fc.success()
+			if success {
+				good++
+			} else {
 				bad++
 			}
-			ProgressUpdate(fc.success())
+			if showFiles {
+				if showPassing || !success {
+					if outputFormat == "json" {
+						fileData := map[string]interface{}{
+							"file":    fc.FilePath,
+							"success": success,
+						}
+
+						fmt.Printf("%s\n", encodeJSON(fileData))
+					} else {
+						fmt.Printf("INFO: %s %s", IfThenElse(success, "PASS", "FAIL"), fc.FilePath)
+
+						fmt.Printf("\n")
+					}
+
+				}
+			}
+			ProgressUpdate(success)
 		}
 
 		ProgressEnd()
 
-		if debug {
-			fmt.Printf("DEBUG: %d files, %d bad", total, bad)
+		if showTotal {
+			if outputFormat == "json" {
+				fmt.Printf("%s\n", encodeJSON(map[string]interface{}{
+					"total": total,
+					"good":  good,
+					"bad":   bad,
+				}))
+			} else {
+				fmt.Printf("INFO: %d files tested, %d good, %d bad\n", total, good, bad)
+			}
 		}
 		return nil
 	}

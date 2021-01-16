@@ -3,11 +3,6 @@
 ## MVP
 
 - [ ] directory/package re-org (internal, internal/formats, internal/commands, cmd/badger) [std](https://github.com/golang-standards/project-layout)
-- [ ] --showFile
-- [ ] --showTest
-- [ ] --showDetail
-- [ ] --showPassing
-- [ ] --debug (to stderr)
 - [ ] dual license
 - [ ] contributor agreement (or placeholder)
 - [ ] move gha Dockerfile to ./github/actions
@@ -37,7 +32,7 @@
 - [ ] glob: --recursion flag and handle directories
 - [ ] glob: handle files via [stdin](https://www.socketloop.com/tutorials/golang-check-if-os-stdin-input-data-is-piped-or-from-terminal)
 - [ ] glob: alternative globber [mattn/go-zglob](https://github.com/mattn/go-zglob)
-
+- [ ] nicer formatting of numbers in text output [x/text/message](https://pkg.go.dev/golang.org/x/text/message)
 
 ## Documentation/Repo
 

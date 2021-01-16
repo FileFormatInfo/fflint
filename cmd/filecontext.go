@@ -24,22 +24,53 @@ type FileContext struct {
 	tests    []TestResult
 }
 
+// IsDir if it is a directory
+func (fc *FileContext) IsDir() bool {
+	fi, statErr := fc.Stat()
+	if statErr != nil {
+		if debug {
+			fmt.Fprintf(os.Stderr, "DEBUG: error doing stat on %s: %s\n", fc.FilePath, statErr.Error())
+		}
+		return false
+	}
+	if fi.IsDir() {
+		return true
+	}
+	return false
+}
+
+// IsFile if it is a file
+func (fc *FileContext) IsFile() bool {
+	fi, statErr := fc.Stat()
+	if statErr != nil {
+		if debug {
+			fmt.Fprintf(os.Stderr, "DEBUG: error doing stat on %s: %s\n", fc.FilePath, statErr.Error())
+		}
+		return false
+	}
+	if fi.IsDir() {
+		return false
+	}
+	//LATER: other tests?
+	return true
+}
+
 // Stat os.Stat, possibly cached
-func (f *FileContext) Stat() (os.FileInfo, error) {
-	return os.Stat(f.FilePath) // MAYBE: cache?
+func (fc *FileContext) Stat() (os.FileInfo, error) {
+	return os.Stat(fc.FilePath) // MAYBE: cache?
 }
 
 // ReadFile ioutil.ReadFile, possibly cached
-func (f *FileContext) ReadFile() ([]byte, error) {
-	return ioutil.ReadFile(f.FilePath)
+func (fc *FileContext) ReadFile() ([]byte, error) {
+	return ioutil.ReadFile(fc.FilePath)
 }
 
-func (f *FileContext) recordResult(Code string, Success bool, Detail map[string]interface{}) {
-	f.tests = append(f.tests, TestResult{
+func (fc *FileContext) recordResult(Code string, Success bool, Detail map[string]interface{}) {
+	fc.tests = append(fc.tests, TestResult{
 		Code, Success, Detail,
 	})
 
-	if silent {
+	if !showTests {
 		return
 	}
 
@@ -48,15 +79,19 @@ func (f *FileContext) recordResult(Code string, Success bool, Detail map[string]
 	}
 
 	if outputFormat == "json" {
-		fmt.Printf("%s\n", encodeJSON(map[string]interface{}{
-			"detail":  Detail,
-			"file":    f.FilePath,
+		testData := map[string]interface{}{
+			"file":    fc.FilePath,
 			"success": Success,
 			"test":    Code,
-		}))
+		}
+
+		if showDetail {
+			testData["detail"] = Detail
+		}
+		fmt.Printf("%s\n", encodeJSON(testData))
 	} else {
-		fmt.Printf("INFO: %s %s %s", IfThenElse(Success, "PASS", "FAIL"), Code, f.FilePath)
-		if verbose && Detail != nil {
+		fmt.Printf("INFO: %s %s %s", IfThenElse(Success, "PASS", "FAIL"), Code, fc.FilePath)
+		if showDetail && Detail != nil {
 			fmt.Printf("%s", encodeJSON(Detail))
 		}
 
@@ -64,13 +99,13 @@ func (f *FileContext) recordResult(Code string, Success bool, Detail map[string]
 	}
 }
 
-func (f *FileContext) reset() {
-	f.tests = nil
+func (fc *FileContext) reset() {
+	fc.tests = nil
 }
 
-func (f *FileContext) success() bool {
+func (fc *FileContext) success() bool {
 
-	for _, test := range f.tests {
+	for _, test := range fc.tests {
 		if !test.Success {
 			return false
 		}
@@ -79,15 +114,15 @@ func (f *FileContext) success() bool {
 	return true
 }
 
-func basicTests(f *FileContext) {
-	fi, err := f.Stat()
+func basicTests(fc *FileContext) {
+	fi, err := fc.Stat()
 	if err != nil {
-		f.recordResult("stat", false, map[string]interface{}{"error": err})
+		fc.recordResult("stat", false, map[string]interface{}{"error": err})
 		return
 	}
 
 	if fileSize.Exists() {
-		f.recordResult("fileSize", fileSize.Check(uint64(fi.Size())), map[string]interface{}{
+		fc.recordResult("fileSize", fileSize.Check(uint64(fi.Size())), map[string]interface{}{
 			"actualSize":  fi.Size(),
 			"desiredSize": fileSize.String(),
 		})
