@@ -2,9 +2,6 @@
 
 ## MVP
 
-- [ ] directory/package re-org (internal, internal/formats, internal/commands, cmd/badger) [std](https://github.com/golang-standards/project-layout)
-- [ ] dual license
-- [ ] contributor agreement (or placeholder)
 - [ ] move gha Dockerfile to ./github/actions
 
 - [ ] range type: decimal version
@@ -116,27 +113,28 @@ Each format will have a list of extensions and mime-types
 - only makes sense when multiple commands are run
 - cache command (hidden)
 - same globbing
-- filesize check becomes cache load parameters
+- filesize range becomes cache load parameters
 - max cache size parameter
 
 
 ## To consider
 
-- [ ] basic handler: just the basic tests
+- [ ] basic command: just the basic tests
 - [ ] glob: alternative globber [mattn/go-zglob](https://github.com/mattn/go-zglob)
-- [ ] filename test: regex/camel/kebab/pascal/snake/lowercase/urlsafe/none/etc
+- [ ] glob: flag to specify an ignore file (i.e. .gitignore or .dockerignore)
+- [ ] glob: --recursion flag and handle directories
+- [ ] filename test: regex/camel/kebab/pascal/snake/lowercase/urlsafe/none/etc (or should this be its own command?)
 - [ ] find command: find files by extension or filetype
 - [ ] mimetype: alterate library [h2non/filetype](https://github.com/h2non/filetype)
 - [ ] mimetype: alterate library [gabriel-vasile/mimetype](https://github.com/gabriel-vasile/mimetype)
 - [ ] png/jpeg/svg: meta check: none, contains
-- [ ] glob: --recursion flag and handle directories
 - [ ] output yaml: similar to JSON, but grouped by file, etc
 - [ ] output md5: print md5 hash for each file
 - `auto` mode which figures out the command based on the file extension (or contents?)
 - shell completion
 - generate documentation website
-- internal/alternate glob algorithms (or disable internal globbing)
-- obey .gitignore when globbing
+- [ ] directory/package re-org (internal, internal/formats, internal/commands, cmd/badger) [std](https://github.com/golang-standards/project-layout) - only when someone smarter than me can help
+
 - newline: format `none` means no newlines (but handle trailing-newlines:on)
 - check for file modes (i.e. executable, read-only, etc)
 - support [`--version`](https://github.com/spf13/cobra#version-flag)
