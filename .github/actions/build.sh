@@ -10,8 +10,6 @@ set -o nounset
 SCRIPT_HOME="$( cd "$( dirname "$0" )" && pwd )"
 APP_HOME=$(realpath "$SCRIPT_HOME/../..")
 
-#COMMIT=$(git rev-parse --short HEAD)
-COMMIT=gha
 LASTMOD=$(date -u +%Y-%m-%dT%H:%M:%SZ)
 VERSION=$(cat "${APP_HOME}/version.txt")
 
@@ -27,11 +25,11 @@ echo "INFO: building"
 go build \
     -a \
     -trimpath \
-    -ldflags "-s -w -extldflags '-static' -X github.com/fileformat/badger/cmd.COMMIT=$COMMIT -X github.com/fileformat/badger/cmd.LASTMOD=$LASTMOD -X github.com/fileformat/badger/cmd.VERSION=$VERSION" \
+    -ldflags "-s -w -extldflags '-static' -X github.com/fileformat/badger/cmd.COMMIT=$GITHUB_SHA -X github.com/fileformat/badger/cmd.LASTMOD=$LASTMOD -X github.com/fileformat/badger/cmd.VERSION=$VERSION" \
     -installsuffix cgo \
     -tags netgo \
-    -o "${SCRIPT_HOME}/dist/badger" \
+    -o "${APP_HOME}/dist/badger" \
     "${APP_HOME}"
 
 echo "INFO: running test"
-"${SCRIPT_HOME}/dist/badger" version
+"${APP_HOME}/dist/badger" version
