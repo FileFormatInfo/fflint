@@ -18,7 +18,7 @@ var jpegCmd = &cobra.Command{
 	Use:   "jpeg",
 	Short: "test JPEG images",
 	Long:  `Validate that your JPEG files are valid`,
-	RunE:   makeFileCommand(jpegCheck),
+	RunE:  makeFileCommand(jpegCheck),
 }
 
 func init() {

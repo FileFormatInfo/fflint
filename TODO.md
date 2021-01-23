@@ -2,21 +2,23 @@
 
 ## MVP
 
-- [ ] move gha Dockerfile to ./github/actions
-
+- [ ] change --size to --filesize
+- [ ] https://github.com/mrusme/geld/blob/6d3f507ce5bd333930eb4a69dbf2638c2ee35cb0/.github/workflows/release.yaml
+- [ ] use tags for versioning
 - [ ] range type: decimal version
 - [ ] rangeArray type: for svg viewBox test
-- [ ] ratio type: decimal or x:y or decimal:decimal
 - [ ] svg: viewBox check: range,range,range,range
-- [ ] svg: viewBoxWidth check: range
-- [ ] svg: viewBoxHeight check: range
-- [ ] svg: [width|height]AllowUnits: [commalist|none|*|+], default=*
+- [ ] ratio type: decimal or x:y or decimal:decimal
 - [ ] aspectRatio test: all image types
-- [ ] workflow: test
-- [ ] all commands: tests
+- [ ] github actions working
 
 ## MVP 2
 
+- [ ] workflow: test
+- [ ] all commands/types: tests
+- [ ] svg: viewBoxWidth check: range
+- [ ] svg: viewBoxHeight check: range
+- [ ] svg: [width|height]AllowUnits: [commalist|none|*|+], default=*
 - [ ] handlers for [go encoding](https://golang.org/pkg/encoding/) formats
 - [ ] Dockerfile to run locally, docker-run.sh
 - [ ] workflow: release (on version.txt change)
@@ -119,10 +121,14 @@ Each format will have a list of extensions and mime-types
 
 ## To consider
 
+- [ ] progress: fix counter display during globbing
+- [ ] progress: move terminal cursor to keep line in constant location if showFiles or showTests
+- [ ] progress: if stderr is redirected to file, show stats every n seconds
 - [ ] basic command: just the basic tests
 - [ ] glob: alternative globber [mattn/go-zglob](https://github.com/mattn/go-zglob)
 - [ ] glob: flag to specify an ignore file (i.e. .gitignore or .dockerignore)
 - [ ] glob: --recursion flag and handle directories
+- [ ] glob: case insensitive sort of files before processing
 - [ ] filename test: regex/camel/kebab/pascal/snake/lowercase/urlsafe/none/etc (or should this be its own command?)
 - [ ] find command: find files by extension or filetype
 - [ ] mimetype: alterate library [h2non/filetype](https://github.com/h2non/filetype)
@@ -142,6 +148,11 @@ Each format will have a list of extensions and mime-types
 - minimum file sizes
 
 ## Probably not
+
+- [ ] showFiles: print at end if progress
+- [ ] glob: alternate sorts (new first, largest first, etc)
+- [ ] flag to enable colorized output
+- [ ] progress: option to calc percentage by file count (vs bytes)
 - error if a file exists (to prevent certs/.env/source code)
 - slim binaries that only do a single format
 - file locking
@@ -173,6 +184,7 @@ https://www.client9.com/golang-globs-and-the-double-star-glob-operator/
 * https://pkg.go.dev/golang.org/x/image@v0.0.0-20201208152932-35266b937fa6/bmp
 * https://github.com/xeipuuv/gojsonschema
 * https://github.com/hashicorp/hcl
+* https://github.com/360EntSecGroup-Skylar/excelize
 
 ## domains
 

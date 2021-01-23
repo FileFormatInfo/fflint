@@ -9,7 +9,7 @@ func TestSvg(t *testing.T) {
 	var fc = FileContext{
 		FilePath: "../tests/badger128.svg",
 	}
-	silent = true
+	//silent = true
 
 	svgWidth.Set("64")
 	svgCheck(&fc)
@@ -53,5 +53,4 @@ func TestSvg(t *testing.T) {
 	if fc.success() {
 		t.Errorf("invalid format")
 	}
-
 }

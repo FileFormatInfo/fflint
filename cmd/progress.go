@@ -23,6 +23,7 @@ var (
 	fileCount int
 )
 
+// ProgressCount called when loading the list (before end is known)
 func ProgressCount() {
 	if progress {
 		// display count of scanned file names
@@ -33,6 +34,7 @@ func ProgressCount() {
 	}
 }
 
+// ProgressStart start the progress bar
 func ProgressStart(fcs []FileContext) {
 	if progress {
 		var max int64
@@ -65,6 +67,7 @@ func ProgressStart(fcs []FileContext) {
 	}
 }
 
+// ProgressUpdate update the progress bar
 func ProgressUpdate(good int, bad int, fc FileContext) {
 	if bar != nil {
 		bar.Set("good", fmt.Sprintf(barIntFormat, good))
@@ -93,6 +96,7 @@ func ProgressUpdate(good int, bad int, fc FileContext) {
 	}
 }
 
+// ProgressEnd call when completely done
 func ProgressEnd() {
 	if bar != nil {
 		bar.Finish()
