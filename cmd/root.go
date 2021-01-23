@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"os"
 
+	"github.com/mattn/go-isatty"
+
 	"github.com/spf13/cobra"
 
 	homedir "github.com/mitchellh/go-homedir"
@@ -60,11 +62,11 @@ func init() {
 	// Cobra also supports local flags, which will only run
 	// when this action is called directly.
 	rootCmd.PersistentFlags().BoolVar(&showTotal, "showTotal", true, "Show total files tested/passed/failed")
-	rootCmd.PersistentFlags().BoolVarP(&showFiles, "showFiles", "f", true, "Show each file tested")
+	rootCmd.PersistentFlags().BoolVarP(&showFiles, "showFiles", "f", !isatty.IsTerminal(os.Stderr.Fd()), "Show each file tested")
 	rootCmd.PersistentFlags().BoolVarP(&showTests, "showTests", "t", false, "Show each test performed")
 	rootCmd.PersistentFlags().BoolVar(&showPassing, "showPassing", false, "Show passing files/tests")
 	rootCmd.PersistentFlags().BoolVar(&showDetail, "showDetail", true, "Show detailed data about each test")
-	rootCmd.PersistentFlags().BoolVar(&progress, "progress", true, "Show progress bar")
+	rootCmd.PersistentFlags().BoolVar(&progress, "progress", isatty.IsTerminal(os.Stderr.Fd()), "Show progress bar")
 	rootCmd.PersistentFlags().BoolVar(&debug, "debug", false, "Debugging output")
 	rootCmd.PersistentFlags().StringVarP(&outputFormat, "output", "o", "text", "Output format [ json | text ]")
 }

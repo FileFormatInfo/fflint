@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
+	"sort"
 
 	"github.com/bmatcuk/doublestar/v3"
 	"github.com/mitchellh/go-homedir"
@@ -55,7 +56,7 @@ func homedirExpand(arg string) string {
 }
 
 func doublestarExpander(args []string) ([]FileContext, error) {
-	files := []FileContext{}
+	fcs := []FileContext{}
 
 	for _, arg := range args {
 		argfiles, _ := doublestar.Glob(homedirExpand(arg))
@@ -74,17 +75,17 @@ func doublestarExpander(args []string) ([]FileContext, error) {
 				//LATER: or recurse?
 				continue
 			}
-
-			files = append(files, fc)
+			ProgressCount()
+			fcs = append(fcs, fc)
 		}
 	}
 
-	return files, nil
+	return fcs, nil
 }
 
 func noExpander(args []string) ([]FileContext, error) {
 
-	files := []FileContext{}
+	fcs := []FileContext{}
 
 	for _, arg := range args {
 		fc := FileContext{
@@ -101,15 +102,16 @@ func noExpander(args []string) ([]FileContext, error) {
 			continue
 		}
 
-		files = append(files, fc)
+		ProgressCount()
+		fcs = append(fcs, fc)
 	}
 
-	return files, nil
+	return fcs, nil
 }
 
 func golangExpander(args []string) ([]FileContext, error) {
 
-	files := []FileContext{}
+	fcs := []FileContext{}
 
 	for _, arg := range args {
 		argfiles, _ := filepath.Glob(homedirExpand(arg))
@@ -129,11 +131,12 @@ func golangExpander(args []string) ([]FileContext, error) {
 				continue
 			}
 
-			files = append(files, fc)
+			ProgressCount()
+			fcs = append(fcs, fc)
 		}
 	}
 
-	return files, nil
+	return fcs, nil
 }
 
 func makeFileCommand(checkFn func(*FileContext)) func(cmd *cobra.Command, args []string) error {
@@ -147,14 +150,20 @@ func makeFileCommand(checkFn func(*FileContext)) func(cmd *cobra.Command, args [
 		if debug {
 			fmt.Fprintf(os.Stderr, "DEBUG: %d args\n", len(args))
 		}
-		files, _ := globFunctions[globber.String()](args)
+		fcs, _ := globFunctions[globber.String()](args)
 		if debug {
-			fmt.Fprintf(os.Stderr, "DEBUG: %d files after arg expansion\n", len(files))
+			fmt.Fprintf(os.Stderr, "DEBUG: %d files after arg expansion\n", len(fcs))
 		}
+		sort.Slice(fcs[:], func(i, j int) bool {
+			return fcs[i].FilePath < fcs[j].FilePath
+		})
 
-		ProgressStart(len(files))
+		ProgressStart(fcs)
 
-		for _, fc := range files {
+		for _, fc := range fcs {
+
+			ProgressUpdate(good, bad, fc)
+
 			basicTests(&fc)
 
 			checkFn(&fc)
@@ -183,8 +192,8 @@ func makeFileCommand(checkFn func(*FileContext)) func(cmd *cobra.Command, args [
 
 				}
 			}
-			ProgressUpdate(success)
 		}
+		ProgressUpdate(good, bad, FileContext{})
 
 		ProgressEnd()
 
