@@ -9,8 +9,9 @@ import (
 )
 
 var (
-	svgHeight Range
-	svgWidth  Range
+	svgHeight  Range
+	svgWidth   Range
+	svgViewBox DecimalRangeArray
 )
 
 // svgCmd represents the svg command
@@ -26,6 +27,7 @@ func init() {
 	rootCmd.AddCommand(svgCmd)
 
 	svgCmd.Flags().Var(&svgHeight, "height", "Range of allowed SVG heights")
+	svgCmd.Flags().Var(&svgViewBox, "viewbox", "Ranges of allowed SVG viewBox values")
 	svgCmd.Flags().Var(&svgWidth, "width", "Range of allowed SVG widths")
 	//svgCmd.Flags().Var(&svgViewBox, "viewBox", "Ranges of allowed SVG viewBox values")
 }
@@ -81,12 +83,11 @@ func svgCheck(f *FileContext) {
 		}
 	}
 
-	/*
-		if svgViewBox.Exists() {
-			viewBoxStr := rootElement.Attributes["viewBox"]
-			f.recordResult("svgViewBox", true, map[string]interface{}{
-				"actualViewBox": viewBoxStr,
-			})
-		}
-	*/
+	if svgViewBox.Exists() {
+		viewBoxStr := rootElement.Attributes["viewBox"]
+		f.recordResult("svgViewBox", svgViewBox.CheckString(viewBoxStr, " "), map[string]interface{}{
+			"actualViewBox": viewBoxStr,
+		})
+	}
+
 }

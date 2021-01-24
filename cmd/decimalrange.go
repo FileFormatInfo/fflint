@@ -109,8 +109,4 @@ func (r *DecimalRange) Check(v decimal.Decimal) bool {
 	return true
 }
 
-type ViewboxRange struct {
-	ranges [4]DecimalRange
-}
 
-// LATER: String, Set, Exists, Check

@@ -48,6 +48,22 @@ func TestSvg(t *testing.T) {
 		t.Errorf("width <= 63")
 	}
 
+	fc.reset()
+	svgWidth.Set("any")
+	svgViewBox.Set("0,0,128,128")
+	svgCheck(&fc)
+	if !fc.success() {
+		t.Errorf("viewBox should work for 128")
+	}
+
+	fc.reset()
+	svgWidth.Set("any")
+	svgViewBox.Set("0,0,64,64")
+	svgCheck(&fc)
+	if fc.success() {
+		t.Errorf("viewBox should not work for 64")
+	}
+
 	fc.FilePath = "../tests/badger128.png"
 	svgCheck(&fc)
 	if fc.success() {
