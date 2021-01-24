@@ -92,7 +92,7 @@ func (fc *FileContext) recordResult(Code string, Success bool, Detail map[string
 	} else {
 		fmt.Printf("INFO: %s %s %s", IfThenElse(Success, "PASS", "FAIL"), Code, fc.FilePath)
 		if showDetail && Detail != nil {
-			fmt.Printf("%s", encodeJSON(Detail))
+			fmt.Printf(" %s", encodeJSON(Detail))
 		}
 
 		fmt.Printf("\n")
