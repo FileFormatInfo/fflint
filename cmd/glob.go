@@ -1,10 +1,13 @@
 package cmd
 
 import (
+	"bufio"
 	"fmt"
 	"os"
 	"path/filepath"
 	"sort"
+
+	"github.com/mattn/go-isatty"
 
 	"github.com/bmatcuk/doublestar/v3"
 	"github.com/mitchellh/go-homedir"
@@ -149,6 +152,21 @@ func makeFileCommand(checkFn func(*FileContext)) func(cmd *cobra.Command, args [
 
 		if debug {
 			fmt.Fprintf(os.Stderr, "DEBUG: %d args\n", len(args))
+		}
+
+		if len(args) == 1 {
+			if args[0] == "-" && !isatty.IsTerminal(os.Stdin.Fd()) {
+				scanner := bufio.NewScanner(os.Stdin)
+				args = args[:0]
+				for scanner.Scan() {
+					line := scanner.Text()
+					args = append(args, line)
+				}
+				if debug {
+					fmt.Fprintf(os.Stderr, "DEBUG: %d lines read from stdin\n", len(args))
+				}
+			}
+			//LATER: handle @file
 		}
 		fcs, _ := globFunctions[globber.String()](args)
 		if debug {
