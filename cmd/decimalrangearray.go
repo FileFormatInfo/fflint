@@ -59,6 +59,10 @@ func (ra *DecimalRangeArray) Check(va []decimal.Decimal) bool {
 // CheckString if a value is within a range
 func (ra *DecimalRangeArray) CheckString(s, sep string) bool {
 
+	if s == "" {
+		return false
+	}
+
 	va := strings.Split(s, sep)
 	da := make([]decimal.Decimal, len(va))
 	for i, v := range va {

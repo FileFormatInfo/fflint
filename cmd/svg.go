@@ -86,7 +86,8 @@ func svgCheck(f *FileContext) {
 	if svgViewBox.Exists() {
 		viewBoxStr := rootElement.Attributes["viewBox"]
 		f.recordResult("svgViewBox", svgViewBox.CheckString(viewBoxStr, " "), map[string]interface{}{
-			"actualViewBox": viewBoxStr,
+			"actualViewBox":   viewBoxStr,
+			"expectedViewBox": svgViewBox.String(),
 		})
 	}
 

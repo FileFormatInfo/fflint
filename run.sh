@@ -7,17 +7,22 @@ set -o errexit
 set -o pipefail
 set -o nounset
 
-
-export LASTMOD=$(date -u)
-export COMMIT=local
-
-#go run main.go --max 20000 --min 5000 svg "../vectorlogozone/**/*.svg"
 go run main.go svg \
     --debug \
-    --height=64 \
+    --width=120 \
+    --height=60 \
+    --showDetail \
+    --showTests \
+    --showFiles \
     --output=json \
-    --showPassing \
-    --size=5000:20000 \
-    --verbose \
-    --width=0: \
-    "/Users/andrew/Downloads/*.svg"
+	"../vectorlogozone/www/logos/**/*-ar21.svg"
+
+go run main.go svg \
+    --debug \
+    --width=64 \
+    --height=64 \
+    --showDetail \
+    --showTests \
+    --showFiles \
+    --output=json \
+	"../vectorlogozone/www/logos/**/*-icon.svg"
