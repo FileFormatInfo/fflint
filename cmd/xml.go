@@ -33,7 +33,7 @@ func xmlCheck(f *FileContext) {
 	_, parseErr := xmlquery.Parse(bytes.NewReader(data))
 
 	if parseErr != nil {
-		f.recordResult("pngParse", false, map[string]interface{}{
+		f.recordResult("xmlParse", false, map[string]interface{}{
 			"error": parseErr,
 		})
 		return
