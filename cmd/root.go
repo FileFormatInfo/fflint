@@ -56,7 +56,7 @@ func init() {
 
 	//rootCmd.PersistentFlags().Int64Var(&minSize, "min", 0, "Minimum file size")
 	//rootCmd.PersistentFlags().Int64Var(&maxSize, "max", 9999999999999, "Maximum file size")
-	rootCmd.PersistentFlags().Var(&fileSize, "size", "Range of allowed file size")
+	rootCmd.PersistentFlags().Var(&fileSize, "filesize", "Range of allowed file size")
 	rootCmd.PersistentFlags().Var(&globber, "glob", "Glob algorith to use")
 
 	// Cobra also supports local flags, which will only run

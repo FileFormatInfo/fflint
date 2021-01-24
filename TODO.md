@@ -2,12 +2,8 @@
 
 ## MVP
 
-- [ ] change --size to --filesize
 - [ ] https://github.com/mrusme/geld/blob/6d3f507ce5bd333930eb4a69dbf2638c2ee35cb0/.github/workflows/release.yaml
 - [ ] use tags for versioning
-- [ ] range type: decimal version
-- [ ] rangeArray type: for svg viewBox test
-- [ ] svg: viewBox check: range,range,range,range
 - [ ] ratio type: decimal or x:y or decimal:decimal
 - [ ] aspectRatio test: all image types
 - [ ] github actions working
@@ -16,9 +12,6 @@
 
 - [ ] workflow: test
 - [ ] all commands/types: tests
-- [ ] svg: viewBoxWidth check: range
-- [ ] svg: viewBoxHeight check: range
-- [ ] svg: [width|height]AllowUnits: [commalist|none|*|+], default=*
 - [ ] handlers for [go encoding](https://golang.org/pkg/encoding/) formats
 - [ ] Dockerfile to run locally, docker-run.sh
 - [ ] workflow: release (on version.txt change)
@@ -100,6 +93,9 @@ Each format will have a list of extensions and mime-types
 - pem/der:password required/optional/none
 - image formats:aspect ratio
 - pdf (and others?):# of pages
+- svg: viewBoxWidth check: range
+- svg: viewBoxHeight check: range
+- svg: [width|height]AllowUnits: [commalist|none|*|+], default=*
 
 ## Distribution
 
