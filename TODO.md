@@ -6,6 +6,14 @@
 - [ ] use tags for versioning
 - [ ] ratio type: decimal or x:y or decimal:decimal
 - [ ] aspectRatio test: all image types
+- [ ] json
+- [ ] html
+- [ ] gif
+- [ ] txt
+- [ ] webfonts: eot, woff, woff2, ttf
+- [ ] pdf
+- [ ] js
+- [ ] css
 - [ ] github actions working
 
 ## MVP 2
@@ -48,11 +56,10 @@ Each format will have a list of extensions and mime-types
 - svg
 - tsv
 - txt
-- xml
 - yaml
 
 - config files (env, ini, toml)
-- raster image formats (bmp, gif, ico, jpeg, png)
+- raster image formats (bmp, gif)
 - crypto formats (crt, csr, der, key, p12, pem)
 - compressed formats (bz2, gz, tar, tgz, zip)
 - html scripting: handlebars/php/jsp
