@@ -46,8 +46,10 @@ func mimetypeCheck(fc *FileContext) {
 
 	mimetypeCounterMap[mimetype]++
 
-	if mimetype == "application/octet-stream" && !mimetypeAllowUnknown {
-		fc.recordResult("mimetypeAllowUnknown", false, nil)
+	if !mimetypeAllowUnknown {
+		fc.recordResult("mimetypeAllowUnknown", mimetype != "application/octet-stream", map[string]interface{}{
+			"actualMimeType": mimetype,
+		})
 	}
 }
 
