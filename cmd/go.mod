@@ -4,6 +4,7 @@ go 1.13
 
 require (
 	github.com/JoshVarga/svgparser v0.0.0-20200804023048-5eaba627a7d1
+	github.com/antchfx/xmlquery v1.3.3
 	github.com/bmatcuk/doublestar/v3 v3.0.0
 	github.com/cheggaaa/pb/v3 v3.0.5
 	github.com/mattn/go-isatty v0.0.12
