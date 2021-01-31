@@ -6,18 +6,19 @@
 - [ ] use tags for versioning
 - [ ] ratio type: decimal or x:y or decimal:decimal
 - [ ] aspectRatio test: all image types
-- [ ] json
-- [ ] html
-- [ ] gif
+- [ ] gif: https://pkg.go.dev/image/gif
 - [ ] txt
 - [ ] webfonts: eot, woff, woff2, ttf
 - [ ] pdf
-- [ ] js
-- [ ] css
+- [ ] js: https://github.com/tdewolff/parse
+- [ ] css: https://github.com/tdewolff/parse
 - [ ] github actions working
 
 ## MVP 2
 
+- [ ] new format: yaml
+- [ ] html: strict flag (default=false)
+- [ ] ico: sizes flag (array of ints)
 - [ ] workflow: test
 - [ ] all commands/types: tests
 - [ ] handlers for [go encoding](https://golang.org/pkg/encoding/) formats
@@ -50,13 +51,8 @@ Each format will have a list of extensions and mime-types
 
 - binary
 - csv
-- html
-- json
-- pdf
-- svg
 - tsv
 - txt
-- yaml
 
 - config files (env, ini, toml)
 - raster image formats (bmp, gif)
@@ -82,13 +78,11 @@ Each format will have a list of extensions and mime-types
 
 - html:noscript
 - html:nocss
-- html:tags=list,of,allowed,tags
+- html:tags=list,of,allowed,tags (or * or ones with html atoms)
 - json:canonical
 - json:schema (with optional url of schema)
-- json:lines
 - jpeg/png:metadata required/optional/none
 - jpeg/png:colorprofile
-- svg:viewBox
 - svg:bitmap none/embedded/linked/any
 - svg:foreignObject
 - svg:heightUnits true/false/list
@@ -124,6 +118,11 @@ Each format will have a list of extensions and mime-types
 
 ## To consider
 
+- [ ] new output format: [TAP](https://testanything.org/tap-version-13-specification.html), [awesome TAP](https://github.com/sindresorhus/awesome-tap)
+- [ ] jsonlines: new format
+- [ ] xhtml: new format
+- [ ] html: support for charsets besides utf8
+- [ ] html: alternate parser [tdewolff/parse](https://github.com/tdewolff/parse)
 - [ ] progress: fix counter display during globbing
 - [ ] progress: move terminal cursor to keep line in constant location if showFiles or showTests
 - [ ] progress: if stderr is redirected to file, show stats every n seconds
@@ -173,6 +172,7 @@ https://www.client9.com/golang-globs-and-the-double-star-glob-operator/
 
 ## Go general libraries
 
+- https://github.com/dustin/go-humanize
 - https://golang.org/pkg/path/filepath/
 - https://github.com/zabawaba99/go-gitignore
 - https://github.com/danwakefield/fnmatch

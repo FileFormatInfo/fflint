@@ -1,0 +1,53 @@
+---
+---
+// Custom fonts
+@import "../_sass/_arvo";
+@import "../_sass/_source-sans-pro";
+
+$enable-responsive-font-sizes: false;
+$font-family-sans-serif:      "Arvo", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji" !default;
+$headings-font-family:        "Source Sans Pro", serif;
+$headings-font-weight:        700;
+
+
+
+// Bootstrap and its default variables
+@import "../_sass/bootstrap-5.0.0-beta1/bootstrap";
+//@import "common";
+
+.navbar-logo {
+    height: 2.5rem;
+    margin-top: -12px;
+    padding-right: 8px;
+}
+
+.navbar-brand {
+    font-family: 'Arvo', serif;
+    font-weight: 700;
+    font-style: italic;
+    font-size: 1.65rem;
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+.nav-link {
+    font-weight: bold;
+    font-family: "Source Sans Pro",sans-serif
+}
+.navbar-dark .navbar-nav .nav-link {
+    color: white;
+}
+
+h1 {
+    margin-top: 21px;
+}
+
+/* hide outline on a clicked tab */
+.nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus {
+    outline: 0;
+}
+
+.navbar {
+    background: #f2f2f2;
+}
+

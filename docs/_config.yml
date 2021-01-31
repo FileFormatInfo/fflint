@@ -9,3 +9,9 @@ title: Badger
 markdown: kramdown
 plugins:
   - jekyll-redirect-from
+defaults:
+  - scope:
+      path: ""
+      type: "pages"
+    values:
+      layout: "default"

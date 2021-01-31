@@ -8,6 +8,7 @@ set -o pipefail
 set -o nounset
 
 jekyll serve \
-    --source docs
-    --watch 
-    
+    --source docs \
+    --trace \
+    --watch
+
