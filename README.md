@@ -1,6 +1,17 @@
 # Badger [<img alt="badger logo" src="docs/favicon.svg" height="90" align="right" />](https://badger.fileformat.info/)
 
-Badger is command line programs to make sure that a file is the correct format.  It is designed to be used in a CI/CD pipeline but can be used anywhere.
+[![build](https://github.com/fileformat/badger/actions/workflows/build.yaml/badge.svg)](https://github.com/fileformat/badger/actions/workflows/build.yaml)
+[![release](https://github.com/fileformat/badger/actions/workflows/release.yaml/badge.svg)](https://github.com/fileformat/badger/actions/workflows/release.yaml)
+
+Badger is a linter for file formats. Are your files:
+* in the correct format?
+* with the correct extension?
+* with the correct image dimensions?
+* properly stripped of revealing metadata?
+* not too big or too small?
+* have decent names?
+
+You can even use it in your CI/CD pipeline to make sure bad files don't get committed.
 
 ## Using in Github Actions
 
