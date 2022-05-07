@@ -24,3 +24,5 @@ tmp/
 _tmp/
 venv/
 x-connect.sh
+
+dist/

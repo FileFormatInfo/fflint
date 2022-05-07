@@ -9,6 +9,13 @@ import (
 	"github.com/spf13/cobra"
 )
 
+var (
+	version string
+	commit  string
+	date    string
+	builtBy string
+)
+
 func main() {
 	var rootCmd = &cobra.Command{
 		Use:   "badger",
@@ -16,8 +23,11 @@ func main() {
 		Long:  `See [www.badger.sh](https://www.badger.sh/) for detailed instructions`,
 	}
 
+	fmt.Fprintf(os.Stderr, "INFO: v=%s c=%s\n", version, commit)
+
 	shared.AddCommon(rootCmd)
 	command.AddSvgCommand(rootCmd)
+	command.AddVersionCommand(rootCmd, command.VersionInfo{Commit: commit, Version: version, LastMod: date, Builder: builtBy})
 
 	if err := rootCmd.Execute(); err != nil {
 		fmt.Fprintf(os.Stderr, "ERROR: unable to execute root command: %s\n", err.Error())

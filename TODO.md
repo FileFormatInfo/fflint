@@ -2,6 +2,11 @@
 
 ## MVP
 
+- [ ] goreleaser
+
+
+# MVP 2
+
 - [ ] https://github.com/mrusme/geld/blob/6d3f507ce5bd333930eb4a69dbf2638c2ee35cb0/.github/workflows/release.yaml
 - [ ] use tags for versioning
 - [ ] ratio type: decimal or x:y or decimal:decimal
@@ -16,6 +21,7 @@
 
 ## MVP 2
 
+- [ ] include a man page: [mango](https://github.com/muesli/mango)
 - [ ] new format: yaml
 - [ ] html: strict flag (default=false)
 - [ ] ico: sizes flag (array of ints)

@@ -1,81 +1,40 @@
-name: Release
+name: goreleaser
 
 on:
   push:
-    branches:
-    - main
-#    paths:
-#    - version.txt
+    # run only against tags
+    tags:
+      - '*'
+
+permissions:
+  contents: write
+  # packages: write
+  # issues: write
 
 jobs:
-  # Push image to GitHub Packages.
-  release:
-    name: Release
-
-    runs-on: ubuntu-20.04
-
+  goreleaser:
+    runs-on: ubuntu-latest
     steps:
-      # https://github.com/actions/checkout
-      - name: Checkout Project (main)
+      -
+        name: Checkout
         uses: actions/checkout@v2
         with:
-          ref: main
-
-      - name: Get version
-        run: |
-          echo "RELEASE_VERSION=$(cat version.txt)" >> $GITHUB_ENV
-
-      # https://github.com/actions/setup-go
-      - name: Setup Go
+          fetch-depth: 0
+      -
+        name: Fetch all tags
+        run: git fetch --force --tags
+      -
+        name: Set up Go
         uses: actions/setup-go@v2
         with:
-          go-version: '1.14.0'
-
-      - name: Build binaries
-        env:
-          COMMIT: $GITHUB_SHA
-        run: |
-          echo "Starting build"
-          ./.github/actions/build.sh
-          echo "Build complete"
-
-      - run: |
-          echo "INFO: debug info"
-          echo "PWD=$(pwd)"
-          env | sort
-          find .
-          echo "INFO: debug done"
-
-      # https://github.com/actions/create-release
-      - name: Create Release
-        id: create_release
-        uses: actions/create-release@v1
+          go-version: 1.18
+      -
+        name: Run GoReleaser
+        uses: goreleaser/goreleaser-action@v2
+        with:
+          # either 'goreleaser' (default) or 'goreleaser-pro'
+          distribution: goreleaser
+          version: latest
+          args: release --rm-dist
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: ${{ env.RELEASE_VERSION }}
-          release_name: ${{ env.RELEASE_VERSION }}
-          body: |
-            Automatic deploy by Github Actions release.yaml
-          draft: false
-          prerelease: false
-
-      - run: |
-          echo "INFO: debug info"
-          echo "PWD=$(pwd)"
-          env | sort
-          find .
-          echo "INFO: debug done"
-
-      # https://github.com/actions/upload-release-asset
-      - name: Upload Release Asset
-        id: upload-release-asset
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps
-          asset_path: dist/badger
-          asset_name: badger
-          asset_content_type: application/octet-stream
-

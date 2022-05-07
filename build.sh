@@ -7,6 +7,10 @@ set -o errexit
 set -o pipefail
 set -o nounset
 
+rm -rf dist
+goreleaser build --snapshot --single-target
+exit 0
+
 mkdir -p dist
 
 export COMMIT=local

@@ -8,19 +8,13 @@ import (
 	"github.com/spf13/cobra"
 )
 
-// COMMIT will be filled in a build time
-var COMMIT string = "local"
+var vi VersionInfo
 
-// LASTMOD will be filled in a build time
-var LASTMOD string = "1970-01-01T00:00:01-00:00"
-
-// VERSION will be filled in a build time
-var VERSION = "0.0.0"
-
-type versionOutput struct {
+type VersionInfo struct {
 	Commit  string `json:"commit"`
 	LastMod string `json:"lastmod"`
 	Version string `json:"version"`
+	Builder string `json:"builder"`
 }
 
 // versionCmd represents the version command
@@ -30,29 +24,19 @@ var versionCmd = &cobra.Command{
 	Short: "Prints the version of badger that is installed",
 	Run: func(cmd *cobra.Command, args []string) {
 		if shared.OutputFormat == "json" {
-			versionData := &versionOutput{
-				Commit:  COMMIT,
-				LastMod: LASTMOD,
-				Version: VERSION,
-			}
-			versionJSON, _ := json.Marshal(versionData)
+			versionJSON, _ := json.Marshal(vi)
 			fmt.Println(string(versionJSON))
 		} else {
-			fmt.Printf("Badger v%s (%s - %s)\n", VERSION, COMMIT, LASTMOD)
+			if shared.Debug {
+				fmt.Printf("Badger\n\tVersion: %s\n\tCommit: %s\n\tDate: %s\n\tBuilder: %s\n", vi.Version, vi.Commit, vi.LastMod, vi.Builder)
+			} else {
+				fmt.Printf("Badger v%s (%s)\n", vi.Version, vi.LastMod)
+			}
 		}
 	},
 }
 
-func AddVersionCommand(rootCmd *cobra.Command) {
+func AddVersionCommand(rootCmd *cobra.Command, versionInfo VersionInfo) {
 	rootCmd.AddCommand(versionCmd)
-
-	// Here you will define your flags and configuration settings.
-
-	// Cobra supports Persistent Flags which will work for this command
-	// and all subcommands, e.g.:
-	// versionCmd.PersistentFlags().String("foo", "", "A help for foo")
-
-	// Cobra supports local flags which will only run when this command
-	// is called directly, e.g.:
-	// versionCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
+	vi = versionInfo
 }
