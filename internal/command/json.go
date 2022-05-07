@@ -1,9 +1,10 @@
-package cmd
+package command
 
 import (
 	"bytes"
 
 	"github.com/antchfx/jsonquery"
+	"github.com/fileformat/badger/internal/shared"
 	"github.com/spf13/cobra"
 )
 
@@ -13,18 +14,18 @@ var jsonCmd = &cobra.Command{
 	Use:   "json",
 	Short: "test json files",
 	Long:  `Validate that your json files are valid`,
-	RunE:  makeFileCommand(jsonCheck),
+	RunE:  shared.MakeFileCommand(jsonCheck),
 }
 
-func init() {
+func AddJsonCommand(rootCmd *cobra.Command) {
 	rootCmd.AddCommand(jsonCmd)
 }
 
-func jsonCheck(f *FileContext) {
+func jsonCheck(f *shared.FileContext) {
 
 	data, readErr := f.ReadFile()
 	if readErr != nil {
-		f.recordResult("fileRead", false, map[string]interface{}{
+		f.RecordResult("fileRead", false, map[string]interface{}{
 			"error": readErr,
 		})
 		return
@@ -33,7 +34,7 @@ func jsonCheck(f *FileContext) {
 	_, parseErr := jsonquery.Parse(bytes.NewReader(data))
 
 	if parseErr != nil {
-		f.recordResult("jsonParse", false, map[string]interface{}{
+		f.RecordResult("jsonParse", false, map[string]interface{}{
 			"error": parseErr,
 		})
 		return

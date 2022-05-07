@@ -1,15 +1,17 @@
-package cmd
+package command
 
 import (
 	"bytes"
 	"image/jpeg"
 
+	"github.com/fileformat/badger/internal/argtype"
+	"github.com/fileformat/badger/internal/shared"
 	"github.com/spf13/cobra"
 )
 
 var (
-	jpegHeight Range
-	jpegWidth  Range
+	jpegHeight argtype.Range
+	jpegWidth  argtype.Range
 )
 
 // jpegCmd represents the jpeg command
@@ -18,21 +20,21 @@ var jpegCmd = &cobra.Command{
 	Use:   "jpeg",
 	Short: "test JPEG images",
 	Long:  `Validate that your JPEG files are valid`,
-	RunE:  makeFileCommand(jpegCheck),
+	RunE:  shared.MakeFileCommand(jpegCheck),
 }
 
-func init() {
+func AddJpegCommand(rootCmd *cobra.Command) {
 	rootCmd.AddCommand(jpegCmd)
 
 	jpegCmd.Flags().Var(&jpegHeight, "height", "Range of allowed JPEG heights")
 	jpegCmd.Flags().Var(&jpegWidth, "width", "Range of allowed JPEG widths")
 }
 
-func jpegCheck(f *FileContext) {
+func jpegCheck(f *shared.FileContext) {
 
 	data, readErr := f.ReadFile()
 	if readErr != nil {
-		f.recordResult("fileRead", false, map[string]interface{}{
+		f.RecordResult("fileRead", false, map[string]interface{}{
 			"error": readErr,
 		})
 		return
@@ -41,7 +43,7 @@ func jpegCheck(f *FileContext) {
 	image, parseErr := jpeg.Decode(bytes.NewReader(data))
 
 	if parseErr != nil {
-		f.recordResult("jpegParse", false, map[string]interface{}{
+		f.RecordResult("jpegParse", false, map[string]interface{}{
 			"error": parseErr,
 		})
 		return
@@ -51,7 +53,7 @@ func jpegCheck(f *FileContext) {
 
 	if jpegWidth.Exists() {
 		width := bounds.Max.X - bounds.Min.X
-		f.recordResult("jpegWidth", jpegWidth.Check(uint64(width)), map[string]interface{}{
+		f.RecordResult("jpegWidth", jpegWidth.Check(uint64(width)), map[string]interface{}{
 			"desiredWidth": jpegWidth.String(),
 			"actualWidth":  width,
 		})
@@ -59,7 +61,7 @@ func jpegCheck(f *FileContext) {
 
 	if jpegHeight.Exists() {
 		height := bounds.Max.Y - bounds.Min.Y
-		f.recordResult("jpegHeight", jpegHeight.Check(uint64(height)), map[string]interface{}{
+		f.RecordResult("jpegHeight", jpegHeight.Check(uint64(height)), map[string]interface{}{
 			"desiredHeight": jpegHeight.String(),
 			"actualheight":  height,
 		})

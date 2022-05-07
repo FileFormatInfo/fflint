@@ -1,17 +1,19 @@
-package cmd
+package command
 
 import (
 	"strconv"
 	"strings"
 
 	"github.com/JoshVarga/svgparser"
+	"github.com/fileformat/badger/internal/argtype"
+	"github.com/fileformat/badger/internal/shared"
 	"github.com/spf13/cobra"
 )
 
 var (
-	svgHeight  Range
-	svgWidth   Range
-	svgViewBox DecimalRangeArray
+	svgHeight  argtype.Range
+	svgWidth   argtype.Range
+	svgViewBox argtype.DecimalRangeArray
 )
 
 // svgCmd represents the svg command
@@ -20,10 +22,10 @@ var svgCmd = &cobra.Command{
 	Use:   "svg",
 	Short: "test svg images",
 	Long:  `Validate that your svg files are valid`,
-	RunE:  makeFileCommand(svgCheck),
+	RunE:  shared.MakeFileCommand(svgCheck),
 }
 
-func init() {
+func AddSvgCommand(rootCmd *cobra.Command) {
 	rootCmd.AddCommand(svgCmd)
 
 	svgCmd.Flags().Var(&svgHeight, "height", "Range of allowed SVG heights")
@@ -32,11 +34,11 @@ func init() {
 	//svgCmd.Flags().Var(&svgViewBox, "viewBox", "Ranges of allowed SVG viewBox values")
 }
 
-func svgCheck(f *FileContext) {
+func svgCheck(f *shared.FileContext) {
 
 	bytes, readErr := f.ReadFile()
 	if readErr != nil {
-		f.recordResult("fileRead", false, map[string]interface{}{
+		f.RecordResult("fileRead", false, map[string]interface{}{
 			"error": readErr,
 		})
 		return
@@ -45,7 +47,7 @@ func svgCheck(f *FileContext) {
 
 	rootElement, parseErr := svgparser.Parse(strings.NewReader(text), false)
 	if parseErr != nil {
-		f.recordResult("svgParse", false, map[string]interface{}{
+		f.RecordResult("svgParse", false, map[string]interface{}{
 			"error": parseErr,
 		})
 		return
@@ -55,12 +57,12 @@ func svgCheck(f *FileContext) {
 		widthStr := rootElement.Attributes["width"]
 		width, err := strconv.ParseUint(widthStr, 10, 64)
 		if err != nil {
-			f.recordResult("svgWidth", false, map[string]interface{}{
+			f.RecordResult("svgWidth", false, map[string]interface{}{
 				"error": err,
 				"width": widthStr,
 			})
 		} else {
-			f.recordResult("svgWidth", svgWidth.Check(width), map[string]interface{}{
+			f.RecordResult("svgWidth", svgWidth.Check(width), map[string]interface{}{
 				"desiredWidth": svgWidth.String(),
 				"actualWidth":  width,
 			})
@@ -71,12 +73,12 @@ func svgCheck(f *FileContext) {
 		heightStr := rootElement.Attributes["height"]
 		height, err := strconv.ParseUint(heightStr, 10, 64)
 		if err != nil {
-			f.recordResult("svgHeight", false, map[string]interface{}{
+			f.RecordResult("svgHeight", false, map[string]interface{}{
 				"error":  err,
 				"height": heightStr,
 			})
 		} else {
-			f.recordResult("svgHeight", svgHeight.Check(height), map[string]interface{}{
+			f.RecordResult("svgHeight", svgHeight.Check(height), map[string]interface{}{
 				"desiredHeight": svgHeight.String(),
 				"actualheight":  height,
 			})
@@ -85,7 +87,7 @@ func svgCheck(f *FileContext) {
 
 	if svgViewBox.Exists() {
 		viewBoxStr := rootElement.Attributes["viewBox"]
-		f.recordResult("svgViewBox", svgViewBox.CheckString(viewBoxStr, " "), map[string]interface{}{
+		f.RecordResult("svgViewBox", svgViewBox.CheckString(viewBoxStr, " "), map[string]interface{}{
 			"actualViewBox":   viewBoxStr,
 			"expectedViewBox": svgViewBox.String(),
 		})

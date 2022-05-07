@@ -1,9 +1,10 @@
-package cmd
+package command
 
 import (
 	"encoding/json"
 	"fmt"
 
+	"github.com/fileformat/badger/internal/shared"
 	"github.com/spf13/cobra"
 )
 
@@ -28,7 +29,7 @@ var versionCmd = &cobra.Command{
 	Use:   "version",
 	Short: "Prints the version of badger that is installed",
 	Run: func(cmd *cobra.Command, args []string) {
-		if outputFormat == "json" {
+		if shared.OutputFormat == "json" {
 			versionData := &versionOutput{
 				Commit:  COMMIT,
 				LastMod: LASTMOD,
@@ -42,7 +43,7 @@ var versionCmd = &cobra.Command{
 	},
 }
 
-func init() {
+func AddVersionCommand(rootCmd *cobra.Command) {
 	rootCmd.AddCommand(versionCmd)
 
 	// Here you will define your flags and configuration settings.

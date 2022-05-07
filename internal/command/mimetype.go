@@ -1,10 +1,11 @@
-package cmd
+package command
 
 import (
 	"fmt"
 	"net/http"
 	"sort"
 
+	"github.com/fileformat/badger/internal/shared"
 	"github.com/spf13/cobra"
 )
 
@@ -22,22 +23,22 @@ var mimetypeCmd = &cobra.Command{
 	Short:    "test/report mime types",
 	Long:     ``,
 	PreRunE:  mimetypeReportInit,
-	RunE:     makeFileCommand(mimetypeCheck),
+	RunE:     shared.MakeFileCommand(mimetypeCheck),
 	PostRunE: mimetypeReportRun,
 }
 
-func init() {
+func AddMimeTypeCommand(rootCmd *cobra.Command) {
 	rootCmd.AddCommand(mimetypeCmd)
 
 	mimetypeCmd.Flags().BoolVar(&mimetypeReport, "report", true, "Print summary report (default is true)")
 	mimetypeCmd.Flags().BoolVar(&mimetypeAllowUnknown, "allowUnknown", true, "Allow application/octet-stream")
 }
 
-func mimetypeCheck(fc *FileContext) {
+func mimetypeCheck(fc *shared.FileContext) {
 
 	bytes, readErr := fc.ReadFile()
 	if readErr != nil {
-		fc.recordResult("fileRead", false, map[string]interface{}{
+		fc.RecordResult("fileRead", false, map[string]interface{}{
 			"error": readErr,
 		})
 		return
@@ -47,7 +48,7 @@ func mimetypeCheck(fc *FileContext) {
 	mimetypeCounterMap[mimetype]++
 
 	if !mimetypeAllowUnknown {
-		fc.recordResult("mimetypeAllowUnknown", mimetype != "application/octet-stream", map[string]interface{}{
+		fc.RecordResult("mimetypeAllowUnknown", mimetype != "application/octet-stream", map[string]interface{}{
 			"actualMimeType": mimetype,
 		})
 	}
@@ -62,8 +63,8 @@ func mimetypeReportInit(cmd *cobra.Command, args []string) error {
 func mimetypeReportRun(cmd *cobra.Command, args []string) error {
 
 	if mimetypeReport {
-		if outputFormat == "json" {
-			fmt.Printf("%s\n", encodeJSON(mimetypeCounterMap))
+		if shared.OutputFormat == "json" {
+			fmt.Printf("%s\n", shared.EncodeJSON(mimetypeCounterMap))
 		} else {
 			keys := []string{}
 			maxKey := 0

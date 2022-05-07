@@ -1,4 +1,4 @@
-package cmd
+package shared
 
 import (
 	"bufio"
@@ -50,7 +50,7 @@ func (g *Globber) Type() string {
 func homedirExpand(arg string) string {
 	expanded, err := homedir.Expand(arg)
 	if err != nil {
-		if debug {
+		if Debug {
 			fmt.Fprintf(os.Stderr, "DEBUG: error while expanding homedir %s\n", err.Error())
 		}
 		return arg
@@ -142,7 +142,7 @@ func golangExpander(args []string) ([]FileContext, error) {
 	return fcs, nil
 }
 
-func makeFileCommand(checkFn func(*FileContext)) func(cmd *cobra.Command, args []string) error {
+func MakeFileCommand(checkFn func(*FileContext)) func(cmd *cobra.Command, args []string) error {
 
 	return func(cmd *cobra.Command, args []string) error {
 
@@ -150,7 +150,7 @@ func makeFileCommand(checkFn func(*FileContext)) func(cmd *cobra.Command, args [
 		bad := 0
 		good := 0
 
-		if debug {
+		if Debug {
 			fmt.Fprintf(os.Stderr, "DEBUG: %d args\n", len(args))
 		}
 
@@ -162,14 +162,14 @@ func makeFileCommand(checkFn func(*FileContext)) func(cmd *cobra.Command, args [
 					line := scanner.Text()
 					args = append(args, line)
 				}
-				if debug {
+				if Debug {
 					fmt.Fprintf(os.Stderr, "DEBUG: %d lines read from stdin\n", len(args))
 				}
 			}
 			//LATER: handle @file
 		}
 		fcs, _ := globFunctions[globber.String()](args)
-		if debug {
+		if Debug {
 			fmt.Fprintf(os.Stderr, "DEBUG: %d files after arg expansion\n", len(fcs))
 		}
 		sort.Slice(fcs[:], func(i, j int) bool {
@@ -195,13 +195,13 @@ func makeFileCommand(checkFn func(*FileContext)) func(cmd *cobra.Command, args [
 			}
 			if showFiles {
 				if showPassing || !success {
-					if outputFormat == "json" {
+					if OutputFormat == "json" {
 						fileData := map[string]interface{}{
 							"file":    fc.FilePath,
 							"success": success,
 						}
 
-						fmt.Printf("%s\n", encodeJSON(fileData))
+						fmt.Printf("%s\n", EncodeJSON(fileData))
 					} else {
 						fmt.Printf("INFO: %s %s", IfThenElse(success, "PASS", "FAIL"), fc.FilePath)
 
@@ -216,8 +216,8 @@ func makeFileCommand(checkFn func(*FileContext)) func(cmd *cobra.Command, args [
 		ProgressEnd()
 
 		if showTotal {
-			if outputFormat == "json" {
-				fmt.Printf("%s\n", encodeJSON(map[string]interface{}{
+			if OutputFormat == "json" {
+				fmt.Printf("%s\n", EncodeJSON(map[string]interface{}{
 					"total": total,
 					"good":  good,
 					"bad":   bad,

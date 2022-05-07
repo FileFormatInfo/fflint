@@ -1,46 +1,47 @@
-package cmd
+package argtype
 
 import (
 	"fmt"
-	"strconv"
 	"strings"
+
+	"github.com/shopspring/decimal"
 )
 
-// Range is an optional min/max pair
-type Range struct {
+// DecimalRange is an optional min/max pair
+type DecimalRange struct {
 	value    string
 	hasStart bool
-	start    uint64
+	start    decimal.Decimal
 	hasEnd   bool
-	end      uint64
+	end      decimal.Decimal
 }
 
-func (r *Range) String() string {
+func (r *DecimalRange) String() string {
 	if r.hasStart == false && r.hasEnd == false {
 		return "any"
 	}
 	if r.hasStart == false {
-		return fmt.Sprintf("<=%d", r.end)
+		return fmt.Sprintf("<=%s", r.end)
 	}
 	if r.hasEnd == false {
-		return fmt.Sprintf(">=%d", r.start)
+		return fmt.Sprintf(">=%s", r.start)
 	}
 	if r.start == r.end {
-		return fmt.Sprintf("=%d", r.start)
+		return fmt.Sprintf("=%s", r.start)
 	}
 
 	return r.value
 }
 
 // Set will initialize the range
-func (r *Range) Set(newValue string) error {
+func (r *DecimalRange) Set(newValue string) error {
 	r.value = newValue
 	if len(newValue) == 0 || newValue == "any" {
 		return nil
 	}
 	colonPos := strings.IndexByte(newValue, ':')
 	if colonPos == -1 {
-		v, err := strconv.ParseUint(newValue, 10, 64)
+		v, err := decimal.NewFromString(newValue)
 		if err != nil {
 			return err
 		}
@@ -51,7 +52,7 @@ func (r *Range) Set(newValue string) error {
 		return nil
 	}
 	if colonPos == 0 {
-		v, err := strconv.ParseUint(newValue[1:], 10, 64)
+		v, err := decimal.NewFromString(newValue[1:])
 		if err != nil {
 			return err
 		}
@@ -61,7 +62,7 @@ func (r *Range) Set(newValue string) error {
 		return nil
 	}
 	if colonPos == len(newValue)-1 {
-		v, err := strconv.ParseUint(newValue[:len(newValue)-1], 10, 64)
+		v, err := decimal.NewFromString(newValue[:len(newValue)-1])
 		if err != nil {
 			return err
 		}
@@ -70,11 +71,11 @@ func (r *Range) Set(newValue string) error {
 		r.start = v
 		return nil
 	}
-	start, startErr := strconv.ParseUint(newValue[:colonPos], 10, 64)
+	start, startErr := decimal.NewFromString(newValue[:colonPos])
 	if startErr != nil {
 		return startErr
 	}
-	end, endErr := strconv.ParseUint(newValue[colonPos+1:], 10, 64)
+	end, endErr := decimal.NewFromString(newValue[colonPos+1:])
 	if endErr != nil {
 		return endErr
 	}
@@ -86,22 +87,22 @@ func (r *Range) Set(newValue string) error {
 }
 
 // Type is a description of range
-func (r *Range) Type() string {
-	return "Range"
+func (r *DecimalRange) Type() string {
+	return "DecimalRange"
 }
 
 // Exists is true if there is a range to check
-func (r *Range) Exists() bool {
+func (r *DecimalRange) Exists() bool {
 	return r.value != "" && r.value != "any"
 }
 
 // Check if a value is within a range
-func (r *Range) Check(v uint64) bool {
-	if r.hasStart && v < r.start {
+func (r *DecimalRange) Check(v decimal.Decimal) bool {
+	if r.hasStart && v.LessThan(r.start) {
 		return false
 	}
 
-	if r.hasEnd && v > r.end {
+	if r.hasEnd && v.GreaterThan(r.end) {
 		return false
 	}
 

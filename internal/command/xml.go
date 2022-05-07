@@ -1,9 +1,10 @@
-package cmd
+package command
 
 import (
 	"bytes"
 
 	"github.com/antchfx/xmlquery"
+	"github.com/fileformat/badger/internal/shared"
 	"github.com/spf13/cobra"
 )
 
@@ -13,18 +14,18 @@ var xmlCmd = &cobra.Command{
 	Use:   "xml",
 	Short: "test xml files",
 	Long:  `Validate that your xml files are valid`,
-	RunE:  makeFileCommand(xmlCheck),
+	RunE:  shared.MakeFileCommand(xmlCheck),
 }
 
-func init() {
+func AddXmlCommand(rootCmd *cobra.Command) {
 	rootCmd.AddCommand(xmlCmd)
 }
 
-func xmlCheck(f *FileContext) {
+func xmlCheck(f *shared.FileContext) {
 
 	data, readErr := f.ReadFile()
 	if readErr != nil {
-		f.recordResult("fileRead", false, map[string]interface{}{
+		f.RecordResult("fileRead", false, map[string]interface{}{
 			"error": readErr,
 		})
 		return
@@ -33,7 +34,7 @@ func xmlCheck(f *FileContext) {
 	_, parseErr := xmlquery.Parse(bytes.NewReader(data))
 
 	if parseErr != nil {
-		f.recordResult("xmlParse", false, map[string]interface{}{
+		f.RecordResult("xmlParse", false, map[string]interface{}{
 			"error": parseErr,
 		})
 		return

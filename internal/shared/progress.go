@@ -1,4 +1,4 @@
-package cmd
+package shared
 
 import (
 	"fmt"
@@ -52,7 +52,7 @@ func ProgressStart(fcs []FileContext) {
 		barIntFormat = fmt.Sprintf("%%%dd", numWidth)
 		path, err := os.Getwd()
 		if err != nil {
-			if debug {
+			if Debug {
 				fmt.Fprintf(os.Stderr, "ERROR: unable to retrieve current working directory (%s)\n", err.Error())
 			}
 		} else {
@@ -100,7 +100,7 @@ func ProgressUpdate(good int, bad int, fc FileContext) {
 func ProgressEnd() {
 	if bar != nil {
 		bar.Finish()
-		if debug {
+		if Debug {
 			fmt.Fprintf(os.Stderr, "DEBUG: Bytes processed: %d\n", bar.Total())
 		}
 	}

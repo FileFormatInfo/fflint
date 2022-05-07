@@ -1,9 +1,10 @@
-package cmd
+package shared
 
 import (
 	"fmt"
 	"os"
 
+	"github.com/fileformat/badger/internal/argtype"
 	"github.com/mattn/go-isatty"
 
 	"github.com/spf13/cobra"
@@ -14,39 +15,20 @@ import (
 
 var (
 	cfgFile      string
-	debug        bool
+	Debug        bool
 	progress     bool
 	showTotal    bool
 	showFiles    bool
 	showTests    bool
 	showDetail   bool
 	showPassing  bool
-	outputFormat string
-	fileSize     Range
+	OutputFormat string
+	fileSize     argtype.Range
 	globber      Globber
 )
 
-// rootCmd represents the base command when called without any subcommands
-var rootCmd = &cobra.Command{
-	Use:   "badger",
-	Short: "Badgers you if your file formats are invalid",
-	Long:  `See [www.badger.sh](https://www.badger.sh/) for detailed instructions`,
-	// Uncomment the following line if your bare application
-	// has an action associated with it:
-	//	Run: func(cmd *cobra.Command, args []string) { },
-}
-
-// Execute adds all child commands to the root command and sets flags appropriately.
-// This is called by main.main(). It only needs to happen once to the rootCmd.
-func Execute() {
-	if err := rootCmd.Execute(); err != nil {
-		fmt.Fprintf(os.Stderr, "ERROR: unable to execute root command: %s\n", err.Error())
-		os.Exit(1)
-	}
-}
-
-func init() {
-	cobra.OnInitialize(initConfig)
+func AddCommon(rootCmd *cobra.Command) {
+	//cobra.OnInitialize(initConfig)
 
 	// Here you will define your flags and configuration settings.
 	// Cobra supports persistent flags, which, if defined here,
@@ -67,12 +49,12 @@ func init() {
 	rootCmd.PersistentFlags().BoolVar(&showPassing, "showPassing", false, "Show passing files/tests")
 	rootCmd.PersistentFlags().BoolVar(&showDetail, "showDetail", true, "Show detailed data about each test")
 	rootCmd.PersistentFlags().BoolVar(&progress, "progress", isatty.IsTerminal(os.Stderr.Fd()), "Show progress bar")
-	rootCmd.PersistentFlags().BoolVar(&debug, "debug", false, "Debugging output")
-	rootCmd.PersistentFlags().StringVarP(&outputFormat, "output", "o", "text", "Output format [ json | text ]")
+	rootCmd.PersistentFlags().BoolVar(&Debug, "debug", false, "Debugging output")
+	rootCmd.PersistentFlags().StringVarP(&OutputFormat, "output", "o", "text", "Output format [ json | text ]")
 }
 
 // initConfig reads in config file and ENV variables if set.
-func initConfig() {
+func InitConfig() {
 	if cfgFile != "" {
 		// Use config file from the flag.
 		viper.SetConfigFile(cfgFile)

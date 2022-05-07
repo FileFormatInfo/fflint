@@ -1,9 +1,5 @@
-package main
-
-import (
-	"github.com/fileformat/badger/cmd"
-)
+package badger
 
 func main() {
-	cmd.Execute()
+	//rootCmd.Execute()
 }

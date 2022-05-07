@@ -1,10 +1,11 @@
-package cmd
+package command
 
 import (
 	"bytes"
 
-	"github.com/zyxar/image2ascii/ico"
+	"github.com/fileformat/badger/internal/shared"
 	"github.com/spf13/cobra"
+	"github.com/zyxar/image2ascii/ico"
 )
 
 // icoCmd represents the ico command
@@ -13,18 +14,18 @@ var icoCmd = &cobra.Command{
 	Use:   "ico",
 	Short: "test ico files",
 	Long:  `Validate that your ico files are valid`,
-	RunE:  makeFileCommand(icoCheck),
+	RunE:  shared.MakeFileCommand(icoCheck),
 }
 
-func init() {
+func AddIcoCommand(rootCmd *cobra.Command) {
 	rootCmd.AddCommand(icoCmd)
 }
 
-func icoCheck(f *FileContext) {
+func icoCheck(f *shared.FileContext) {
 
 	data, readErr := f.ReadFile()
 	if readErr != nil {
-		f.recordResult("fileRead", false, map[string]interface{}{
+		f.RecordResult("fileRead", false, map[string]interface{}{
 			"error": readErr,
 		})
 		return
@@ -33,7 +34,7 @@ func icoCheck(f *FileContext) {
 	_, parseErr := ico.DecodeAll(bytes.NewReader(data))
 
 	if parseErr != nil {
-		f.recordResult("icoParse", false, map[string]interface{}{
+		f.RecordResult("icoParse", false, map[string]interface{}{
 			"error": parseErr,
 		})
 		return

@@ -1,4 +1,4 @@
-package cmd
+package command
 
 import (
 	"bytes"
@@ -7,6 +7,7 @@ import (
 	"io"
 	"os"
 
+	"github.com/fileformat/badger/internal/shared"
 	"github.com/spf13/cobra"
 	"golang.org/x/net/html"
 )
@@ -17,18 +18,18 @@ var htmlCmd = &cobra.Command{
 	Use:   "html",
 	Short: "test html files",
 	Long:  `Validate that your html files are valid`,
-	RunE:  makeFileCommand(htmlCheck),
+	RunE:  shared.MakeFileCommand(htmlCheck),
 }
 
-func init() {
+func AddHtmlCommand(rootCmd *cobra.Command) {
 	rootCmd.AddCommand(htmlCmd)
 }
 
-func htmlCheck(f *FileContext) {
+func htmlCheck(f *shared.FileContext) {
 
 	data, readErr := f.ReadFile()
 	if readErr != nil {
-		f.recordResult("fileRead", false, map[string]interface{}{
+		f.RecordResult("fileRead", false, map[string]interface{}{
 			"error": readErr,
 		})
 		return
@@ -37,7 +38,7 @@ func htmlCheck(f *FileContext) {
 	parseErr := validateHTML(bytes.NewReader(data))
 
 	if parseErr != nil {
-		f.recordResult("htmlParse", false, map[string]interface{}{
+		f.RecordResult("htmlParse", false, map[string]interface{}{
 			"error": parseErr,
 		})
 		return
@@ -64,7 +65,7 @@ func validateHTML(r *bytes.Reader) error {
 }
 
 func hasErrorNodes(node *html.Node) bool {
-	if debug {
+	if shared.Debug {
 		fmt.Fprintf(os.Stderr, "Node type=%d text=%d doc=%d\n", node.Type, html.TextNode, html.DocumentNode)
 	}
 

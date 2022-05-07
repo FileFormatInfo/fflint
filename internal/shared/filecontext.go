@@ -1,4 +1,4 @@
-package cmd
+package shared
 
 import (
 	"bytes"
@@ -28,7 +28,7 @@ type FileContext struct {
 func (fc *FileContext) IsDir() bool {
 	fi, statErr := fc.Stat()
 	if statErr != nil {
-		if debug {
+		if Debug {
 			fmt.Fprintf(os.Stderr, "DEBUG: error doing stat on %s: %s\n", fc.FilePath, statErr.Error())
 		}
 		return false
@@ -43,7 +43,7 @@ func (fc *FileContext) IsDir() bool {
 func (fc *FileContext) IsFile() bool {
 	fi, statErr := fc.Stat()
 	if statErr != nil {
-		if debug {
+		if Debug {
 			fmt.Fprintf(os.Stderr, "DEBUG: error doing stat on %s: %s\n", fc.FilePath, statErr.Error())
 		}
 		return false
@@ -65,7 +65,7 @@ func (fc *FileContext) ReadFile() ([]byte, error) {
 	return ioutil.ReadFile(fc.FilePath)
 }
 
-func (fc *FileContext) recordResult(Code string, Success bool, Detail map[string]interface{}) {
+func (fc *FileContext) RecordResult(Code string, Success bool, Detail map[string]interface{}) {
 	fc.tests = append(fc.tests, TestResult{
 		Code, Success, Detail,
 	})
@@ -78,7 +78,7 @@ func (fc *FileContext) recordResult(Code string, Success bool, Detail map[string
 		return
 	}
 
-	if outputFormat == "json" {
+	if OutputFormat == "json" {
 		testData := map[string]interface{}{
 			"file":    fc.FilePath,
 			"success": Success,
@@ -88,11 +88,11 @@ func (fc *FileContext) recordResult(Code string, Success bool, Detail map[string
 		if showDetail {
 			testData["detail"] = Detail
 		}
-		fmt.Printf("%s\n", encodeJSON(testData))
+		fmt.Printf("%s\n", EncodeJSON(testData))
 	} else {
 		fmt.Printf("INFO: %s %s %s", IfThenElse(Success, "PASS", "FAIL"), Code, fc.FilePath)
 		if showDetail && Detail != nil {
-			fmt.Printf(" %s", encodeJSON(Detail))
+			fmt.Printf(" %s", EncodeJSON(Detail))
 		}
 
 		fmt.Printf("\n")
@@ -117,19 +117,19 @@ func (fc *FileContext) success() bool {
 func basicTests(fc *FileContext) {
 	fi, err := fc.Stat()
 	if err != nil {
-		fc.recordResult("stat", false, map[string]interface{}{"error": err})
+		fc.RecordResult("stat", false, map[string]interface{}{"error": err})
 		return
 	}
 
 	if fileSize.Exists() {
-		fc.recordResult("fileSize", fileSize.Check(uint64(fi.Size())), map[string]interface{}{
+		fc.RecordResult("fileSize", fileSize.Check(uint64(fi.Size())), map[string]interface{}{
 			"actualSize":  fi.Size(),
 			"desiredSize": fileSize.String(),
 		})
 	}
 }
 
-func encodeJSON(data interface{}) string {
+func EncodeJSON(data interface{}) string {
 
 	buf := new(bytes.Buffer)
 	enc := json.NewEncoder(buf)

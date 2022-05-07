@@ -1,4 +1,4 @@
-package cmd
+package command
 
 import (
 	"fmt"
@@ -21,7 +21,7 @@ to quickly create a Cobra application.`,
 	},
 }
 
-func init() {
+func AddTextCommand(rootCmd *cobra.Command) {
 	rootCmd.AddCommand(textCmd)
 
 	// Here you will define your flags and configuration settings.

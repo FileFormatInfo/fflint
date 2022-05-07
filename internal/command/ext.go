@@ -1,4 +1,4 @@
-package cmd
+package command
 
 import (
 	"fmt"
@@ -6,6 +6,8 @@ import (
 	"sort"
 	"strings"
 
+	"github.com/fileformat/badger/internal/argtype"
+	"github.com/fileformat/badger/internal/shared"
 	"github.com/spf13/cobra"
 )
 
@@ -13,7 +15,7 @@ var (
 	caseSensitive bool
 	counterMap    map[string]int //LATER: this should be in command.ctx?
 	extReport     bool
-	extLength     Range
+	extLength     argtype.Range
 	extAllowEmpty bool
 )
 
@@ -25,21 +27,22 @@ var extCmd = &cobra.Command{
 	Short:    "test/report file extensions",
 	Long:     ``,
 	PreRunE:  extensionReportInit,
-	RunE:     makeFileCommand(extCheck),
+	RunE:     shared.MakeFileCommand(extCheck),
 	PostRunE: extensionReportRun,
 }
 
-func init() {
+func AddExtCommand(rootCmd *cobra.Command) {
 	rootCmd.AddCommand(extCmd)
 
 	extCmd.Flags().BoolVar(&caseSensitive, "caseSensitive", false, "Case sensitive (default is false)")
 	extCmd.Flags().BoolVar(&extReport, "report", true, "Print summary report (default is true)")
-	extCmd.Flags().Var(&extLength, "extlen", "Range of allowed extension lengths")
+	extCmd.Flags().Var(&extLength, "length", "Range of allowed extension lengths")
 	extCmd.Flags().BoolVar(&extAllowEmpty, "allowEmpty", true, "Allow files without an extension")
-	//LATER: allowed: list of acceptable extension
-	//LATER: length: range
+	//LATER: allowed: list of acceptable extensions
+	//LATER: forbidden: list of unacceptable extensions
 	//LATER: allowNone
 	//LATER: minCount/maxCount: per-extension min/max
+	//LATER: regex
 }
 
 // differs from standard golang about .dotfiles and return value doesn't include dot
@@ -55,7 +58,7 @@ func getExt(path string) string {
 	return ""
 }
 
-func extCheck(fc *FileContext) {
+func extCheck(fc *shared.FileContext) {
 
 	ext := getExt(fc.FilePath)
 	if !caseSensitive {
@@ -64,9 +67,9 @@ func extCheck(fc *FileContext) {
 	counterMap[ext]++
 
 	if ext == "" {
-		fc.recordResult("extAllowEmpty", extAllowEmpty, nil)
+		fc.RecordResult("extAllowEmpty", extAllowEmpty, nil)
 	} else if extLength.Exists() {
-		fc.recordResult("extLength", extLength.Check(uint64(len(ext))), map[string]interface{}{
+		fc.RecordResult("extLength", extLength.Check(uint64(len(ext))), map[string]interface{}{
 			"desiredLength": extLength.String(),
 			"actualLength":  len(ext),
 		})
@@ -82,8 +85,8 @@ func extensionReportInit(cmd *cobra.Command, args []string) error {
 func extensionReportRun(cmd *cobra.Command, args []string) error {
 
 	if extReport {
-		if outputFormat == "json" {
-			fmt.Printf("%s\n", encodeJSON(counterMap))
+		if shared.OutputFormat == "json" {
+			fmt.Printf("%s\n", shared.EncodeJSON(counterMap))
 		} else {
 			keys := []string{}
 			maxKey := 0

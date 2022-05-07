@@ -1,8 +1,6 @@
-package cmd
+package argtype
 
 import (
-	"fmt"
-	"os"
 	"strings"
 
 	"github.com/shopspring/decimal"
@@ -68,9 +66,9 @@ func (ra *DecimalRangeArray) CheckString(s, sep string) bool {
 	for i, v := range va {
 		d, err := decimal.NewFromString(v)
 		if err != nil {
-			if debug {
+			/*if debug {
 				fmt.Fprintf(os.Stderr, "Unable to parse %s as a decimal (#%d in %s)\n", v, i, s)
-			}
+			}*/
 			return false
 		}
 		da[i] = d
