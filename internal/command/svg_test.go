@@ -2,71 +2,73 @@ package command
 
 import (
 	"testing"
+
+	"github.com/fileformat/badger/internal/shared"
 )
 
 func TestSvg(t *testing.T) {
 
-	var fc = FileContext{
-		FilePath: "../tests/badger128.svg",
+	var fc = shared.FileContext{
+		FilePath: "../../testdata/badger128.svg",
 	}
 	//silent = true
 
 	svgWidth.Set("64")
 	svgCheck(&fc)
-	if !fc.success() {
+	if !fc.Success() {
 		t.Errorf("width = 64")
 	}
-	fc.reset()
+	fc.Reset()
 	svgWidth.Set("64:")
 	svgCheck(&fc)
-	if !fc.success() {
+	if !fc.Success() {
 		t.Errorf("width >= 64")
 	}
-	fc.reset()
+	fc.Reset()
 	svgWidth.Set(":64")
 	svgCheck(&fc)
-	if !fc.success() {
+	if !fc.Success() {
 		t.Errorf("width <= 64")
 	}
 
 	// failing checks
 	svgWidth.Set("16")
 	svgCheck(&fc)
-	if fc.success() {
+	if fc.Success() {
 		t.Errorf("width = 16")
 	}
-	fc.reset()
+	fc.Reset()
 	svgWidth.Set("65:")
 	svgCheck(&fc)
-	if fc.success() {
+	if fc.Success() {
 		t.Errorf("width >= 65")
 	}
-	fc.reset()
+	fc.Reset()
 	svgWidth.Set(":63")
 	svgCheck(&fc)
-	if fc.success() {
+	if fc.Success() {
 		t.Errorf("width <= 63")
 	}
 
-	fc.reset()
+	fc.Reset()
 	svgWidth.Set("any")
 	svgViewBox.Set("0,0,128,128")
 	svgCheck(&fc)
-	if !fc.success() {
+	if !fc.Success() {
 		t.Errorf("viewBox should work for 128")
 	}
 
-	fc.reset()
+	fc.Reset()
 	svgWidth.Set("any")
 	svgViewBox.Set("0,0,64,64")
 	svgCheck(&fc)
-	if fc.success() {
+	if fc.Success() {
 		t.Errorf("viewBox should not work for 64")
 	}
 
-	fc.FilePath = "../tests/badger128.png"
+	fc.FilePath = "../../testdata/badger128.png"
 	svgCheck(&fc)
-	if fc.success() {
+	if fc.Success() {
 		t.Errorf("invalid format")
 	}
 }

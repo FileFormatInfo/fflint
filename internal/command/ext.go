@@ -17,6 +17,7 @@ var (
 	extReport     bool
 	extLength     argtype.Range
 	extAllowEmpty bool
+	extAllowed    []string
 )
 
 // extCmd represents the extension command
@@ -24,7 +25,7 @@ var extCmd = &cobra.Command{
 	Aliases:  []string{"extension", "extensions"},
 	Args:     cobra.MinimumNArgs(1),
 	Use:      "ext [flags] filespec [filespec...]",
-	Short:    "test/report file extensions",
+	Short:    "Validate (or report) file extensions",
 	Long:     ``,
 	PreRunE:  extensionReportInit,
 	RunE:     shared.MakeFileCommand(extCheck),
@@ -38,6 +39,7 @@ func AddExtCommand(rootCmd *cobra.Command) {
 	extCmd.Flags().BoolVar(&extReport, "report", true, "Print summary report (default is true)")
 	extCmd.Flags().Var(&extLength, "length", "Range of allowed extension lengths")
 	extCmd.Flags().BoolVar(&extAllowEmpty, "allowEmpty", true, "Allow files without an extension")
+	extCmd.Flags().StringSliceVar(&extAllowed, "allowed", []string{}, "Allowed extensions")
 	//LATER: allowed: list of acceptable extensions
 	//LATER: forbidden: list of unacceptable extensions
 	//LATER: allowNone
@@ -74,6 +76,21 @@ func extCheck(fc *shared.FileContext) {
 			"actualLength":  len(ext),
 		})
 	}
+
+	if len(extAllowed) > 0 {
+		fc.RecordResult("extAllowed", contains(extAllowed, ext), map[string]interface{}{
+			"ext": ext,
+		})
+	}
+}
+
+func contains(s []string, e string) bool {
+	for _, a := range s {
+		if a == e {
+			return true
+		}
+	}
+	return false
 }
 
 func extensionReportInit(cmd *cobra.Command, args []string) error {

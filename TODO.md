@@ -1,16 +1,21 @@
 # To Do
 
-## MVP
+# MVP
 
-- [ ] goreleaser
+- [ ] svg: no text
+- [ ] svg: no raster inclusions
+- [ ] svg: no external links
 
-
-# MVP 2
-
-- [ ] https://github.com/mrusme/geld/blob/6d3f507ce5bd333930eb4a69dbf2638c2ee35cb0/.github/workflows/release.yaml
-- [ ] use tags for versioning
-- [ ] ratio type: decimal or x:y or decimal:decimal
-- [ ] aspectRatio test: all image types
+- [ ] make `go test` part of build.yaml
+- [ ] tests for png command
+- [ ] tests for jpeg command
+- [ ] text command: UTF-8
+- [ ] text command: ASCII
+- [ ] text command: tabs (bool)
+- [ ] text command: bom
+- [ ] jsonl command
+- [ ] tests for text command
+- [ ] ratio range: prevent portrait panorama photos
 - [ ] gif: https://pkg.go.dev/image/gif
 - [ ] txt
 - [ ] webfonts: eot, woff, woff2, ttf
@@ -31,7 +36,6 @@
 - [ ] Dockerfile to run locally, docker-run.sh
 - [ ] workflow: release (on version.txt change)
 - [ ] text handler: charset, newline, trailingNewLine
-- [ ] glob: handle files via [stdin](https://www.socketloop.com/tutorials/golang-check-if-os-stdin-input-data-is-piped-or-from-terminal)
 - [ ] nicer formatting of numbers in text output [x/text/message](https://pkg.go.dev/golang.org/x/text/message)
 
 ## MVP 3
@@ -194,9 +198,11 @@ https://www.client9.com/golang-globs-and-the-double-star-glob-operator/
 * https://github.com/xeipuuv/gojsonschema
 * https://github.com/hashicorp/hcl
 * https://github.com/360EntSecGroup-Skylar/excelize
+* [webp](https://github.com/kolesa-team/go-webp)
 
 ## domains
 
 - badger.sh
 - badger-ci.com/badgerci.com
 - badger.ci
+- fflint.dev

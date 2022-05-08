@@ -23,11 +23,19 @@ func main() {
 		Long:  `See [www.badger.sh](https://www.badger.sh/) for detailed instructions`,
 	}
 
-	fmt.Fprintf(os.Stderr, "INFO: v=%s c=%s\n", version, commit)
-
 	shared.AddCommon(rootCmd)
+
+	command.AddExtCommand(rootCmd)
+	command.AddHtmlCommand(rootCmd)
+	command.AddIcoCommand(rootCmd)
+	command.AddJpegCommand(rootCmd)
+	command.AddJsonCommand(rootCmd)
+	command.AddMimeTypeCommand(rootCmd)
+	command.AddPngCommand(rootCmd)
 	command.AddSvgCommand(rootCmd)
+	command.AddTextCommand(rootCmd)
 	command.AddVersionCommand(rootCmd, command.VersionInfo{Commit: commit, Version: version, LastMod: date, Builder: builtBy})
+	command.AddXmlCommand(rootCmd)
 
 	if err := rootCmd.Execute(); err != nil {
 		fmt.Fprintf(os.Stderr, "ERROR: unable to execute root command: %s\n", err.Error())

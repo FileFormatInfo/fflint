@@ -61,7 +61,6 @@ func validateHTML(r *bytes.Reader) error {
 			return err
 		}
 	}
-	return nil
 }
 
 func hasErrorNodes(node *html.Node) bool {

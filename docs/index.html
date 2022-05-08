@@ -4,3 +4,15 @@ h1: Badger
 ---
 
 Badger is a tool for validating that all your files are in the correct format.
+
+
+## Fancy parameters
+
+* Range - accepts a value within a range
+    * `MIN-MAX`: anything between MIN and MAX (inclusive)
+    * `MIN-`: at least MIN
+    * `-MAX`: at most MAX
+    * `VALUE`: exactly VALUE (i.e. MIN and MAX are the same)
+* DecimalRange - similar to `Range`, but the values can be decimals
+* Ratio - the ratio of two numbers
+    * `X:Y`

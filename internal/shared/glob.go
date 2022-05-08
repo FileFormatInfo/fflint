@@ -187,7 +187,7 @@ func MakeFileCommand(checkFn func(*FileContext)) func(cmd *cobra.Command, args [
 			checkFn(&fc)
 
 			total++
-			success := fc.success()
+			success := fc.Success()
 			if success {
 				good++
 			} else {

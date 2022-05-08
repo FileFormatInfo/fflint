@@ -38,8 +38,8 @@ func (r *Range) Set(newValue string) error {
 	if len(newValue) == 0 || newValue == "any" {
 		return nil
 	}
-	colonPos := strings.IndexByte(newValue, ':')
-	if colonPos == -1 {
+	dashPos := strings.IndexByte(newValue, '-')
+	if dashPos == -1 {
 		v, err := strconv.ParseUint(newValue, 10, 64)
 		if err != nil {
 			return err
@@ -50,7 +50,7 @@ func (r *Range) Set(newValue string) error {
 		r.end = v
 		return nil
 	}
-	if colonPos == 0 {
+	if dashPos == 0 {
 		v, err := strconv.ParseUint(newValue[1:], 10, 64)
 		if err != nil {
 			return err
@@ -60,7 +60,7 @@ func (r *Range) Set(newValue string) error {
 		r.end = v
 		return nil
 	}
-	if colonPos == len(newValue)-1 {
+	if dashPos == len(newValue)-1 {
 		v, err := strconv.ParseUint(newValue[:len(newValue)-1], 10, 64)
 		if err != nil {
 			return err
@@ -70,11 +70,11 @@ func (r *Range) Set(newValue string) error {
 		r.start = v
 		return nil
 	}
-	start, startErr := strconv.ParseUint(newValue[:colonPos], 10, 64)
+	start, startErr := strconv.ParseUint(newValue[:dashPos], 10, 64)
 	if startErr != nil {
 		return startErr
 	}
-	end, endErr := strconv.ParseUint(newValue[colonPos+1:], 10, 64)
+	end, endErr := strconv.ParseUint(newValue[dashPos+1:], 10, 64)
 	if endErr != nil {
 		return endErr
 	}

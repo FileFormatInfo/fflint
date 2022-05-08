@@ -99,11 +99,11 @@ func (fc *FileContext) RecordResult(Code string, Success bool, Detail map[string
 	}
 }
 
-func (fc *FileContext) reset() {
+func (fc *FileContext) Reset() {
 	fc.tests = nil
 }
 
-func (fc *FileContext) success() bool {
+func (fc *FileContext) Success() bool {
 
 	for _, test := range fc.tests {
 		if !test.Success {

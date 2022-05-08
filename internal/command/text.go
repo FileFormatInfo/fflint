@@ -9,7 +9,7 @@ import (
 // textCmd represents the text command
 var textCmd = &cobra.Command{
 	Use:   "text",
-	Short: "A brief description of your command",
+	Short: "Validate that your text files are valid",
 	Long: `A longer description that spans multiple lines and likely contains examples
 and usage of using your command. For example:
 

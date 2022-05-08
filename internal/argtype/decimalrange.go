@@ -39,8 +39,8 @@ func (r *DecimalRange) Set(newValue string) error {
 	if len(newValue) == 0 || newValue == "any" {
 		return nil
 	}
-	colonPos := strings.IndexByte(newValue, ':')
-	if colonPos == -1 {
+	dashPos := strings.IndexByte(newValue, '-')
+	if dashPos == -1 {
 		v, err := decimal.NewFromString(newValue)
 		if err != nil {
 			return err
@@ -51,7 +51,7 @@ func (r *DecimalRange) Set(newValue string) error {
 		r.end = v
 		return nil
 	}
-	if colonPos == 0 {
+	if dashPos == 0 {
 		v, err := decimal.NewFromString(newValue[1:])
 		if err != nil {
 			return err
@@ -61,7 +61,7 @@ func (r *DecimalRange) Set(newValue string) error {
 		r.end = v
 		return nil
 	}
-	if colonPos == len(newValue)-1 {
+	if dashPos == len(newValue)-1 {
 		v, err := decimal.NewFromString(newValue[:len(newValue)-1])
 		if err != nil {
 			return err
@@ -71,11 +71,11 @@ func (r *DecimalRange) Set(newValue string) error {
 		r.start = v
 		return nil
 	}
-	start, startErr := decimal.NewFromString(newValue[:colonPos])
+	start, startErr := decimal.NewFromString(newValue[:dashPos])
 	if startErr != nil {
 		return startErr
 	}
-	end, endErr := decimal.NewFromString(newValue[colonPos+1:])
+	end, endErr := decimal.NewFromString(newValue[dashPos+1:])
 	if endErr != nil {
 		return endErr
 	}
