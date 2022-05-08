@@ -10,10 +10,13 @@
                     <a class="nav-link {% if page.path == "index.html"%} active" aria-current="page{%endif%}" href="/">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {% if page.path contains "commands/"%} active" aria-current="page{%endif%}" href="/commands/">Commands</a>
+                    <a class="nav-link {% if page.path contains "commands/"%} active" aria-current="page{%endif%}" href="/commands/index.html">Commands</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {% if page.path contains "flags/"%} active" aria-current="page{%endif%}" href="/flags/">Flags</a>
+                    <a class="nav-link {% if page.path == "files.html"%} active" aria-current="page{%endif%}" href="/files.html">Files</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {% if page.path == "flags.html"%} active" aria-current="page{%endif%}" href="/flags.html">Flags</a>
                 </li>
             </ul>
         </div>

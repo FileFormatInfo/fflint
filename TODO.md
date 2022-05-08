@@ -5,6 +5,12 @@
 - [ ] svg: no text
 - [ ] svg: no raster inclusions
 - [ ] svg: no external links
+- [ ] svg: current color
+- [ ] svg: namespace
+- [ ] svg: no foreign
+- [ ] frontmatter: required keys
+
+- [ ] handle .gitignore [go-gitignore](https://pkg.go.dev/github.com/sabhiram/go-gitignore)
 
 - [ ] make `go test` part of build.yaml
 - [ ] tests for png command
@@ -74,6 +80,8 @@ Each format will have a list of extensions and mime-types
 - music formats
 - OpenOffice format
 - video formats
+- RSS and atom feeds [best practices](https://kevincox.ca/2022/05/06/rss-feed-best-practices/)
+- sitemap.xml
 
 ## Text tests (should work with other text formats)
 

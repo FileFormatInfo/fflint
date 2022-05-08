@@ -19,8 +19,8 @@ var (
 var mimetypeCmd = &cobra.Command{
 	Aliases:  []string{"mt", "filetype"},
 	Args:     cobra.MinimumNArgs(1),
-	Use:      "mimetype [flags] filespec [filespec...]",
-	Short:    "test/report mime types",
+	Use:      "mimetype [flags] files...",
+	Short:    "Validate (or report) MIME content types",
 	Long:     ``,
 	PreRunE:  mimetypeReportInit,
 	RunE:     shared.MakeFileCommand(mimetypeCheck),

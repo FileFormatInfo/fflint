@@ -7,8 +7,8 @@ set -o errexit
 set -o pipefail
 set -o nounset
 
-go run cmd/badger.go svg "../vectorlogozone/**/*.svg" --showTests
-#go run cmd/badger.go svg "../vectorlogozone/**/*.svg" --showFiles
+#go run cmd/badger.go svg "../vectorlogozone/**/*.svg" --showTests
+go run cmd/badger.go svg "../vectorlogozone/**/*.svg" --showFiles --glob=doublestar --debug
 #go run cmd/badger.go jpeg --width=700-2000 "../peter/**/*.jpeg" --showTests
 #go run cmd/badger.go \
 #    ext \

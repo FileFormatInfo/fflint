@@ -13,11 +13,11 @@ Badger is a linter for file formats. Are your files:
 
 You can even use it in your CI/CD pipeline to make sure bad files don't get committed.
 
-## Using in Github Actions
+## Installation
 
-LATER
+The [latest releases](https://github.com/fileformat/badger/releases/latest) are available on Github.
 
-## Using in scripts
+## Usage
 
 General command syntax is:
 
@@ -28,10 +28,6 @@ badger CMD [options...] files...
 * `CMD` is the command to run (use the command `help` to see a list of available commands)
 * `options...` are command-specific options
 * `files...` are the files to check
-
-## Installing
-
-LATER
 
 ## License
 
@@ -50,7 +46,6 @@ For anyone who cannot use AGPL software, commercial license is available.<!-- LA
 [![Google Noto Emoji](https://www.vectorlogo.zone/logos/google/google-ar21.svg)](https://github.com/googlefonts/noto-emoji/blob/5628587386c78161f87aa2ca9ddee37c2e8ea212/svg/emoji_u1f9a1.svg "Logo")
 [![water.css](https://www.vectorlogo.zone/logos/netlifyapp_watercss/netlifyapp_watercss-ar21.svg)](https://watercss.netlify.app/ "Classless CSS")
 
-* [github.com/JoshVarga/svgparse](https://github.com/JoshVarga/svgparser) - SVG parser
-* [github.com/spf13/cobra](https://github.com/spf13/cobra)
-* [github.com/spf13/pflag](https://github.com/spf13/pflag)
-* [github.com/spf13/viper](https://github.com/spf13/viper)
+* [GoReleaser](https://goreleaser.com/)
+
+* See [`go.mod`](https://github.com/fileformat/badger/blob/main/go.mod) for the GoLang modules used

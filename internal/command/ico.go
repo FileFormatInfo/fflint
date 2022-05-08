@@ -11,8 +11,8 @@ import (
 // icoCmd represents the ico command
 var icoCmd = &cobra.Command{
 	Args:  cobra.MinimumNArgs(1),
-	Use:   "ico",
-	Short: "test ico files",
+	Use:   "ico [options] files...",
+	Short: "Validate icons",
 	Long:  `Validate that your ico files are valid`,
 	RunE:  shared.MakeFileCommand(icoCheck),
 }

@@ -1,0 +1,23 @@
+{% if page.description %}
+{{page.description}}
+{% else %}
+{{page.synopsis}}
+{% endif %}
+
+{% if page.options %}
+## Flags
+<table class="table table-striped">
+    <tr>
+        <th>Flag</th>
+        <th>Default</th>
+        <th>Description</th>
+    </tr>
+{% for option in page.options %}
+    <tr>
+        <td>{{option.name}}</td>
+        <td>{{option.default_value}}</td>
+        <td>{{option.usage}}</td>
+    </tr>
+{% endfor %}
+</table>
+{% endif %}

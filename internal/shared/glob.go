@@ -9,7 +9,7 @@ import (
 
 	"github.com/mattn/go-isatty"
 
-	"github.com/bmatcuk/doublestar/v3"
+	"github.com/bmatcuk/doublestar/v4"
 	"github.com/mitchellh/go-homedir"
 	"github.com/spf13/cobra"
 )
@@ -44,7 +44,7 @@ func (g *Globber) Set(newValue string) error {
 
 // Type is a description of range
 func (g *Globber) Type() string {
-	return "Glob algorithm"
+	return "Globber"
 }
 
 func homedirExpand(arg string) string {
@@ -62,20 +62,37 @@ func doublestarExpander(args []string) ([]FileContext, error) {
 	fcs := []FileContext{}
 
 	for _, arg := range args {
-		argfiles, _ := doublestar.Glob(homedirExpand(arg))
+		basepath, pattern := doublestar.SplitPattern(arg)
+		if Debug {
+			fmt.Fprintf(os.Stderr, "DEBUG: doublestar expanding %s at %s\n", pattern, basepath)
+		}
+		fsys := os.DirFS(basepath)
+		argfiles, dsErr := doublestar.Glob(fsys, pattern)
+		if dsErr != nil {
+			if Debug {
+				fmt.Fprintf(os.Stderr, "ERROR: doublestar error %s expanding %s at %s\n", dsErr, pattern, basepath)
+			}
+			return fcs, dsErr
+		}
 		for _, argfile := range argfiles {
 
+			fullpath := filepath.Join(basepath, argfile)
+
 			fc := FileContext{
-				FilePath: argfile,
+				FilePath: fullpath,
 			}
 
 			fi, statErr := fc.Stat()
 			if statErr != nil {
-				//LATER
+				if Debug {
+					fmt.Fprintf(os.Stderr, "ERROR: unable to stat %s: %s\n", fullpath, statErr)
+				}
 				continue
 			}
 			if fi.IsDir() {
-				//LATER: or recurse?
+				if Debug {
+					fmt.Fprintf(os.Stderr, "WARNING: doublestar returned a directory: %s\n", fullpath)
+				}
 				continue
 			}
 			ProgressCount()

@@ -15,8 +15,8 @@ import (
 // htmlCmd represents the html command
 var htmlCmd = &cobra.Command{
 	Args:  cobra.MinimumNArgs(1),
-	Use:   "html",
-	Short: "test html files",
+	Use:   "html [options] files...",
+	Short: "Validate html files",
 	Long:  `Validate that your html files are valid`,
 	RunE:  shared.MakeFileCommand(htmlCheck),
 }
