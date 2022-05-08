@@ -18,7 +18,7 @@ var (
 var pngCmd = &cobra.Command{
 	Args:  cobra.MinimumNArgs(1),
 	Use:   "png",
-	Short: "test png images",
+	Short: "Validate png images",
 	Long:  `Validate that your png files are valid`,
 	RunE:  shared.MakeFileCommand(pngCheck),
 }

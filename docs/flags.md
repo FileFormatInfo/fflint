@@ -7,7 +7,22 @@ title: Flags
 
 These flags can be used with any [command](/commands/index.html).
 
-Coming soon!
+<table class="table table-striped table-bordered">
+    <tr>
+        <th>Flag</th>
+        <th>Type</th>
+        <th>Default</th>
+        <th>Description</th>
+    </tr>
+{%- for option in site.data.common_flags %}
+    <tr>
+        <td>{{option.name}}</td>
+        <td>{{option.type}}</td>
+        <td>{{option.default_value}}</td>
+        <td>{{option.usage}}</td>
+    </tr>
+{% endfor %}
+</table>
 
 ## Custom Flag Types
 

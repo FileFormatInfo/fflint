@@ -2,6 +2,8 @@
 
 # MVP
 
+- [ ] global flags
+- [ ] doc strings in Cobra
 - [ ] svg: no text
 - [ ] svg: no raster inclusions
 - [ ] svg: no external links

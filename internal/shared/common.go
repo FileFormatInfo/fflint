@@ -39,16 +39,16 @@ func AddCommon(rootCmd *cobra.Command) {
 	//rootCmd.PersistentFlags().Int64Var(&minSize, "min", 0, "Minimum file size")
 	//rootCmd.PersistentFlags().Int64Var(&maxSize, "max", 9999999999999, "Maximum file size")
 	rootCmd.PersistentFlags().Var(&fileSize, "filesize", "Range of allowed file size")
-	rootCmd.PersistentFlags().Var(&globber, "glob", "Glob algorith to use")
+	rootCmd.PersistentFlags().Var(&globber, "glob", "Algorithm to use to expanding wildcards in file names [ doublestar | golang | none ]")
 
 	// Cobra also supports local flags, which will only run
 	// when this action is called directly.
-	rootCmd.PersistentFlags().BoolVar(&showTotal, "showTotal", true, "Show total files tested/passed/failed")
-	rootCmd.PersistentFlags().BoolVarP(&showFiles, "showFiles", "f", !isatty.IsTerminal(os.Stderr.Fd()), "Show each file tested")
+	rootCmd.PersistentFlags().BoolVar(&showTotal, "showTotal", true, "Show total files tested, passed and failed")
+	rootCmd.PersistentFlags().BoolVarP(&showFiles, "showFiles", "f", !isatty.IsTerminal(os.Stderr.Fd()), "Show each file tested (default is false when stderr is piped)")
 	rootCmd.PersistentFlags().BoolVarP(&showTests, "showTests", "t", false, "Show each test performed")
-	rootCmd.PersistentFlags().BoolVar(&showPassing, "showPassing", false, "Show passing files/tests")
+	rootCmd.PersistentFlags().BoolVar(&showPassing, "showPassing", false, "Show passing files and tests")
 	rootCmd.PersistentFlags().BoolVar(&showDetail, "showDetail", true, "Show detailed data about each test")
-	rootCmd.PersistentFlags().BoolVar(&progress, "progress", isatty.IsTerminal(os.Stderr.Fd()), "Show progress bar")
+	rootCmd.PersistentFlags().BoolVar(&progress, "progress", isatty.IsTerminal(os.Stderr.Fd()), "Show progress bar (default is false when stderr is piped)")
 	rootCmd.PersistentFlags().BoolVar(&Debug, "debug", false, "Debugging output")
 	rootCmd.PersistentFlags().StringVarP(&OutputFormat, "output", "o", "text", "Output format [ json | text ]")
 }

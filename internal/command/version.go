@@ -21,7 +21,7 @@ type VersionInfo struct {
 var versionCmd = &cobra.Command{
 	Args:  cobra.NoArgs,
 	Use:   "version",
-	Short: "Prints the version of badger that is installed",
+	Short: "Prints badger version information",
 	Run: func(cmd *cobra.Command, args []string) {
 		if shared.OutputFormat == "json" {
 			versionJSON, _ := json.Marshal(vi)

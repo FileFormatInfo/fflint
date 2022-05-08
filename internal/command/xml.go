@@ -12,8 +12,8 @@ import (
 var xmlCmd = &cobra.Command{
 	Args:  cobra.MinimumNArgs(1),
 	Use:   "xml",
-	Short: "test xml files",
-	Long:  `Validate that your xml files are valid`,
+	Short: "Validate XML files",
+	Long:  `Checks that your XML files are valid`,
 	RunE:  shared.MakeFileCommand(xmlCheck),
 }
 

@@ -11,6 +11,7 @@ import (
 	"github.com/fileformat/badger/internal/shared"
 	"github.com/spf13/cobra"
 	"github.com/spf13/cobra/doc"
+	"github.com/spf13/pflag"
 )
 
 type cmdOption struct {
@@ -109,12 +110,23 @@ func main() {
 	w.WriteString("---\n")
 	w.WriteString("title: Available Commands\n")
 	w.WriteString("---\n")
+	w.WriteString(noteLine)
+	w.WriteString("\n<table class=\"table table-bordered table-striped\">")
 	for _, ie := range indexEntries {
 		//LATER: make this into a table
-		w.WriteString(fmt.Sprintf(" * [%s](%s.html) - %s\n", ie.Name, ie.Name, ie.Description))
+		w.WriteString(fmt.Sprintf("<tr>\n<td><a href=\"%s.html\">%s</a></td>\n<td>%s</td>\n</tr>\n", ie.Name, ie.Name, ie.Description))
 	}
-	w.WriteString(noteLine)
+	w.WriteString("</table>\n")
 	w.Flush()
+	f.Close()
+
+	commmonFile, cfOpenErr := os.Create("./docs/_data/common_flags.yaml")
+	if cfOpenErr != nil {
+		panic(cfOpenErr)
+	}
+	rootCmd.PersistentFlags().VisitAll(func(rootFlag *pflag.Flag) {
+		fmt.Fprintf(commmonFile, "- name: %s\n  default_value: \"%s\"\n  type: %s\n  usage: \"%s\"\n", rootFlag.Name, rootFlag.DefValue, rootFlag.Value.Type(), rootFlag.Usage)
+	})
 	f.Close()
 
 	//LATER: generate list of common flags

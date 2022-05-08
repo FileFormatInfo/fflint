@@ -1,0 +1,44 @@
+- name: config
+  default_value: ""
+  type: string
+  usage: "config file (default is $HOME/.badger.yaml)"
+- name: debug
+  default_value: "false"
+  type: bool
+  usage: "Debugging output"
+- name: filesize
+  default_value: "any"
+  type: Range
+  usage: "Range of allowed file size"
+- name: glob
+  default_value: ""
+  type: Globber
+  usage: "Algorithm to use to expanding wildcards in file names [ doublestar | golang | none ]"
+- name: output
+  default_value: "text"
+  type: string
+  usage: "Output format [ json | text ]"
+- name: progress
+  default_value: "true"
+  type: bool
+  usage: "Show progress bar (default is false when stderr is piped)"
+- name: showDetail
+  default_value: "true"
+  type: bool
+  usage: "Show detailed data about each test"
+- name: showFiles
+  default_value: "false"
+  type: bool
+  usage: "Show each file tested (default is false when stderr is piped)"
+- name: showPassing
+  default_value: "false"
+  type: bool
+  usage: "Show passing files and tests"
+- name: showTests
+  default_value: "false"
+  type: bool
+  usage: "Show each test performed"
+- name: showTotal
+  default_value: "true"
+  type: bool
+  usage: "Show total files tested, passed and failed"

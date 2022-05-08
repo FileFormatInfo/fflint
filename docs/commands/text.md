@@ -1,15 +1,10 @@
 ---
 h1: The text Command
-title: 'text: Validate that your text files are valid - Badger'
+title: 'text: Validate plain text files - Badger'
 name: badger text
-synopsis: Validate that your text files are valid
-description: |-
-  A longer description that spans multiple lines and likely contains examples
-  and usage of using your command. For example:
-
-  Cobra is a CLI library for Go that empowers applications.
-  This application is a tool to generate the needed files
-  to quickly create a Cobra application.
+synopsis: Validate plain text files
+description: |
+  Checks that plain text files really are plain text, have the correct line endings and more
 usage: badger text [flags]
 options:
 - name: help
@@ -26,31 +21,33 @@ inherited_options:
   default_value: any
   usage: Range of allowed file size
 - name: glob
-  usage: Glob algorith to use
+  usage: |
+    Algorithm to use to expanding wildcards in file names [ doublestar | golang | none ]
 - name: output
   shorthand: o
   default_value: text
   usage: Output format [ json | text ]
 - name: progress
   default_value: "true"
-  usage: Show progress bar
+  usage: Show progress bar (default is false when stderr is piped)
 - name: showDetail
   default_value: "true"
   usage: Show detailed data about each test
 - name: showFiles
   shorthand: f
   default_value: "false"
-  usage: Show each file tested
+  usage: |
+    Show each file tested (default is false when stderr is piped)
 - name: showPassing
   default_value: "false"
-  usage: Show passing files/tests
+  usage: Show passing files and tests
 - name: showTests
   shorthand: t
   default_value: "false"
   usage: Show each test performed
 - name: showTotal
   default_value: "true"
-  usage: Show total files tested/passed/failed
+  usage: Show total files tested, passed and failed
 see_also:
 - badger - Badgers you if your file formats are invalid
 ---

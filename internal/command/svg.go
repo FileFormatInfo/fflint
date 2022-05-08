@@ -20,8 +20,8 @@ var (
 var svgCmd = &cobra.Command{
 	Args:  cobra.MinimumNArgs(1),
 	Use:   "svg",
-	Short: "test svg images",
-	Long:  `Validate that your svg files are valid`,
+	Short: "Validate SVG images",
+	Long:  `Check that SVG files are error free and (optionally) don't have any undesirable things in them.`,
 	RunE:  shared.MakeFileCommand(svgCheck),
 }
 

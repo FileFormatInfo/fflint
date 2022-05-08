@@ -1,9 +1,10 @@
 ---
 h1: The svg Command
-title: 'svg: test svg images - Badger'
+title: 'svg: Validate SVG images - Badger'
 name: badger svg
-synopsis: test svg images
-description: Validate that your svg files are valid
+synopsis: Validate SVG images
+description: |
+  Check that SVG files are error free and (optionally) don't have any undesirable things in them
 usage: badger svg [flags]
 options:
 - name: height
@@ -28,31 +29,33 @@ inherited_options:
   default_value: any
   usage: Range of allowed file size
 - name: glob
-  usage: Glob algorith to use
+  usage: |
+    Algorithm to use to expanding wildcards in file names [ doublestar | golang | none ]
 - name: output
   shorthand: o
   default_value: text
   usage: Output format [ json | text ]
 - name: progress
   default_value: "true"
-  usage: Show progress bar
+  usage: Show progress bar (default is false when stderr is piped)
 - name: showDetail
   default_value: "true"
   usage: Show detailed data about each test
 - name: showFiles
   shorthand: f
   default_value: "false"
-  usage: Show each file tested
+  usage: |
+    Show each file tested (default is false when stderr is piped)
 - name: showPassing
   default_value: "false"
-  usage: Show passing files/tests
+  usage: Show passing files and tests
 - name: showTests
   shorthand: t
   default_value: "false"
   usage: Show each test performed
 - name: showTotal
   default_value: "true"
-  usage: Show total files tested/passed/failed
+  usage: Show total files tested, passed and failed
 see_also:
 - badger - Badgers you if your file formats are invalid
 ---

@@ -12,7 +12,7 @@ import (
 var jsonCmd = &cobra.Command{
 	Args:  cobra.MinimumNArgs(1),
 	Use:   "json",
-	Short: "test json files",
+	Short: "Validate JSON files",
 	Long:  `Validate that your json files are valid`,
 	RunE:  shared.MakeFileCommand(jsonCheck),
 }

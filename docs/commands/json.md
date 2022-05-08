@@ -1,8 +1,8 @@
 ---
 h1: The json Command
-title: 'json: test json files - Badger'
+title: 'json: Validate JSON files - Badger'
 name: badger json
-synopsis: test json files
+synopsis: Validate JSON files
 description: Validate that your json files are valid
 usage: badger json [flags]
 options:
@@ -20,31 +20,33 @@ inherited_options:
   default_value: any
   usage: Range of allowed file size
 - name: glob
-  usage: Glob algorith to use
+  usage: |
+    Algorithm to use to expanding wildcards in file names [ doublestar | golang | none ]
 - name: output
   shorthand: o
   default_value: text
   usage: Output format [ json | text ]
 - name: progress
   default_value: "true"
-  usage: Show progress bar
+  usage: Show progress bar (default is false when stderr is piped)
 - name: showDetail
   default_value: "true"
   usage: Show detailed data about each test
 - name: showFiles
   shorthand: f
   default_value: "false"
-  usage: Show each file tested
+  usage: |
+    Show each file tested (default is false when stderr is piped)
 - name: showPassing
   default_value: "false"
-  usage: Show passing files/tests
+  usage: Show passing files and tests
 - name: showTests
   shorthand: t
   default_value: "false"
   usage: Show each test performed
 - name: showTotal
   default_value: "true"
-  usage: Show total files tested/passed/failed
+  usage: Show total files tested, passed and failed
 see_also:
 - badger - Badgers you if your file formats are invalid
 ---
