@@ -19,13 +19,17 @@ var textCmd = &cobra.Command{
 func AddTextCommand(rootCmd *cobra.Command) {
 	rootCmd.AddCommand(textCmd)
 
-	// Here you will define your flags and configuration settings.
-
-	// Cobra supports Persistent Flags which will work for this command
-	// and all subcommands, e.g.:
-	// textCmd.PersistentFlags().String("foo", "", "A help for foo")
-
-	// Cobra supports local flags which will only run when this command
-	// is called directly, e.g.:
-	// textCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
+	//LATER: UTF-8
+	//LATER: command: ASCII
+	//LATER: tabs (bool)
+	//LATER: bom
+	/*
+		LATER: many of these would be good for other text-based formats
+		- charset:ascii|utf-8
+		- trailing-newline: on/off/any/only
+		- newline format: cr/crlf/lf/any (or dos/unix/mac?)
+		- indent: tab/spaces/any
+		- contains/doesnotcontain: specific text (license declaration/etc)
+		- unicode: list of unicode character ranges allowed
+	*/
 }

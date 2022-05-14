@@ -4,15 +4,6 @@ title: Specifying Files
 
 There are several different ways to specify the files that you want to check.
 
-## List Individually
-
-This is much too tedious if you have more than one or two files.
-
-Example:
-```
-badger svg docs/favicon.svg docs/images/spinner.svg
-```
-
 ## Allow your shell to expand
 
 This works well (depending on which shell you are using), but most shells have a limit on the number of parameters you can pass.
@@ -44,3 +35,16 @@ Example:
 find . -name "*.svg" | badger svg -
 ```
 
+## Tips
+
+If you have a file with a list of file names, you can use the `stdin` method:
+
+```
+cat filelist.txt | badger svg -
+```
+
+If you have a directory named `-` (i.e. a single dash), you can force non-stdin mode by prefixing it with `./`:
+
+```
+badger svg ./-
+```

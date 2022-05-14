@@ -19,6 +19,8 @@ var icoCmd = &cobra.Command{
 
 func AddIcoCommand(rootCmd *cobra.Command) {
 	rootCmd.AddCommand(icoCmd)
+
+	//LATER: sizes flag (array of ints)
 }
 
 func icoCheck(f *shared.FileContext) {

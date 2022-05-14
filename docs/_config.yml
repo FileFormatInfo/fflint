@@ -2,6 +2,9 @@
 # _config.yml for emoji.fileformat.info
 #
 
+collections:
+  commands:
+    output: true
 exclude: [ "CNAME" ]
 permalink: /blog/:year/:month/:day/:title/index.:output_ext
 production_url: https://www.badger.sh
@@ -16,7 +19,6 @@ plugins:
 defaults:
   - scope:
       path: ""
-      type: "pages"
     values:
       layout: "default"
 #sass_dir: "./_sass"

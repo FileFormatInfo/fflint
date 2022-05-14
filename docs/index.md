@@ -9,4 +9,4 @@ See [commands](/commands/index.html) for the list of supported file formats.
 
 See [files](/files.html) for how to specify the files to check.
 
-See [flags](/flags.html) for options that work on multiple file formats, as well as how to specify complicated options.
+See [flags](/flags.html) for global flags that apply to multiple file formats, as well as details for complicated flag types.

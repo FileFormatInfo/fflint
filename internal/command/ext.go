@@ -35,16 +35,16 @@ var extCmd = &cobra.Command{
 func AddExtCommand(rootCmd *cobra.Command) {
 	rootCmd.AddCommand(extCmd)
 
-	extCmd.Flags().BoolVar(&caseSensitive, "caseSensitive", false, "Case sensitive (default is false)")
-	extCmd.Flags().BoolVar(&extReport, "report", true, "Print summary report (default is true)")
+	extCmd.Flags().BoolVar(&caseSensitive, "caseSensitive", false, "Case sensitive")
+	extCmd.Flags().BoolVar(&extReport, "report", true, "Print summary report")
 	extCmd.Flags().Var(&extLength, "length", "Range of allowed extension lengths")
 	extCmd.Flags().BoolVar(&extAllowEmpty, "allowEmpty", true, "Allow files without an extension")
-	extCmd.Flags().StringSliceVar(&extAllowed, "allowed", []string{}, "Allowed extensions")
-	//LATER: allowed: list of acceptable extensions
+	extCmd.Flags().StringSliceVar(&extAllowed, "allowed", []string{}, "Allowed extensions") //LATER: maybe switch to regex?
 	//LATER: forbidden: list of unacceptable extensions
-	//LATER: allowNone
-	//LATER: minCount/maxCount: per-extension min/max
-	//LATER: regex
+	//LATER: allowNone: allow files without an extension
+	//LATER: skipDotFiles: skip dot files
+	//LATER: skipDotDirs: skip dot directories (i.e. .git)
+	//LATER: print the first few files with each extension
 }
 
 // differs from standard golang about .dotfiles and return value doesn't include dot

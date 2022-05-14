@@ -31,7 +31,18 @@ func AddSvgCommand(rootCmd *cobra.Command) {
 	svgCmd.Flags().Var(&svgHeight, "height", "Range of allowed SVG heights")
 	svgCmd.Flags().Var(&svgViewBox, "viewbox", "Ranges of allowed SVG viewBox values")
 	svgCmd.Flags().Var(&svgWidth, "width", "Range of allowed SVG widths")
-	//svgCmd.Flags().Var(&svgViewBox, "viewBox", "Ranges of allowed SVG viewBox values")
+	//LATER: no text
+	//LATER: raster inclusions: none/embedded/linked/any
+	//LATER: no external links
+	//LATER: current color
+	//LATER: xml namespace
+	//LATER: no additional namespaces
+	//LATER: no foreign objects
+	//LATER: dimension units on width/height/viewBox: true/false/listOfAcceptable
+	//LATER: font
+	//LATER: meta
+	//LATER: optimized (and/or pretty?)
+
 }
 
 func svgCheck(f *shared.FileContext) {

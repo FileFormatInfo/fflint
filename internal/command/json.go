@@ -19,6 +19,9 @@ var jsonCmd = &cobra.Command{
 
 func AddJsonCommand(rootCmd *cobra.Command) {
 	rootCmd.AddCommand(jsonCmd)
+
+	//LATER: whitespace: canonical/none/any
+	//LATER: schema (https://github.com/xeipuuv/gojsonschema)
 }
 
 func jsonCheck(f *shared.FileContext) {

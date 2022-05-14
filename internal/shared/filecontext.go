@@ -20,8 +20,8 @@ type TestResult struct {
 type FileContext struct {
 	FilePath string
 	data     []byte
-	text     string
-	tests    []TestResult
+	//text     string
+	tests []TestResult
 }
 
 // IsDir if it is a directory

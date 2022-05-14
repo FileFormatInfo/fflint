@@ -32,6 +32,8 @@ func AddMimeTypeCommand(rootCmd *cobra.Command) {
 
 	mimetypeCmd.Flags().BoolVar(&mimetypeReport, "report", true, "Print summary report (default is true)")
 	mimetypeCmd.Flags().BoolVar(&mimetypeAllowUnknown, "allowUnknown", true, "Allow application/octet-stream")
+
+	//LATER: extension matches mimetype
 }
 
 func mimetypeCheck(fc *shared.FileContext) {
@@ -43,6 +45,10 @@ func mimetypeCheck(fc *shared.FileContext) {
 		})
 		return
 	}
+
+	//LATER: alterate library [h2non/filetype](https://github.com/h2non/filetype)
+	//LATER: alterate library [gabriel-vasile/mimetype](https://github.com/gabriel-vasile/mimetype)
+	// https://golang.org/pkg/net/http/#DetectContentType
 	mimetype := http.DetectContentType(bytes)
 
 	mimetypeCounterMap[mimetype]++

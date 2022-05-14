@@ -28,6 +28,9 @@ func AddPngCommand(rootCmd *cobra.Command) {
 
 	pngCmd.Flags().Var(&pngHeight, "height", "Range of allowed PNG heights")
 	pngCmd.Flags().Var(&pngWidth, "width", "Range of allowed PNG widths")
+	//LATER: aspect ratio (range)
+	//LATER: metadata
+	//LATER: color profile
 }
 
 func pngCheck(f *shared.FileContext) {

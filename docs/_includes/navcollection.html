@@ -1,0 +1,21 @@
+            <div class="float-end">
+    {%- assign navCollection = site.collections | where: "label", page.collection | first %}
+    {%- assign currPageIndex = -1 %}
+    {%- for navPage in navCollection.docs %}
+        {%- if navPage.url == page.url %}{%- assign currPageIndex = forloop.index %}{% endif %}
+    {%- endfor %}
+    {%- assign firstPage = navCollection.docs | first %}
+    {%- if currPageIndex > 1 %}
+        {%- assign navPrevIndex = currPageIndex | minus: 2 %}
+                <a class="btn btn-outline-primary btn-sm" href="{{ navCollection.docs[navPrevIndex].url }}">Previous</a>
+    {%- else %}
+                <a class="btn btn-outline-secondary btn-sm disabled" disabled href="#">Previous</a>
+    {%- endif %}
+    {%- assign navLastIndex = navCollection.docs | size %}
+    {%- if navLastIndex > currPageIndex %}
+        {%- assign navNextIndex = currPageIndex %}
+                <a class="btn btn-outline-primary btn-sm" href="{{ navCollection.docs[navNextIndex].url }}">Next</a>
+    {%- else %}
+                <a class="btn btn-outline-secondary btn-sm disabled" disabled href="#">Next</a>
+    {%- endif %}
+            </div>

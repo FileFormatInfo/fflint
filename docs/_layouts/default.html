@@ -1,15 +1,20 @@
 <!DOCTYPE html>
 <html>
     <head>
-        {% include meta.html -%}
+{% include meta.html %}
     </head>
     <body>
-        {% include header.html -%}
+{% include header.html %}
         <div class="container">
+{% include navcollection.html %}
             <h1>{% if page.h1 %}{{page.h1}}{% else %}{{page.title}}{% endif %}</h1>
-            {{content}}
+
+<!-- content start -->
+{{content-}}
+<!-- content end -->
+
         </div>
-        {% include footer.html -%}
-        {% include tracker.html -%}
+{% include footer.html -%}
+{% include tracker.html %}
     </body>
 </html>

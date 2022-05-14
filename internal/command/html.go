@@ -23,6 +23,12 @@ var htmlCmd = &cobra.Command{
 
 func AddHtmlCommand(rootCmd *cobra.Command) {
 	rootCmd.AddCommand(htmlCmd)
+
+	//LATER: no inline script
+	//LATER: no inline styles
+	//LATER: list,of,allowed,tags (or * or ones with html atoms?)
+	//LATER: list of forbidden tags
+
 }
 
 func htmlCheck(f *shared.FileContext) {
@@ -47,6 +53,8 @@ func htmlCheck(f *shared.FileContext) {
 
 func validateHTML(r *bytes.Reader) error {
 	d := xml.NewDecoder(r)
+
+	//LATER: alternate parser [tdewolff/parse](https://github.com/tdewolff/parse)
 
 	// Configure the decoder for HTML; leave off strict and autoclose for XHTML
 	d.Strict = false

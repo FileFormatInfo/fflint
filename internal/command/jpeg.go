@@ -28,6 +28,9 @@ func AddJpegCommand(rootCmd *cobra.Command) {
 
 	jpegCmd.Flags().Var(&jpegHeight, "height", "Range of allowed JPEG heights")
 	jpegCmd.Flags().Var(&jpegWidth, "width", "Range of allowed JPEG widths")
+	//LATER: aspect ratio (range)
+	//LATER: metadata: https://github.com/dsoprea/go-exif or https://github.com/rwcarlsen/goexif
+	//LATER: color profile
 }
 
 func jpegCheck(f *shared.FileContext) {

@@ -1,214 +1,160 @@
 # To Do
 
-# MVP
-
-- [ ] global flags
+- [ ] use `@-` for filenames on stdin
+- [ ] stream (single file) for `-`
+- [ ] shared/ImageFlags.go
+- [ ] delete version.txt
 - [ ] doc strings in Cobra
-- [ ] svg: no text
-- [ ] svg: no raster inclusions
-- [ ] svg: no external links
-- [ ] svg: current color
-- [ ] svg: namespace
-- [ ] svg: no foreign
-- [ ] frontmatter: required keys
-
+- [ ] frontmatter: required keys, key format (regex), optional keys, report
+- [ ] til frontmatter: title,noindex,layout,draft,date,tags,created
 - [ ] handle .gitignore [go-gitignore](https://pkg.go.dev/github.com/sabhiram/go-gitignore)
+- [ ] github actions working
+- [ ] OptionalBool flag type: required/any/forbidden
+- [ ] Dimensions flag: WxH || N (=square)
+- [ ] OptionalXxx flags
+
+## Docs
+
+- [ ] sitemap.xml
+- [ ] better description on home page
+- [ ] local contact page
+- [ ] command `Long` should include links to file format specifications
+- [ ] examples
+- [ ] installation
+- [ ] quick start
+- [ ] using in pre-commit hook, CI pipeline(s), etc.
+- [ ] examples: everything in an online sitemap.xml
+
+## General work
 
 - [ ] make `go test` part of build.yaml
-- [ ] tests for png command
-- [ ] tests for jpeg command
-- [ ] text command: UTF-8
-- [ ] text command: ASCII
-- [ ] text command: tabs (bool)
-- [ ] text command: bom
-- [ ] jsonl command
-- [ ] tests for text command
-- [ ] ratio range: prevent portrait panorama photos
-- [ ] gif: https://pkg.go.dev/image/gif
-- [ ] txt
+- [ ] all commands/types: tests
+- [ ] Dockerfile to run locally, docker-run.sh
+- [ ] nicer formatting of numbers in text output [x/text/message](https://pkg.go.dev/golang.org/x/text/message) or [go-humanize](https://github.com/dustin/go-humanize)
+- [ ] include a man page: [mango](https://github.com/muesli/mango)
+- [ ] shell completion
+- [ ] cache ReadFile results
+
+## GoLang
+
+- [ ] multithreading
+- [ ] why .go file in repo root directory
+- [ ] generics for [Decimal|Integer]Range, [Decimal|Integer]Ratio, Optional[*], [*]List
+- [ ] how to share code for image tests
+
+## Additional formats
+
+- [ ] [yaml](https://pkg.go.dev/gopkg.in/yaml.v2)
+- [ ] [frontmatter](https://github.com/adrg/frontmatter)
+- [ ] jsonlines (should share a lot/all of code with json)
+- [ ] MS Excel [xlsx](https://github.com/tealeg/xlsx) [excelize](https://github.com/360EntSecGroup-Skylar/excelize)
+- [ ] [bmp](https://pkg.go.dev/golang.org/x/image@v0.0.0-20201208152932-35266b937fa6/bmp)
+- [ ] [hcl](https://github.com/hashicorp/hcl)
+- [ ] [toml](github.com/BurntSushi/toml)
+- [ ] [webp](https://github.com/kolesa-team/go-webp)
+- [ ] [shell scripts](https://github.com/mvdan/sh) ([existing gha](https://github.com/luizm/action-sh-checker))
+- [ ] xhtml
+- [ ] RSS and atom feeds [best practices](https://kevincox.ca/2022/05/06/rss-feed-best-practices/)
+- [ ] sitemap.xml
+- [ ] OPML
+- [ ] [gif](https://pkg.go.dev/image/gif)
 - [ ] webfonts: eot, woff, woff2, ttf
-- [ ] pdf
+- [ ] pdf (# of pages, page size, page orientation)
 - [ ] js: https://github.com/tdewolff/parse
 - [ ] css: https://github.com/tdewolff/parse
-- [ ] github actions working
+- [ ] [GoLang encoding](https://golang.org/pkg/encoding/) formats
+- [ ] [TAP](https://testanything.org/tap-version-13-specification.html), [awesome TAP](https://github.com/sindresorhus/awesome-tap)
 
-## MVP 2
-
-- [ ] include a man page: [mango](https://github.com/muesli/mango)
-- [ ] new format: yaml
-- [ ] html: strict flag (default=false)
-- [ ] ico: sizes flag (array of ints)
-- [ ] workflow: test
-- [ ] all commands/types: tests
-- [ ] handlers for [go encoding](https://golang.org/pkg/encoding/) formats
-- [ ] Dockerfile to run locally, docker-run.sh
-- [ ] workflow: release (on version.txt change)
-- [ ] text handler: charset, newline, trailingNewLine
-- [ ] nicer formatting of numbers in text output [x/text/message](https://pkg.go.dev/golang.org/x/text/message)
-
-## MVP 3
-
-- [ ] cache ReadFile results
-- [ ] config file to support multiple sections, each with its own action and glob
-
-## Documentation/Repo
-
-- [ ] docs/flags/range.md
-- [ ] docs/flags/ratio.md
-- [ ] docs/flags/index.md
-- [ ] docs/files.md - globbing
-- [ ] docs/tests/index.md
-- [ ] docs/commands/*.md
-- [ ] docs/newformat.md - checklist for adding a new format
-- [ ] docs/pricing.md
-- [ ] [docgen command](https://github.com/spf13/cobra/blob/master/doc/md_docs.md)
-
-## Formats
-
-Each format will have a list of extensions and mime-types
-
-- binary
-- csv
-- tsv
-- txt
-
-- config files (env, ini, toml)
-- raster image formats (bmp, gif)
-- crypto formats (crt, csr, der, key, p12, pem)
 - compressed formats (bz2, gz, tar, tgz, zip)
+- config files (env, ini)
+- crypto formats (crt, csr, der, key, p12, pem)
+- data dumps (csv, tsv, Xsv)
 - html scripting: handlebars/php/jsp
 - markup (asciidoc, markdown, reStructuredText)
 - MSOffice formats
 - music formats
 - OpenOffice format
 - video formats
-- RSS and atom feeds [best practices](https://kevincox.ca/2022/05/06/rss-feed-best-practices/)
-- sitemap.xml
 
-## Text tests (should work with other text formats)
+## Mixed/Auto mode
 
-- charset:ascii|utf-8
-- trailing-newline: on/off/any/only
-- newline format: cr/crlf/lf/any (or dos/unix/mac?)
-- indent: tab/spaces/any
-- contains/doesnotcontain: specific text (license declaration/etc)
-- unicode: list of unicode character ranges allowed
-
-## Format specific options
-
-- html:noscript
-- html:nocss
-- html:tags=list,of,allowed,tags (or * or ones with html atoms)
-- json:canonical
-- json:schema (with optional url of schema)
-- jpeg/png:metadata required/optional/none
-- jpeg/png:colorprofile
-- svg:bitmap none/embedded/linked/any
-- svg:foreignObject
-- svg:heightUnits true/false/list
-- svg:widthUnits true/false/list
-- svg:font
-- svg:text
-- svg:meta
-- svg:optimized
-- pem/der:password required/optional/none
-- image formats:aspect ratio
-- pdf (and others?):# of pages
-- svg: viewBoxWidth check: range
-- svg: viewBoxHeight check: range
-- svg: [width|height]AllowUnits: [commalist|none|*|+], default=*
-
-## Distribution
-
-- github release
-- brew [example](https://github.com/yudai/homebrew-gotty)
-- deb
-- github action
-- Docker container
-- website
-
-## Cache
-
-- only makes sense when multiple commands are run
-- cache command (hidden)
-- same globbing
-- filesize range becomes cache load parameters
-- max cache size parameter
-
+- single pass through file list
+- different tests based on filename
+- config file with multiple sections
+- each section: name, filename_regex, command, flags
+- special 'skip' command for files that should not be checked
+- default case: nothing or error or warn or ???
+- profiles for different scenarios: website, backend codebase...
 
 ## To consider
 
-- [ ] new output format: [TAP](https://testanything.org/tap-version-13-specification.html), [awesome TAP](https://github.com/sindresorhus/awesome-tap)
-- [ ] jsonlines: new format
-- [ ] xhtml: new format
-- [ ] html: support for charsets besides utf8
-- [ ] html: alternate parser [tdewolff/parse](https://github.com/tdewolff/parse)
 - [ ] progress: fix counter display during globbing
 - [ ] progress: move terminal cursor to keep line in constant location if showFiles or showTests
 - [ ] progress: if stderr is redirected to file, show stats every n seconds
-- [ ] basic command: just the basic tests
+- [ ] output yaml: similar to JSON, but grouped by file, etc
+- [ ] output md5: print md5 hash for each file (maybe as part of debug mode?)
+- [ ] web mode: scan files on a website instead of a file system (or just example with `wget`)
+
+## Globbing improvements
+
 - [ ] glob: alternative globber [mattn/go-zglob](https://github.com/mattn/go-zglob)
 - [ ] glob: flag to specify an ignore file (i.e. .gitignore or .dockerignore)
 - [ ] glob: --recursion flag and handle directories
 - [ ] glob: case insensitive sort of files before processing
-- [ ] filename test: regex/camel/kebab/pascal/snake/lowercase/urlsafe/none/etc (or should this be its own command?)
-- [ ] find command: find files by extension or filetype
-- [ ] mimetype: alterate library [h2non/filetype](https://github.com/h2non/filetype)
-- [ ] mimetype: alterate library [gabriel-vasile/mimetype](https://github.com/gabriel-vasile/mimetype)
-- [ ] png/jpeg/svg: meta check: none, contains
-- [ ] output yaml: similar to JSON, but grouped by file, etc
-- [ ] output md5: print md5 hash for each file
-- `auto` mode which figures out the command based on the file extension (or contents?)
-- shell completion
-- generate documentation website
-- [ ] directory/package re-org (internal, internal/formats, internal/commands, cmd/badger) [std](https://github.com/golang-standards/project-layout) - only when someone smarter than me can help
+- [ ] support for filenames (on stdin) separated by 0x00 byte
+- [ ] glob: alternate sorts (date created/modified, size)
 
 - newline: format `none` means no newlines (but handle trailing-newlines:on)
 - check for file modes (i.e. executable, read-only, etc)
 - support [`--version`](https://github.com/spf13/cobra#version-flag)
 - [localization](https://pkg.go.dev/golang.org/x/text@v0.3.5/message)
 - minimum file sizes
+- https://github.com/zabawaba99/go-gitignore
+- NO: alternative globber: [godo](https://github.com/go-godo/godo/blob/master/glob.go)
+- https://www.client9.com/golang-globs-and-the-double-star-glob-operator/
+- https://golang.org/pkg/path/filepath/
+- https://github.com/danwakefield/fnmatch
+- https://github.com/syncthing/syncthing/blob/v0.12.0-rc3/lib/fnmatch/fnmatch.go
+
+## Distribution
+
+- brew [example](https://github.com/yudai/homebrew-gotty)
+- deb
+- rpm
+- github action
+- Docker container
+- website
 
 ## Probably not
 
 - [ ] showFiles: print at end if progress
-- [ ] glob: alternate sorts (new first, largest first, etc)
+- [ ] html: support for charsets besides utf8
 - [ ] flag to enable colorized output
 - [ ] progress: option to calc percentage by file count (vs bytes)
 - error if a file exists (to prevent certs/.env/source code)
 - slim binaries that only do a single format
 - file locking
 - each --verbose increments a --showXxx level
-- glob: alternative globber: [godo](https://github.com/go-godo/godo/blob/master/glob.go)
-
-## Links
-
-https://www.client9.com/golang-globs-and-the-double-star-glob-operator/
 
 ## External Tools
 
 - https://coptr.digipres.org/Category:Validation
 - https://libguides.bodleian.ox.ac.uk/digitalpreservation/validation#:~:text=What%20is%20validation%3F,specific%20file%20format%20must%20follow.
 
-## Go general libraries
+## Bad file names
 
-- https://github.com/dustin/go-humanize
-- https://golang.org/pkg/path/filepath/
-- https://github.com/zabawaba99/go-gitignore
-- https://github.com/danwakefield/fnmatch
-- https://github.com/syncthing/syncthing/blob/v0.12.0-rc3/lib/fnmatch/fnmatch.go
-- https://golang.org/pkg/net/http/#DetectContentType
-
-## Go format libraries
-
-* https://github.com/tealeg/xlsx
-* https://pkg.go.dev/gopkg.in/yaml.v2
-* https://github.com/dsoprea/go-exif or https://github.com/rwcarlsen/goexif
-* https://pkg.go.dev/golang.org/x/image@v0.0.0-20201208152932-35266b937fa6/bmp
-* https://github.com/xeipuuv/gojsonschema
-* https://github.com/hashicorp/hcl
-* https://github.com/360EntSecGroup-Skylar/excelize
-* [webp](https://github.com/kolesa-team/go-webp)
+- separate program in Rust (badger-bfn)
+- takes directory names only (possibly multiple, default to current directory)
+- recursively (optional) scans the directory looking for bad file names
+- option: specify list of codepoints allowed
+- profiles: preset lists of codepoints
+- profile: strict (ASCII letters, numbers, dot)
+- profile: unicode (UTF-8, no shell chars, newlines, lookalikes)
+- profile: loose (UTF-8)
+- maybe: regex/camel/kebab/pascal/snake/lowercase/urlsafe/none/etc
+- maybe: profile for a given language
+- maybe: note hidden files, leading dot files, bad modes, etc
+- separate utility program to list all codepoints used (with first few files containing each)
 
 ## domains
 
