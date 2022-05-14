@@ -6,7 +6,7 @@
     <body>
 {% include header.html %}
         <div class="container">
-{% include navcollection.html %}
+{% if page.collection %}{% include navcollection.html %}{% endif %}
             <h1>{% if page.h1 %}{{page.h1}}{% else %}{{page.title}}{% endif %}</h1>
 
 <!-- content start -->
