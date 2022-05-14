@@ -12,6 +12,8 @@
 - [ ] OptionalBool flag type: required/any/forbidden
 - [ ] Dimensions flag: WxH || N (=square)
 - [ ] OptionalXxx flags
+- [ ] SignedRange (i.e. handle negative numbers: -10-10, -20--10, --10, -10-)
+
 
 ## Docs
 

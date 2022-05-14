@@ -16,6 +16,8 @@ import (
 
 type globFn = func(args []string) ([]FileContext, error)
 
+//LATER: regex-based globber
+//LATER: glob with https://github.com/gobwas/glob
 var globFunctions = map[string]globFn{
 	"":           doublestarExpander,
 	"doublestar": doublestarExpander,

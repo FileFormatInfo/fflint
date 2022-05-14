@@ -105,6 +105,7 @@ func extensionReportRun(cmd *cobra.Command, args []string) error {
 		if shared.OutputFormat == "json" {
 			fmt.Printf("%s\n", shared.EncodeJSON(counterMap))
 		} else {
+			//LATER: use https://github.com/olekukonko/tablewriter
 			keys := []string{}
 			maxKey := 0
 			maxValue := 0

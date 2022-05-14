@@ -1,16 +1,30 @@
 ---
-h1: The text Command
-title: 'text: Validate plain text files - Badger'
-name: badger text
-synopsis: Validate plain text files
-description: |
-  Checks that plain text files really are plain text, have the correct line endings and more
-usage: badger text [flags]
+h1: The frontmatter Command
+title: 'frontmatter: Validate frontmatter - Badger'
+name: badger frontmatter
+synopsis: Validate frontmatter
+description: Checks that the frontmatter in your files is valid
+usage: badger frontmatter [flags]
 options:
+- name: forbidden
+  default_value: '[]'
+  usage: Forbidden keys
 - name: help
   shorthand: h
   default_value: "false"
-  usage: help for text
+  usage: help for frontmatter
+- name: optional
+  default_value: '[]'
+  usage: Optional keys (only for --strict)
+- name: required
+  default_value: '[]'
+  usage: Required keys
+- name: sorted
+  default_value: "false"
+  usage: Keys need to be in alphabetical order
+- name: strict
+  default_value: "false"
+  usage: Strict (keys must be in --required or --optional)
 inherited_options:
 - name: config
   usage: config file (default is $HOME/.badger.yaml)

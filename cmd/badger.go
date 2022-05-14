@@ -26,6 +26,7 @@ func main() {
 	shared.AddCommon(rootCmd)
 
 	command.AddExtCommand(rootCmd)
+	command.AddFrontmatterCommand(rootCmd)
 	command.AddHtmlCommand(rootCmd)
 	command.AddIcoCommand(rootCmd)
 	command.AddJpegCommand(rootCmd)

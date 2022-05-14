@@ -8,6 +8,10 @@ title: Available Commands
 <td>Validate (or report) file extensions</td>
 </tr>
 <tr>
+<td><a href="frontmatter.html">frontmatter</a></td>
+<td>Validate frontmatter</td>
+</tr>
+<tr>
 <td><a href="html.html">html</a></td>
 <td>Validate HTML files</td>
 </tr>
