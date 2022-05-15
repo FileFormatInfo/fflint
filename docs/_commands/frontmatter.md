@@ -15,7 +15,7 @@ options:
   usage: help for frontmatter
 - name: optional
   default_value: '[]'
-  usage: Optional keys (only for --strict)
+  usage: Optional keys (only for `--strict`)
 - name: required
   default_value: '[]'
   usage: Required keys
@@ -24,7 +24,7 @@ options:
   usage: Keys need to be in alphabetical order
 - name: strict
   default_value: "false"
-  usage: Strict (keys must be in --required or --optional)
+  usage: Strict (keys must be in `--required` or `--optional`)
 inherited_options:
 - name: config
   usage: config file (default is $HOME/.badger.yaml)

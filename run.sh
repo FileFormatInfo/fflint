@@ -7,16 +7,18 @@ set -o errexit
 set -o pipefail
 set -o nounset
 
-go run cmd/badger.go frontmatter "../vectorlogozone/www/logos/**/*.md" \
-    --required=logohandle,sort,title,website \
-    --strict \
-    --sorted \
-    --optional colors,font,images,keywords,tags \
-    --optional=blog,facebook,git,github,googleplus,guide,instagram,linkedin,pinterest,tumblr,twitter,wikipedia,youtube \
-    --optional=gitlab \
-    --optional=dribbble,flickr,gitter,reddit,slack,slideshare,snapchat,soundcloud,stackexchange,stackoverflow,vimeo,vine,weibo,xing \
-    --optional=noindex,other,redirect_from \
-    --showFiles --showDetail --showTests --debug
+#go run cmd/badger.go frontmatter  --required=title --output=filenames --progress=false "../vectorlogozone/**/*.md"
+go run cmd/badger.go svg "../vectorlogozone/www/**/*.svg" --namespace --namespaces=cc,dc,inkscape,rdf,sketch,sodipodi,svg,xlink --progress=false --output=filenames
+#go run cmd/badger.go frontmatter "../vectorlogozone/www/logos/**/*.md" \
+#    --required=logohandle,sort,title,website \
+#    --strict \
+#    --sorted \
+#    --optional colors,font,images,keywords,tags \
+#    --optional=blog,facebook,git,github,googleplus,guide,instagram,linkedin,pinterest,tumblr,twitter,wikipedia,youtube \
+##    --optional=gitlab \
+#    --optional=dribbble,flickr,gitter,reddit,slack,slideshare,snapchat,soundcloud,stackexchange,stackoverflow,vimeo,vine,weibo,xing \
+#    --optional=noindex,other,redirect_from \
+#    --showFiles --showDetail --showTests --debug
 #    --showFiles
 #go run cmd/badger.go svg "../vectorlogozone/**/*.svg" --showTests
 #go run cmd/badger.go svg "../vectorlogozone/**/*.svg" --showFiles --glob=doublestar --debug

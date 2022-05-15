@@ -32,12 +32,11 @@ func AddFrontmatterCommand(rootCmd *cobra.Command) {
 	rootCmd.AddCommand(frontmatterCmd)
 
 	frontmatterCmd.Flags().StringSliceVar(&fmRequired, "required", []string{}, "Required keys")
-	frontmatterCmd.Flags().StringSliceVar(&fmOptional, "optional", []string{}, "Optional keys (only for --strict)")
+	frontmatterCmd.Flags().StringSliceVar(&fmOptional, "optional", []string{}, "Optional keys (only for `--strict`)")
 	frontmatterCmd.Flags().StringSliceVar(&fmForbidden, "forbidden", []string{}, "Forbidden keys")
-	frontmatterCmd.Flags().BoolVar(&fmStrict, "strict", false, "Strict (keys must be in --required or --optional)")
+	frontmatterCmd.Flags().BoolVar(&fmStrict, "strict", false, "Strict (keys must be in `--required` or `--optional`)")
 	frontmatterCmd.Flags().BoolVar(&fmSorted, "sorted", false, "Keys need to be in alphabetical order")
-	//optional
-	//content: required/optional/forbidden
+	//LATER: content: required/optional/forbidden
 	//LATER: report
 	//LATER: schema
 }

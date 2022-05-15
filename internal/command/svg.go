@@ -1,6 +1,7 @@
 package command
 
 import (
+	"bytes"
 	"strconv"
 	"strings"
 
@@ -11,18 +12,22 @@ import (
 )
 
 var (
-	svgHeight  argtype.Range
-	svgWidth   argtype.Range
-	svgViewBox argtype.DecimalRangeArray
+	svgHeight       argtype.Range
+	svgWidth        argtype.Range
+	svgViewBox      argtype.DecimalRangeArray
+	svgNamespace    bool
+	svgNamespaces   []string
+	svgNamespaceSet map[string]bool
 )
 
 // svgCmd represents the svg command
 var svgCmd = &cobra.Command{
-	Args:  cobra.MinimumNArgs(1),
-	Use:   "svg",
-	Short: "Validate SVG images",
-	Long:  `Check that SVG files are error free and (optionally) don't have any undesirable things in them.`,
-	RunE:  shared.MakeFileCommand(svgCheck),
+	Args:    cobra.MinimumNArgs(1),
+	Use:     "svg",
+	Short:   "Validate SVG images",
+	Long:    `Check that SVG files are error free and (optionally) don't have any undesirable things in them.`,
+	PreRunE: svgPrepare,
+	RunE:    shared.MakeFileCommand(svgCheck),
 }
 
 func AddSvgCommand(rootCmd *cobra.Command) {
@@ -31,8 +36,10 @@ func AddSvgCommand(rootCmd *cobra.Command) {
 	svgCmd.Flags().Var(&svgHeight, "height", "Range of allowed SVG heights")
 	svgCmd.Flags().Var(&svgViewBox, "viewbox", "Ranges of allowed SVG viewBox values")
 	svgCmd.Flags().Var(&svgWidth, "width", "Range of allowed SVG widths")
+	svgCmd.Flags().BoolVar(&svgNamespace, "namespace", true, "Check namespaces")
+	svgCmd.Flags().StringSliceVar(&svgNamespaces, "namespaces", []string{}, "Additional namespaces allowed when checking namespaces (`*` for all)")
 	//LATER: no text
-	//LATER: raster inclusions: none/embedded/linked/any
+	//LATER: raster inclusions: none/embedded/linked/any (https://github.com/svg/svgo/blob/main/plugins/removeRasterImages.js)
 	//LATER: no external links
 	//LATER: current color
 	//LATER: xml namespace
@@ -47,14 +54,14 @@ func AddSvgCommand(rootCmd *cobra.Command) {
 
 func svgCheck(f *shared.FileContext) {
 
-	bytes, readErr := f.ReadFile()
+	raw, readErr := f.ReadFile()
 	if readErr != nil {
 		f.RecordResult("fileRead", false, map[string]interface{}{
 			"error": readErr,
 		})
 		return
 	}
-	text := string(bytes)
+	text := string(raw)
 
 	rootElement, parseErr := svgparser.Parse(strings.NewReader(text), false)
 	if parseErr != nil {
@@ -104,4 +111,39 @@ func svgCheck(f *shared.FileContext) {
 		})
 	}
 
+	if svgNamespace {
+
+		namespaces, _ := shared.GetNamespaces(bytes.NewReader(raw))
+		//fmt.Printf("namespace: %v", namespaces)
+		f.RecordResult("svgNamespace", namespaces.Default == "http://www.w3.org/2000/svg", map[string]interface{}{
+			"namespace": namespaces.Default,
+		})
+
+		if len(svgNamespaces) == 0 {
+			f.RecordResult("svgNoAdditionalNamespaces", len(namespaces.Additional) == 0, map[string]interface{}{
+				"namespaces": namespaces.Additional,
+			})
+		} else if len(svgNamespaces) == 1 && svgNamespaces[0] == "*" {
+			// no check
+		} else {
+			for key, value := range namespaces.Additional {
+				_, keyExists := svgNamespaceSet[key]
+				_, valueExists := svgNamespaceSet[value]
+				f.RecordResult("svgAdditionalNamespaces", keyExists || valueExists, map[string]interface{}{
+					"namespaceUrl":   value,
+					"namespaceValue": key,
+				})
+			}
+		}
+	}
+}
+
+func svgPrepare(cmd *cobra.Command, args []string) error {
+	if svgNamespace {
+		svgNamespaceSet = make(map[string]bool)
+		for _, key := range svgNamespaces {
+			svgNamespaceSet[key] = true
+		}
+	}
+	return nil
 }

@@ -185,7 +185,7 @@ func MakeFileCommand(checkFn func(*FileContext)) func(cmd *cobra.Command, args [
 					fmt.Fprintf(os.Stderr, "DEBUG: %d lines read from stdin\n", len(args))
 				}
 			}
-			//LATER: handle @file
+			//LATER: handle @file, use @- for names on stdin, - for checking stdin
 		}
 		fcs, _ := globFunctions[globber.String()](args)
 		if Debug {
@@ -221,12 +221,13 @@ func MakeFileCommand(checkFn func(*FileContext)) func(cmd *cobra.Command, args [
 						}
 
 						fmt.Printf("%s\n", EncodeJSON(fileData))
-					} else {
-						fmt.Printf("INFO: %s %s", IfThenElse(success, "PASS", "FAIL"), fc.FilePath)
-
-						fmt.Printf("\n")
+					} else if OutputFormat == "text" {
+						fmt.Printf("%s: %s\n", IfThenElse(success, "INFO", "ERROR"), fc.FilePath)
 					}
-
+				}
+			} else if OutputFormat == "filenames" {
+				if !success {
+					fmt.Printf("%s\n", fc.FilePath)
 				}
 			}
 		}
@@ -241,7 +242,7 @@ func MakeFileCommand(checkFn func(*FileContext)) func(cmd *cobra.Command, args [
 					"good":  good,
 					"bad":   bad,
 				}))
-			} else {
+			} else if OutputFormat == "text" {
 				fmt.Printf("INFO: %d files tested, %d good, %d bad\n", total, good, bad)
 			}
 		}

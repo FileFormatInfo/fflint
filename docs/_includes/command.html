@@ -20,7 +20,7 @@
         <tr>
             <td>{{option.name}}</td>
             <td>{{option.default_value}}</td>
-            <td>{{option.usage}}</td>
+            <td>{{option.usage | markdownify | remove: '<p>' | remove: '</p>'  }}</td>
         </tr>
     {%- endif %}
 {%- endfor %}

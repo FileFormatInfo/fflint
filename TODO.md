@@ -47,7 +47,6 @@
 ## Additional formats
 
 - [ ] [yaml](https://pkg.go.dev/gopkg.in/yaml.v2)
-- [ ] [frontmatter](https://github.com/adrg/frontmatter)
 - [ ] jsonlines (should share a lot/all of code with json)
 - [ ] MS Excel [xlsx](https://github.com/tealeg/xlsx) [excelize](https://github.com/360EntSecGroup-Skylar/excelize)
 - [ ] [bmp](https://pkg.go.dev/golang.org/x/image@v0.0.0-20201208152932-35266b937fa6/bmp)

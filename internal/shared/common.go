@@ -50,7 +50,7 @@ func AddCommon(rootCmd *cobra.Command) {
 	rootCmd.PersistentFlags().BoolVar(&showDetail, "showDetail", true, "Show detailed data about each test")
 	rootCmd.PersistentFlags().BoolVar(&progress, "progress", isatty.IsTerminal(os.Stderr.Fd()), "Show progress bar (default is false when stderr is piped)")
 	rootCmd.PersistentFlags().BoolVar(&Debug, "debug", false, "Debugging output")
-	rootCmd.PersistentFlags().StringVarP(&OutputFormat, "output", "o", "text", "Output format [ json | text ]")
+	rootCmd.PersistentFlags().StringVarP(&OutputFormat, "output", "o", "text", "Output format [ json | text | filenames ]")
 }
 
 // initConfig reads in config file and ENV variables if set.
