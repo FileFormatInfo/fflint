@@ -131,15 +131,9 @@ func (fc *FileContext) Success() bool {
 }
 
 func basicTests(fc *FileContext) {
-	fi, err := fc.Stat()
-	if err != nil {
-		fc.RecordResult("stat", false, map[string]interface{}{"error": err})
-		return
-	}
-
 	if fileSize.Exists() {
-		fc.RecordResult("fileSize", fileSize.Check(uint64(fi.Size())), map[string]interface{}{
-			"actualSize":  fi.Size(),
+		fc.RecordResult("fileSize", fileSize.Check(uint64(fc.Size())), map[string]interface{}{
+			"actualSize":  fc.Size(),
 			"desiredSize": fileSize.String(),
 		})
 	}

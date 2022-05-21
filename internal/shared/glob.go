@@ -205,6 +205,8 @@ func MakeFileCommand(checkFn func(*FileContext)) func(cmd *cobra.Command, args [
 			if Debug {
 				fmt.Fprintf(os.Stderr, "DEBUG: %d lines read from stdin\n", len(args))
 			}
+			useGlobber = false
+			fcs, _ = noExpander(args)
 		}
 		//LATER: handle @file, @-0 for names on stdin
 		if useGlobber {

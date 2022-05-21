@@ -22,6 +22,7 @@
 - [ ] OptionalXxx flags
 - [ ] SignedRange (i.e. handle negative numbers: -10-10, -20--10, --10, -10-)
 - [ ] support for `~` in doublestar globber
+- [ ] --failfast: exit on first error
 
 
 ## Docs

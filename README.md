@@ -13,7 +13,7 @@ Badger is a linter for file formats. Are your files:
 
 Perfect for your CI/CD pipeline to make sure bad files don't get committed.
 
-[![docs](https://img.shields.io/badge/Documentation-web-green)](https://www.badger.sh)
+[**Documentation**](https://www.badger.sh)
 
 ## Installation
 

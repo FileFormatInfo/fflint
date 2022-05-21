@@ -28,11 +28,20 @@ If Badger's built-in expand is causing conflicts, you can use the `--glob` flag 
 
 ## Send a list via stdin
 
-This works well and has the most flexibility of all!
+This works well and has the most flexibility of all, since you can use `find` (or a pipe or anything else) to make the list.
 
 Example:
 ```
-find . -name "*.svg" | badger svg -
+find . -name "*.svg" | badger svg @-
+```
+
+## Send a single file via stdin
+
+This is useful if you are downloading or generating a file and do not need to store it locally.
+
+Example:
+```
+curl --silent https://www.badger.sh/favicon.ico | badger ico --showFiles --showPassing --progress=false -
 ```
 
 ## Tips
