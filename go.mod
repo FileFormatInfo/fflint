@@ -4,6 +4,7 @@ go 1.17
 
 require (
 	github.com/JoshVarga/svgparser v0.0.0-20200804023048-5eaba627a7d1
+	github.com/adrg/frontmatter v0.2.0
 	github.com/antchfx/jsonquery v1.1.5
 	github.com/antchfx/xmlquery v1.3.3
 	github.com/bmatcuk/doublestar/v4 v4.0.2
@@ -12,15 +13,16 @@ require (
 	github.com/mitchellh/go-homedir v1.1.0
 	github.com/shopspring/decimal v1.3.1
 	github.com/spf13/cobra v1.4.0
+	github.com/spf13/pflag v1.0.5
 	github.com/spf13/viper v1.11.0
 	github.com/zyxar/image2ascii v0.0.0-20180912034614-460a04e371ae
 	golang.org/x/net v0.0.0-20220412020605-290c469a71a5
+	gopkg.in/yaml.v2 v2.4.0
 )
 
 require (
 	github.com/BurntSushi/toml v0.3.1 // indirect
 	github.com/VividCortex/ewma v1.1.1 // indirect
-	github.com/adrg/frontmatter v0.2.0 // indirect
 	github.com/antchfx/xpath v1.2.0 // indirect
 	github.com/cpuguy83/go-md2man/v2 v2.0.1 // indirect
 	github.com/fatih/color v1.13.0 // indirect
@@ -41,12 +43,10 @@ require (
 	github.com/spf13/afero v1.8.2 // indirect
 	github.com/spf13/cast v1.4.1 // indirect
 	github.com/spf13/jwalterweatherman v1.1.0 // indirect
-	github.com/spf13/pflag v1.0.5 // indirect
 	github.com/subosito/gotenv v1.2.0 // indirect
 	golang.org/x/sys v0.0.0-20220412211240-33da011f77ad // indirect
 	golang.org/x/text v0.3.7 // indirect
 	gopkg.in/check.v1 v1.0.0-20201130134442-10cb98267c6c // indirect
 	gopkg.in/ini.v1 v1.66.4 // indirect
-	gopkg.in/yaml.v2 v2.4.0 // indirect
 	gopkg.in/yaml.v3 v3.0.0-20210107192922-496545a6307b // indirect
 )

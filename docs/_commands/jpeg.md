@@ -26,12 +26,13 @@ inherited_options:
   default_value: any
   usage: Range of allowed file size
 - name: glob
+  default_value: doublestar
   usage: |
-    Algorithm to use to expanding wildcards in file names [ doublestar | golang | none ]
+    How to expand [wildcards](/files.html) in file names [ doublestar | golang | none ]
 - name: output
   shorthand: o
   default_value: text
-  usage: Output format [ json | text ]
+  usage: Output format [ json | text | filenames ]
 - name: progress
   default_value: "true"
   usage: Show progress bar (default is false when stderr is piped)

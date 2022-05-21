@@ -39,7 +39,8 @@ func AddCommon(rootCmd *cobra.Command) {
 	//rootCmd.PersistentFlags().Int64Var(&minSize, "min", 0, "Minimum file size")
 	//rootCmd.PersistentFlags().Int64Var(&maxSize, "max", 9999999999999, "Maximum file size")
 	rootCmd.PersistentFlags().Var(&fileSize, "filesize", "Range of allowed file size")
-	rootCmd.PersistentFlags().Var(&globber, "glob", "Algorithm to use to expanding wildcards in file names [ doublestar | golang | none ]")
+	globber.Set("doublestar")
+	rootCmd.PersistentFlags().Var(&globber, "glob", "How to expand [wildcards](/files.html) in file names [ doublestar | golang | none ]")
 
 	// Cobra also supports local flags, which will only run
 	// when this action is called directly.

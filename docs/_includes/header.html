@@ -2,23 +2,21 @@
             <div class="container d-flex justify-content-between">
                 <a class="navbar-brand" href="/">
                     <img src="/favicon.svg" width="44" height="44" class="d-inline-block mx-2" alt="Badger logo">
-                    Badger
+                    <span class="">Badger</span>
                 </a>
-                <div class="" id="navbarNav">
-                    <ul class="navbar-nav">
-                        <li class="nav-item">
+                    <ul class="navbar-nav navbar-expand-sm flex-row">
+                        <li class="nav-item d-none d-md-block">
                             <a class="nav-link {% if page.url == "/index.html" or page.url == "/" %} active" aria-current="page{%endif%}" href="/">Home</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link {% if page.path contains "commands/"%} active" aria-current="page{%endif%}" href="/commands/index.html">Commands</a>
+                        <li class="nav-item mx-2">
+                            <a class="nav-link {% if page.path contains "commands/"%} active" aria-current="page{%endif%}" href="/commands/index.html"><img alt="Commands" class="me-1 d-block d-md-none d-xxl-inline-block" style="height: 1rem;" src="/images/bolt-solid.svg" /><span class="d-none d-md-inline-block">Commands</span></a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link {% if page.url == "/files.html"%} active" aria-current="page{%endif%}" href="/files.html">Files</a>
+                        <li class="nav-item mx-2">
+                            <a class="nav-link {% if page.url == "/files.html"%} active" aria-current="page{%endif%}" href="/files.html"><img alt="Commands" class="me-1 d-inline-block d-md-none d-xxl-inline-block" style="height: 1rem;" src="/images/folders-solid.svg" /><span class="d-none d-md-inline-block">Files</span></a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link {% if page.url == "/flags.html"%} active" aria-current="page{%endif%}" href="/flags.html">Flags</a>
+                        <li class="nav-item mx-2">
+                            <a class="nav-link {% if page.url == "/flags.html"%} active" aria-current="page{%endif%}" href="/flags.html"><img alt="Commands" class="me-1 d-block d-md-none d-xxl-inline-block" style="height: 1rem;" src="/images/flag-solid.svg" /><span class="d-none d-md-inline-block">Flags</span></a>
                         </li>
                     </ul>
-                </div>
             </div>
         </nav>

@@ -40,6 +40,7 @@ func AddSvgCommand(rootCmd *cobra.Command) {
 	svgCmd.Flags().StringSliceVar(&svgNamespaces, "namespaces", []string{}, "Additional namespaces allowed when checking namespaces (`*` for all)")
 	//LATER: no text
 	//LATER: raster inclusions: none/embedded/linked/any (https://github.com/svg/svgo/blob/main/plugins/removeRasterImages.js)
+	//LATER: off-canvas paths (https://github.com/svg/svgo/blob/main/plugins/removeOffCanvasPaths.js)
 	//LATER: no external links
 	//LATER: current color
 	//LATER: xml namespace

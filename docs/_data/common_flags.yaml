@@ -11,13 +11,13 @@
   type: Range
   usage: "Range of allowed file size"
 - name: glob
-  default_value: ""
+  default_value: "doublestar"
   type: Globber
-  usage: "Algorithm to use to expanding wildcards in file names [ doublestar | golang | none ]"
+  usage: "How to expand [wildcards](/files.html) in file names [ doublestar | golang | none ]"
 - name: output
   default_value: "text"
   type: string
-  usage: "Output format [ json | text ]"
+  usage: "Output format [ json | text | filenames ]"
 - name: progress
   default_value: "true"
   type: bool

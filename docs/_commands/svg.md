@@ -14,6 +14,13 @@ options:
   shorthand: h
   default_value: "false"
   usage: help for svg
+- name: namespace
+  default_value: "true"
+  usage: Check namespaces
+- name: namespaces
+  default_value: '[]'
+  usage: |
+    Additional namespaces allowed when checking namespaces (`*` for all)
 - name: viewbox
   usage: Ranges of allowed SVG viewBox values
 - name: width
@@ -29,12 +36,13 @@ inherited_options:
   default_value: any
   usage: Range of allowed file size
 - name: glob
+  default_value: doublestar
   usage: |
-    Algorithm to use to expanding wildcards in file names [ doublestar | golang | none ]
+    How to expand [wildcards](/files.html) in file names [ doublestar | golang | none ]
 - name: output
   shorthand: o
   default_value: text
-  usage: Output format [ json | text ]
+  usage: Output format [ json | text | filenames ]
 - name: progress
   default_value: "true"
   usage: Show progress bar (default is false when stderr is piped)

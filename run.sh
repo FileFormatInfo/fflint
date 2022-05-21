@@ -7,8 +7,11 @@ set -o errexit
 set -o pipefail
 set -o nounset
 
+go run cmd/badger.go ico ../*/favicon.ico ../*/docs/favicon.ico --showFiles --showPassing --debug
+#go run cmd/badger.go ico ../*/favicon.ico ../*/docs/favicon.ico --showFiles --showDetail --showTests
+#go run cmd/badger.go ico ../*/favicon.ico ../*/docs/favicon.ico --showFiles --showPassing --showDetail --showTests
 #go run cmd/badger.go frontmatter  --required=title --output=filenames --progress=false "../vectorlogozone/**/*.md"
-go run cmd/badger.go svg "../vectorlogozone/www/**/*.svg" --namespace --namespaces=cc,dc,inkscape,rdf,sketch,sodipodi,svg,xlink --progress=false --output=filenames
+#go run cmd/badger.go svg "../vectorlogozone/www/**/*.svg" --namespace --namespaces=cc,dc,inkscape,rdf,sketch,sodipodi,svg,xlink --progress=false --output=filenames
 #go run cmd/badger.go frontmatter "../vectorlogozone/www/logos/**/*.md" \
 #    --required=logohandle,sort,title,website \
 #    --strict \

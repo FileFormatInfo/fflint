@@ -1,18 +1,27 @@
 # To Do
 
+- [ ] remove version.txt
+- [ ] test without ./main.go
 - [ ] use `@-` for filenames on stdin
 - [ ] stream (single file) for `-`
 - [ ] shared/ImageFlags.go
-- [ ] delete version.txt
-- [ ] doc strings in Cobra
-- [ ] frontmatter: required keys, key format (regex), optional keys, report
+- [ ] doc and README: share links
+- [ ] credits: goatcounter, sass, nodeping, bootstrap
+- [ ] doc strings in Cobra: Long, Examples
+- [ ] doc: installation
+- [ ] doc: pricing/license
+- [ ] doc: single font (i.e. header font)
+- [ ] doc: responsive navbar
+- [ ] doc: upgrade bootstrap
+- [ ] frontmatter: report
 - [ ] til frontmatter: title,noindex,layout,draft,date,tags,created
 - [ ] handle .gitignore [go-gitignore](https://pkg.go.dev/github.com/sabhiram/go-gitignore)
 - [ ] github actions working
 - [ ] OptionalBool flag type: required/any/forbidden
-- [ ] Dimensions flag: WxH || N (=square)
+- [ ] Dimensions flag (ranges): WxH || N (=square)
 - [ ] OptionalXxx flags
 - [ ] SignedRange (i.e. handle negative numbers: -10-10, -20--10, --10, -10-)
+- [ ] support for `~` in doublestar globber
 
 
 ## Docs
@@ -35,14 +44,16 @@
 - [ ] nicer formatting of numbers in text output [x/text/message](https://pkg.go.dev/golang.org/x/text/message) or [go-humanize](https://github.com/dustin/go-humanize)
 - [ ] include a man page: [mango](https://github.com/muesli/mango)
 - [ ] shell completion
-- [ ] cache ReadFile results
+- [ ] cache ReadFile results (--nocache=bytes to control memory usage)
 
 ## GoLang
 
 - [ ] multithreading
 - [ ] why .go file in repo root directory
 - [ ] generics for [Decimal|Integer]Range, [Decimal|Integer]Ratio, Optional[*], [*]List
+- [ ] generics for contains(haystack, needle)
 - [ ] how to share code for image tests
+- [ ] ability to use plugins? [general discussion](https://eli.thegreenplace.net/2021/plugins-in-go/), [go-plugin](https://github.com/hashicorp/go-plugin), [pie](https://github.com/natefinch/pie), [wazero](https://github.com/tetratelabs/wazero)
 
 ## Additional formats
 
@@ -76,6 +87,7 @@
 - music formats
 - OpenOffice format
 - video formats
+- SQLite
 
 ## Mixed/Auto mode
 
@@ -136,6 +148,7 @@
 - slim binaries that only do a single format
 - file locking
 - each --verbose increments a --showXxx level
+- GUI version
 
 ## External Tools
 
