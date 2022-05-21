@@ -3,6 +3,7 @@ package shared
 import (
 	"bufio"
 	"fmt"
+	"io/ioutil"
 	"os"
 	"path/filepath"
 	"sort"
@@ -27,7 +28,7 @@ var globFunctions = map[string]globFn{
 
 // Globber is an optional min/max pair
 type Globber struct {
-	value string
+	value string `default:"doublestar"`
 }
 
 func (g *Globber) String() string {
@@ -173,21 +174,42 @@ func MakeFileCommand(checkFn func(*FileContext)) func(cmd *cobra.Command, args [
 			fmt.Fprintf(os.Stderr, "DEBUG: %d args\n", len(args))
 		}
 
-		if len(args) == 1 {
-			if args[0] == "-" && !isatty.IsTerminal(os.Stdin.Fd()) {
-				scanner := bufio.NewScanner(os.Stdin)
-				args = args[:0]
-				for scanner.Scan() {
-					line := scanner.Text()
-					args = append(args, line)
-				}
-				if Debug {
-					fmt.Fprintf(os.Stderr, "DEBUG: %d lines read from stdin\n", len(args))
-				}
+		fcs := []FileContext{}
+		useGlobber := true
+		if len(args) == 1 && args[0] == "-" {
+			useGlobber = false
+			if isatty.IsTerminal(os.Stdin.Fd()) {
+				fmt.Fprintf(os.Stderr, "ERROR: attempt to read stdin from terminal\n")
+				os.Exit(2)
 			}
-			//LATER: handle @file, use @- for names on stdin, - for checking stdin
+			data, stdinReadErr := ioutil.ReadAll(os.Stdin) //LATER: does this work on Windows w/binary files
+			if stdinReadErr != nil {
+				fmt.Fprintf(os.Stderr, "ERROR: unable to read stdin (%s)\n", stdinReadErr)
+				os.Exit(3)
+			}
+			fcs = append(fcs, FileContext{
+				FilePath: "stdin",
+				data:     data,
+			})
+		} else if len(args) == 1 && args[0] == "@-" {
+			if isatty.IsTerminal(os.Stdin.Fd()) {
+				fmt.Fprintf(os.Stderr, "ERROR: attempt to read stdin from terminal\n")
+				os.Exit(2)
+			}
+			scanner := bufio.NewScanner(os.Stdin)
+			args = args[:0]
+			for scanner.Scan() {
+				line := scanner.Text()
+				args = append(args, line)
+			}
+			if Debug {
+				fmt.Fprintf(os.Stderr, "DEBUG: %d lines read from stdin\n", len(args))
+			}
 		}
-		fcs, _ := globFunctions[globber.String()](args)
+		//LATER: handle @file, @-0 for names on stdin
+		if useGlobber {
+			fcs, _ = globFunctions[globber.String()](args)
+		}
 		if Debug {
 			fmt.Fprintf(os.Stderr, "DEBUG: %d files after arg expansion\n", len(fcs))
 		}

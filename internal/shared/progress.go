@@ -40,8 +40,7 @@ func ProgressStart(fcs []FileContext) {
 		var max int64
 		if true {
 			for _, fc := range fcs {
-				fi, _ := fc.Stat()
-				max += fi.Size()
+				max += fc.Size()
 			}
 		} else {
 			max = int64(len(fcs))
@@ -80,8 +79,7 @@ func ProgressUpdate(good int, bad int, fc FileContext) {
 			bar.Set("filename", fmt.Sprintf("Done in %s", elapsed))
 		} else {
 			if true {
-				fi, _ := fc.Stat()
-				bar.Add64(fi.Size())
+				bar.Add64(fc.Size())
 			} else {
 				bar.Add64(1)
 			}

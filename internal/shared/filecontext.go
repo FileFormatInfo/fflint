@@ -60,8 +60,24 @@ func (fc *FileContext) Stat() (os.FileInfo, error) {
 	return os.Stat(fc.FilePath) // MAYBE: cache?
 }
 
+func (fc *FileContext) Size() int64 {
+	if len(fc.data) > 0 {
+		return int64(len(fc.data))
+	}
+	fi, sizeErr := fc.Stat()
+	if sizeErr != nil {
+		fmt.Fprintf(os.Stderr, "ERROR: unable to get size of file '%s' (%s)", fc.FilePath, sizeErr)
+		os.Exit(4)
+	}
+
+	return fi.Size()
+}
+
 // ReadFile ioutil.ReadFile, possibly cached
 func (fc *FileContext) ReadFile() ([]byte, error) {
+	if len(fc.data) > 0 {
+		return fc.data, nil
+	}
 	return ioutil.ReadFile(fc.FilePath)
 }
 
