@@ -11,14 +11,14 @@ options:
   default_value: "false"
   usage: help for ico
 - name: optional
-  default_value: '[96,128]'
+  default_value: '[48,64,96,128]'
   usage: Optional sizes (only for `--strict`)
 - name: required
-  default_value: '[16,32,48]'
+  default_value: '[16,32]'
   usage: Required sizes
 - name: strict
-  default_value: "false"
-  usage: Strict (keys must be in `--required` or `--optional`)
+  default_value: "true"
+  usage: Strict (sizes must be in `--required` or `--optional`)
 inherited_options:
 - name: config
   usage: config file (default is $HOME/.badger.yaml)
@@ -31,11 +31,11 @@ inherited_options:
 - name: glob
   default_value: doublestar
   usage: |
-    How to expand [wildcards](/files.html) in file names [ doublestar | golang | none ]
+    How to expand [wildcards](/files.html) in file names [ doublestar &#x7c; golang &#x7c; none ]
 - name: output
   shorthand: o
   default_value: text
-  usage: Output format [ json | text | filenames ]
+  usage: Output format [ json &#x7c; text &#x7c; filenames ]
 - name: progress
   default_value: "true"
   usage: Show progress bar (default is false when stderr is piped)

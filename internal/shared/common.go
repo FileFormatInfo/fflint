@@ -40,7 +40,7 @@ func AddCommon(rootCmd *cobra.Command) {
 	//rootCmd.PersistentFlags().Int64Var(&maxSize, "max", 9999999999999, "Maximum file size")
 	rootCmd.PersistentFlags().Var(&fileSize, "filesize", "Range of allowed file size")
 	globber.Set("doublestar")
-	rootCmd.PersistentFlags().Var(&globber, "glob", "How to expand [wildcards](/files.html) in file names [ doublestar | golang | none ]")
+	rootCmd.PersistentFlags().Var(&globber, "glob", "How to expand [wildcards](/files.html) in file names [ doublestar &#x7c; golang &#x7c; none ]")
 
 	// Cobra also supports local flags, which will only run
 	// when this action is called directly.
@@ -51,7 +51,7 @@ func AddCommon(rootCmd *cobra.Command) {
 	rootCmd.PersistentFlags().BoolVar(&showDetail, "showDetail", true, "Show detailed data about each test")
 	rootCmd.PersistentFlags().BoolVar(&progress, "progress", isatty.IsTerminal(os.Stderr.Fd()), "Show progress bar (default is false when stderr is piped)")
 	rootCmd.PersistentFlags().BoolVar(&Debug, "debug", false, "Debugging output")
-	rootCmd.PersistentFlags().StringVarP(&OutputFormat, "output", "o", "text", "Output format [ json | text | filenames ]")
+	rootCmd.PersistentFlags().StringVarP(&OutputFormat, "output", "o", "text", "Output format [ json &#x7c; text &#x7c; filenames ]")
 }
 
 // initConfig reads in config file and ENV variables if set.

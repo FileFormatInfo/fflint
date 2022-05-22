@@ -32,7 +32,7 @@ func AddIcoCommand(rootCmd *cobra.Command) {
 
 	icoCmd.Flags().UintSliceVar(&icoRequired, "required", []uint{16, 32}, "Required sizes")
 	icoCmd.Flags().UintSliceVar(&icoOptional, "optional", []uint{48, 64, 96, 128}, "Optional sizes (only for `--strict`)")
-	icoCmd.Flags().BoolVar(&icoStrict, "strict", true, "Strict (keys must be in `--required` or `--optional`)")
+	icoCmd.Flags().BoolVar(&icoStrict, "strict", true, "Strict (sizes must be in `--required` or `--optional`)")
 	//LATER: allowPng
 	//LATER: allowSvg
 }

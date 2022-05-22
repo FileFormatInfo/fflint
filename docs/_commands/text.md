@@ -23,11 +23,11 @@ inherited_options:
 - name: glob
   default_value: doublestar
   usage: |
-    How to expand [wildcards](/files.html) in file names [ doublestar | golang | none ]
+    How to expand [wildcards](/files.html) in file names [ doublestar &#x7c; golang &#x7c; none ]
 - name: output
   shorthand: o
   default_value: text
-  usage: Output format [ json | text | filenames ]
+  usage: Output format [ json &#x7c; text &#x7c; filenames ]
 - name: progress
   default_value: "true"
   usage: Show progress bar (default is false when stderr is piped)
