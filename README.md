@@ -2,6 +2,7 @@
 
 [![build](https://github.com/fileformat/badger/actions/workflows/build.yaml/badge.svg)](https://github.com/fileformat/badger/actions/workflows/build.yaml)
 [![release](https://github.com/fileformat/badger/actions/workflows/release.yaml/badge.svg)](https://github.com/fileformat/badger/actions/workflows/release.yaml)
+[![docbadger](https://github.com/fileformat/badger/actions/workflows/docbadger.yaml/badge.svg)](https://github.com/fileformat/badger/actions/workflows/docbadger.yaml)
 
 Badger is a linter for file formats. Are your files:
 * in the correct format?
