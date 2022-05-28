@@ -2,6 +2,7 @@ package shared
 
 import (
 	"bufio"
+	"errors"
 	"fmt"
 	"io/ioutil"
 	"os"
@@ -51,7 +52,7 @@ func (g *Globber) Type() string {
 }
 
 func homedirExpand(arg string) string {
-	expanded, err := homedir.Expand(arg)
+	expanded, err := homedir.Expand(arg) //LATER: switch to os.UserHomeDir()?
 	if err != nil {
 		if Debug {
 			fmt.Fprintf(os.Stderr, "DEBUG: error while expanding homedir %s\n", err.Error())
@@ -65,7 +66,7 @@ func doublestarExpander(args []string) ([]FileContext, error) {
 	fcs := []FileContext{}
 
 	for _, arg := range args {
-		basepath, pattern := doublestar.SplitPattern(arg)
+		basepath, pattern := doublestar.SplitPattern(homedirExpand(arg))
 		if Debug {
 			fmt.Fprintf(os.Stderr, "DEBUG: doublestar expanding %s at %s\n", pattern, basepath)
 		}
@@ -179,13 +180,11 @@ func MakeFileCommand(checkFn func(*FileContext)) func(cmd *cobra.Command, args [
 		if len(args) == 1 && args[0] == "-" {
 			useGlobber = false
 			if isatty.IsTerminal(os.Stdin.Fd()) {
-				fmt.Fprintf(os.Stderr, "ERROR: attempt to read stdin from terminal\n")
-				os.Exit(2)
+				return errors.New("Attempt to read stdin from terminal")
 			}
 			data, stdinReadErr := ioutil.ReadAll(os.Stdin) //LATER: does this work on Windows w/binary files
 			if stdinReadErr != nil {
-				fmt.Fprintf(os.Stderr, "ERROR: unable to read stdin (%s)\n", stdinReadErr)
-				os.Exit(3)
+				return fmt.Errorf("unable to read stdin: %w", stdinReadErr)
 			}
 			fcs = append(fcs, FileContext{
 				FilePath: "stdin",
@@ -193,8 +192,7 @@ func MakeFileCommand(checkFn func(*FileContext)) func(cmd *cobra.Command, args [
 			})
 		} else if len(args) == 1 && args[0] == "@-" {
 			if isatty.IsTerminal(os.Stdin.Fd()) {
-				fmt.Fprintf(os.Stderr, "ERROR: attempt to read stdin from terminal\n")
-				os.Exit(2)
+				return errors.New("Attempt to read stdin from terminal")
 			}
 			scanner := bufio.NewScanner(os.Stdin)
 			args = args[:0]
@@ -270,7 +268,9 @@ func MakeFileCommand(checkFn func(*FileContext)) func(cmd *cobra.Command, args [
 				fmt.Printf("INFO: %d files tested, %d good, %d bad\n", total, good, bad)
 			}
 		}
+		if bad > 0 {
+			return fmt.Errorf("%d errors found", bad)
+		}
 		return nil
 	}
-
 }
