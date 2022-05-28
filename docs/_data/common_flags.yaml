@@ -20,8 +20,8 @@
   usage: "How to expand [wildcards](/files.html) in file names [ doublestar &#x7c; golang &#x7c; none ]"
 - name: output
   default_value: "text"
-  type: string
-  usage: "Output format [ json &#x7c; text &#x7c; filenames ]"
+  type: OutputFormat
+  usage: "Output format [ filenames &#x7c; json &#x7c; text ]"
 - name: progress
   default_value: "true"
   type: bool
@@ -31,14 +31,14 @@
   type: bool
   usage: "Show detailed data about each test"
 - name: show-files
-  default_value: "failing"
+  default_value: "none"
   type: Verbose
-  usage: "Show each files"
+  usage: "Show each file [ all &#x7c; failing &#x7c; none ]"
 - name: show-tests
   default_value: "failing"
   type: Verbose
-  usage: "Show each test performed"
-- name: showTotal
+  usage: "Show each test [ all &#x7c; failing &#x7c; none ]"
+- name: totals
   default_value: "true"
   type: bool
   usage: "Show total files tested, passed and failed"

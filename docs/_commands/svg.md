@@ -45,7 +45,7 @@ inherited_options:
 - name: output
   shorthand: o
   default_value: text
-  usage: Output format [ json &#x7c; text &#x7c; filenames ]
+  usage: Output format [ filenames &#x7c; json &#x7c; text ]
 - name: progress
   default_value: "true"
   usage: Show progress bar (default is false when stderr is piped)
@@ -53,12 +53,12 @@ inherited_options:
   default_value: "true"
   usage: Show detailed data about each test
 - name: show-files
-  default_value: failing
-  usage: Show each files
+  default_value: none
+  usage: Show each file [ all &#x7c; failing &#x7c; none ]
 - name: show-tests
   default_value: failing
-  usage: Show each test performed
-- name: showTotal
+  usage: Show each test [ all &#x7c; failing &#x7c; none ]
+- name: totals
   default_value: "true"
   usage: Show total files tested, passed and failed
 see_also:
