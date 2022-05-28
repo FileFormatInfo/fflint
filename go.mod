@@ -1,6 +1,6 @@
 module github.com/fileformat/badger
 
-go 1.17
+go 1.18
 
 require (
 	github.com/JoshVarga/svgparser v0.0.0-20200804023048-5eaba627a7d1
@@ -18,6 +18,7 @@ require (
 	github.com/spf13/pflag v1.0.5
 	github.com/spf13/viper v1.11.0
 	github.com/zyxar/image2ascii v0.0.0-20180912034614-460a04e371ae
+	golang.org/x/exp v0.0.0-20220518171630-0b5c67f07fdf
 	golang.org/x/net v0.0.0-20220412020605-290c469a71a5
 	gopkg.in/yaml.v2 v2.4.0
 )

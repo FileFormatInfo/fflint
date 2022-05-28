@@ -18,11 +18,11 @@ var (
 	Debug        bool
 	progress     bool
 	showTotal    bool
-	showFiles    = argtype.NewStringSet("Verbose", "failing", []string{"all", "failing", "none"})
+	showFiles    = argtype.NewStringSet("Verbose", "none", []string{"all", "failing", "none"})
 	showTests    = argtype.NewStringSet("Verbose", "failing", []string{"all", "failing", "none"})
 	showDetail   bool
 	failFast     bool
-	OutputFormat string
+	OutputFormat = argtype.NewStringSet("OutputFormat", "text", []string{"text", "json", "filenames"})
 	fileSize     argtype.Range
 	globber      Globber
 )
@@ -44,14 +44,14 @@ func AddCommon(rootCmd *cobra.Command) {
 
 	// Cobra also supports local flags, which will only run
 	// when this action is called directly.
-	rootCmd.PersistentFlags().BoolVar(&showTotal, "showTotal", true, "Show total files tested, passed and failed")
-	rootCmd.PersistentFlags().Var(&showFiles, "show-files", "Show each files")
-	rootCmd.PersistentFlags().Var(&showTests, "show-tests", "Show each test performed")
+	rootCmd.PersistentFlags().BoolVar(&showTotal, "totals", true, "Show total files tested, passed and failed")
+	rootCmd.PersistentFlags().Var(&showFiles, "show-files", "Show each file "+showFiles.HelpText())
+	rootCmd.PersistentFlags().Var(&showTests, "show-tests", "Show each test "+showTests.HelpText())
 	rootCmd.PersistentFlags().BoolVar(&failFast, "fail-fast", false, "Stop as soon as any test fails")
 	rootCmd.PersistentFlags().BoolVar(&showDetail, "show-detail", true, "Show detailed data about each test")
 	rootCmd.PersistentFlags().BoolVar(&progress, "progress", isatty.IsTerminal(os.Stderr.Fd()), "Show progress bar (default is false when stderr is piped)")
 	rootCmd.PersistentFlags().BoolVar(&Debug, "debug", false, "Debugging output")
-	rootCmd.PersistentFlags().StringVarP(&OutputFormat, "output", "o", "text", "Output format [ json &#x7c; text &#x7c; filenames ]")
+	rootCmd.PersistentFlags().VarP(&OutputFormat, "output", "o", "Output format "+OutputFormat.HelpText())
 
 	//LATER: executable flag: OptionalBool
 

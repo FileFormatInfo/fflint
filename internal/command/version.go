@@ -23,14 +23,13 @@ var versionCmd = &cobra.Command{
 	Use:   "version",
 	Short: "Prints badger version information",
 	Run: func(cmd *cobra.Command, args []string) {
-		if shared.OutputFormat == "json" {
+		if shared.OutputFormat.String() == "json" {
 			versionJSON, _ := json.Marshal(vi)
 			fmt.Println(string(versionJSON))
-		} else {
+		} else if shared.OutputFormat.String() == "text" {
+			fmt.Printf("Badger v%s (%s)\n", vi.Version, vi.LastMod)
 			if shared.Debug {
-				fmt.Printf("Badger\n\tVersion: %s\n\tCommit: %s\n\tDate: %s\n\tBuilder: %s\n", vi.Version, vi.Commit, vi.LastMod, vi.Builder)
-			} else {
-				fmt.Printf("Badger v%s (%s)\n", vi.Version, vi.LastMod)
+				fmt.Printf("\tCommit: %s\n\tBuilder: %s\n", vi.Commit, vi.Builder)
 			}
 		}
 	},

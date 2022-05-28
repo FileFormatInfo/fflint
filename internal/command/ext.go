@@ -102,7 +102,7 @@ func extensionReportInit(cmd *cobra.Command, args []string) error {
 func extensionReportRun(cmd *cobra.Command, args []string) error {
 
 	if extReport {
-		if shared.OutputFormat == "json" {
+		if shared.OutputFormat.String() == "json" {
 			fmt.Printf("%s\n", shared.EncodeJSON(counterMap))
 		} else {
 			//LATER: use https://github.com/olekukonko/tablewriter

@@ -236,18 +236,18 @@ func MakeFileCommand(checkFn func(*FileContext)) func(cmd *cobra.Command, args [
 			}
 			if showFiles.String() != "none" {
 				if !success || showFiles.String() == "all" {
-					if OutputFormat == "json" {
+					if OutputFormat.String() == "json" {
 						fileData := map[string]interface{}{
 							"file":    fc.FilePath,
 							"success": success,
 						}
 
 						fmt.Printf("%s\n", EncodeJSON(fileData))
-					} else if OutputFormat == "text" {
+					} else if OutputFormat.String() == "text" {
 						fmt.Printf("%s: %s\n", IfThenElse(success, "INFO", "ERROR"), fc.FilePath)
 					}
 				}
-			} else if OutputFormat == "filenames" {
+			} else if OutputFormat.String() == "filenames" {
 				if !success {
 					fmt.Printf("%s\n", fc.FilePath)
 				}
@@ -258,13 +258,13 @@ func MakeFileCommand(checkFn func(*FileContext)) func(cmd *cobra.Command, args [
 		ProgressEnd()
 
 		if showTotal {
-			if OutputFormat == "json" {
+			if OutputFormat.String() == "json" {
 				fmt.Printf("%s\n", EncodeJSON(map[string]interface{}{
 					"total": total,
 					"good":  good,
 					"bad":   bad,
 				}))
-			} else if OutputFormat == "text" {
+			} else if OutputFormat.String() == "text" {
 				fmt.Printf("INFO: %d files tested, %d good, %d bad\n", total, good, bad)
 			}
 		}

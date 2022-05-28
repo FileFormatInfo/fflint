@@ -69,7 +69,7 @@ func mimetypeReportInit(cmd *cobra.Command, args []string) error {
 func mimetypeReportRun(cmd *cobra.Command, args []string) error {
 
 	if mimetypeReport {
-		if shared.OutputFormat == "json" {
+		if shared.OutputFormat.String() == "json" {
 			fmt.Printf("%s\n", shared.EncodeJSON(mimetypeCounterMap))
 		} else {
 			keys := []string{}

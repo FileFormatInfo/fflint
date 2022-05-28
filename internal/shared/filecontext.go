@@ -102,7 +102,7 @@ func (fc *FileContext) outputResult(Code string, Success bool, Detail map[string
 		return
 	}
 
-	if OutputFormat == "json" {
+	if OutputFormat.String() == "json" {
 		testData := map[string]interface{}{
 			"file":    fc.FilePath,
 			"success": Success,
@@ -113,7 +113,7 @@ func (fc *FileContext) outputResult(Code string, Success bool, Detail map[string
 			testData["detail"] = Detail
 		}
 		fmt.Printf("%s\n", EncodeJSON(testData))
-	} else if OutputFormat == "text" {
+	} else if OutputFormat.String() == "text" {
 		fmt.Printf("INFO: %s %s %s", IfThenElse(Success, "PASS", "FAIL"), Code, fc.FilePath)
 		if showDetail && Detail != nil {
 			fmt.Printf(" %s", EncodeJSON(Detail))
