@@ -13,7 +13,7 @@ builds:
       - linux
       - windows
       - darwin
-    main: ./cmd
+    main: ./cmd/badger
 archives:
   - replacements:
       darwin: Darwin
