@@ -1,11 +1,20 @@
 # To Do
 
+- [ ] doc: [svg role and title](https://www.smashingmagazine.com/2021/05/accessible-svg-patterns-comparison/)
+- [ ] doc and README: share links
+- [ ] workflow: run badger on the badger.sh website
+- [ ] workflow: go test
+- [ ] show-tests: all/failing/none
+- [ ] show-files: all/failing/none
+- [ ] support for `~` in doublestar globber
+- [ ] --failfast: exit on first error
+- [ ] fix navbar icons (block vs inline-block)
+- [ ] navbar icon color
 - [ ] remove version.txt
 - [ ] test without ./main.go
 - [ ] use `@-` for filenames on stdin
 - [ ] stream (single file) for `-`
 - [ ] shared/ImageFlags.go
-- [ ] doc and README: share links
 - [ ] credits: goatcounter, sass, nodeping, bootstrap
 - [ ] doc strings in Cobra: Long, Examples
 - [ ] doc: installation
@@ -21,8 +30,7 @@
 - [ ] Dimensions flag (ranges): WxH || N (=square)
 - [ ] OptionalXxx flags
 - [ ] SignedRange (i.e. handle negative numbers: -10-10, -20--10, --10, -10-)
-- [ ] support for `~` in doublestar globber
-- [ ] --failfast: exit on first error
+- [ ] Range: take a comma-separated list of acceptable values
 
 
 ## Docs
@@ -59,6 +67,8 @@
 ## Additional formats
 
 - [ ] [yaml](https://pkg.go.dev/gopkg.in/yaml.v2)
+- [ ] RSS and atom feeds [best practices](https://kevincox.ca/2022/05/06/rss-feed-best-practices/)
+- [ ] sitemap.xml
 - [ ] jsonlines (should share a lot/all of code with json)
 - [ ] MS Excel [xlsx](https://github.com/tealeg/xlsx) [excelize](https://github.com/360EntSecGroup-Skylar/excelize)
 - [ ] [bmp](https://pkg.go.dev/golang.org/x/image@v0.0.0-20201208152932-35266b937fa6/bmp)
@@ -67,8 +77,6 @@
 - [ ] [webp](https://github.com/kolesa-team/go-webp)
 - [ ] [shell scripts](https://github.com/mvdan/sh) ([existing gha](https://github.com/luizm/action-sh-checker))
 - [ ] xhtml
-- [ ] RSS and atom feeds [best practices](https://kevincox.ca/2022/05/06/rss-feed-best-practices/)
-- [ ] sitemap.xml
 - [ ] OPML
 - [ ] [gif](https://pkg.go.dev/image/gif)
 - [ ] webfonts: eot, woff, woff2, ttf
@@ -177,3 +185,8 @@
 - badger-ci.com/badgerci.com
 - badger.ci
 - fflint.dev
+
+https://github.com/jhspetersson/fselect
+https://github.com/github/super-linter#supported-linters
+https://htmlhint.com/docs/user-guide/list-rules
+https://stackoverflow.com/questions/29838185/how-to-detect-additional-mime-type-in-golang

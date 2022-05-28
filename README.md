@@ -52,5 +52,6 @@ For anyone who cannot use AGPL software, an inexpensive commercial license is av
 [![Jekyll](https://www.vectorlogo.zone/logos/jekyllrb/jekyllrb-ar21.svg)](https://www.jekyllrb.com/ "Website")
 
 * [GoReleaser](https://goreleaser.com/)
+* [mathiasbynens/small](https://github.com/mathiasbynens/small) - sample files for testing
 
 * See [`go.mod`](https://github.com/fileformat/badger/blob/main/go.mod) for the GoLang modules used

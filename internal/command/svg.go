@@ -41,7 +41,8 @@ func AddSvgCommand(rootCmd *cobra.Command) {
 	//LATER: no text
 	//LATER: raster inclusions: none/embedded/linked/any (https://github.com/svg/svgo/blob/main/plugins/removeRasterImages.js)
 	//LATER: off-canvas paths (https://github.com/svg/svgo/blob/main/plugins/removeOffCanvasPaths.js)
-	//LATER: no external links
+	//LATER: external links: OptionalBool
+	//LATER: gzip'ed: OptionalBool
 	//LATER: current color
 	//LATER: xml namespace
 	//LATER: no additional namespaces
