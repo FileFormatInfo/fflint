@@ -41,15 +41,7 @@ This is useful if you are downloading or generating a file and do not need to st
 
 Example:
 ```
-curl --silent https://www.badger.sh/favicon.ico | badger ico --showFiles --showPassing --progress=false -
-```
-
-## Tips
-
-If you have a file with a list of file names, you can use the `stdin` method:
-
-```
-cat filelist.txt | badger svg -
+curl --silent https://www.badger.sh/favicon.ico | badger ico -
 ```
 
 If you have a directory named `-` (i.e. a single dash), you can force non-stdin mode by prefixing it with `./`:
