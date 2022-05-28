@@ -234,8 +234,8 @@ func MakeFileCommand(checkFn func(*FileContext)) func(cmd *cobra.Command, args [
 			} else {
 				bad++
 			}
-			if showFiles {
-				if showPassing || !success {
+			if showFiles.String() != "none" {
+				if !success || showFiles.String() == "all" {
 					if OutputFormat == "json" {
 						fileData := map[string]interface{}{
 							"file":    fc.FilePath,

@@ -18,10 +18,10 @@ var (
 	Debug        bool
 	progress     bool
 	showTotal    bool
-	showFiles    bool
-	showTests    bool
+	showFiles    = argtype.NewStringSet("Verbose", "failing", []string{"all", "failing", "none"})
+	showTests    = argtype.NewStringSet("Verbose", "failing", []string{"all", "failing", "none"})
 	showDetail   bool
-	showPassing  bool
+	failFast     bool
 	OutputFormat string
 	fileSize     argtype.Range
 	globber      Globber
@@ -45,10 +45,10 @@ func AddCommon(rootCmd *cobra.Command) {
 	// Cobra also supports local flags, which will only run
 	// when this action is called directly.
 	rootCmd.PersistentFlags().BoolVar(&showTotal, "showTotal", true, "Show total files tested, passed and failed")
-	rootCmd.PersistentFlags().BoolVarP(&showFiles, "showFiles", "f", !isatty.IsTerminal(os.Stderr.Fd()), "Show each file tested (default is false when stderr is piped)")
-	rootCmd.PersistentFlags().BoolVarP(&showTests, "showTests", "t", false, "Show each test performed")
-	rootCmd.PersistentFlags().BoolVar(&showPassing, "showPassing", false, "Show passing files and tests")
-	rootCmd.PersistentFlags().BoolVar(&showDetail, "showDetail", true, "Show detailed data about each test")
+	rootCmd.PersistentFlags().Var(&showFiles, "show-files", "Show each files")
+	rootCmd.PersistentFlags().Var(&showTests, "show-tests", "Show each test performed")
+	rootCmd.PersistentFlags().BoolVar(&failFast, "fail-fast", false, "Stop as soon as any test fails")
+	rootCmd.PersistentFlags().BoolVar(&showDetail, "show-detail", true, "Show detailed data about each test")
 	rootCmd.PersistentFlags().BoolVar(&progress, "progress", isatty.IsTerminal(os.Stderr.Fd()), "Show progress bar (default is false when stderr is piped)")
 	rootCmd.PersistentFlags().BoolVar(&Debug, "debug", false, "Debugging output")
 	rootCmd.PersistentFlags().StringVarP(&OutputFormat, "output", "o", "text", "Output format [ json &#x7c; text &#x7c; filenames ]")

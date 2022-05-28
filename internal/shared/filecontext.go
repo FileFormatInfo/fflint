@@ -86,11 +86,19 @@ func (fc *FileContext) RecordResult(Code string, Success bool, Detail map[string
 		Code, Success, Detail,
 	})
 
-	if !showTests {
+	fc.outputResult(Code, Success, Detail)
+
+	if failFast && !Success {
+		os.Exit(1)
+	}
+}
+
+func (fc *FileContext) outputResult(Code string, Success bool, Detail map[string]interface{}) {
+	if showTests.String() == "none" {
 		return
 	}
 
-	if Success && !showPassing {
+	if Success && showTests.String() == "failing" {
 		return
 	}
 

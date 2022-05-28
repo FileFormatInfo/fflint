@@ -1,0 +1,17 @@
+
+! exec badger text --filesize=100 tenlines.txt
+
+exec badger text --filesize=100-120 tenlines.txt
+
+
+-- tenlines.txt --
+0123456789
+0123456789
+0123456789
+0123456789
+0123456789
+0123456789
+0123456789
+0123456789
+0123456789
+0123456789

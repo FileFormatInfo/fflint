@@ -18,9 +18,11 @@ var (
 
 func main() {
 	var rootCmd = &cobra.Command{
-		Use:   "badger",
-		Short: "Badgers you if your file formats are invalid",
-		Long:  `See [www.badger.sh](https://www.badger.sh/) for detailed instructions`,
+		Use:           "badger",
+		Short:         "Badgers you if your file formats are invalid",
+		Long:          `See [www.badger.sh](https://www.badger.sh/) for detailed instructions`,
+		SilenceErrors: true,
+		SilenceUsage:  true,
 	}
 
 	shared.AddCommon(rootCmd)
@@ -39,7 +41,7 @@ func main() {
 	command.AddXmlCommand(rootCmd)
 
 	if err := rootCmd.Execute(); err != nil {
-		fmt.Fprintf(os.Stderr, "ERROR: unable to execute root command: %s\n", err.Error())
+		fmt.Fprintf(os.Stderr, "ERROR: %v\n", err.Error())
 		os.Exit(1)
 	}
 }
