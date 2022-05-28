@@ -21,6 +21,9 @@ inherited_options:
 - name: debug
   default_value: "false"
   usage: Debugging output
+- name: fail-fast
+  default_value: "false"
+  usage: Stop as soon as any test fails
 - name: filesize
   default_value: any
   usage: Range of allowed file size
@@ -35,20 +38,14 @@ inherited_options:
 - name: progress
   default_value: "true"
   usage: Show progress bar (default is false when stderr is piped)
-- name: showDetail
+- name: show-detail
   default_value: "true"
   usage: Show detailed data about each test
-- name: showFiles
-  shorthand: f
-  default_value: "false"
-  usage: |
-    Show each file tested (default is false when stderr is piped)
-- name: showPassing
-  default_value: "false"
-  usage: Show passing files and tests
-- name: showTests
-  shorthand: t
-  default_value: "false"
+- name: show-files
+  default_value: failing
+  usage: Show each files
+- name: show-tests
+  default_value: failing
   usage: Show each test performed
 - name: showTotal
   default_value: "true"

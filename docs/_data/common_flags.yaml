@@ -6,6 +6,10 @@
   default_value: "false"
   type: bool
   usage: "Debugging output"
+- name: fail-fast
+  default_value: "false"
+  type: bool
+  usage: "Stop as soon as any test fails"
 - name: filesize
   default_value: "any"
   type: Range
@@ -22,21 +26,17 @@
   default_value: "true"
   type: bool
   usage: "Show progress bar (default is false when stderr is piped)"
-- name: showDetail
+- name: show-detail
   default_value: "true"
   type: bool
   usage: "Show detailed data about each test"
-- name: showFiles
-  default_value: "false"
-  type: bool
-  usage: "Show each file tested (default is false when stderr is piped)"
-- name: showPassing
-  default_value: "false"
-  type: bool
-  usage: "Show passing files and tests"
-- name: showTests
-  default_value: "false"
-  type: bool
+- name: show-files
+  default_value: "failing"
+  type: Verbose
+  usage: "Show each files"
+- name: show-tests
+  default_value: "failing"
+  type: Verbose
   usage: "Show each test performed"
 - name: showTotal
   default_value: "true"

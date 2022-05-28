@@ -7,16 +7,31 @@ description: |
   Checks that plain text files really are plain text, have the correct line endings and more
 usage: badger text [flags]
 options:
+- name: ascii
+  default_value: "false"
+  usage: Must be valid ASCII
+- name: control
+  default_value: "false"
+  usage: Allow control characters (other than newlines and tab)
 - name: help
   shorthand: h
   default_value: "false"
   usage: help for text
+- name: nul
+  default_value: "false"
+  usage: Allow nul (0x00) bytes
+- name: utf8
+  default_value: "true"
+  usage: Must be valid UTF-8
 inherited_options:
 - name: config
   usage: config file (default is $HOME/.badger.yaml)
 - name: debug
   default_value: "false"
   usage: Debugging output
+- name: fail-fast
+  default_value: "false"
+  usage: Stop as soon as any test fails
 - name: filesize
   default_value: any
   usage: Range of allowed file size
@@ -31,20 +46,14 @@ inherited_options:
 - name: progress
   default_value: "true"
   usage: Show progress bar (default is false when stderr is piped)
-- name: showDetail
+- name: show-detail
   default_value: "true"
   usage: Show detailed data about each test
-- name: showFiles
-  shorthand: f
-  default_value: "false"
-  usage: |
-    Show each file tested (default is false when stderr is piped)
-- name: showPassing
-  default_value: "false"
-  usage: Show passing files and tests
-- name: showTests
-  shorthand: t
-  default_value: "false"
+- name: show-files
+  default_value: failing
+  usage: Show each files
+- name: show-tests
+  default_value: failing
   usage: Show each test performed
 - name: showTotal
   default_value: "true"
