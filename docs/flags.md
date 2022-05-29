@@ -19,7 +19,7 @@ These flags can be used with any [command](/commands/index.html).
         <td>{{option.name}}</td>
         <td>{{option.type}}</td>
         <td>{{option.default_value}}</td>
-        <td>{{option.usage | markdownify | remove: '<p>' | remove: '</p>' }}</td>
+        <td>{{option.usage | replace: "|", "&#x7c;" | markdownify | remove: '<p>' | remove: '</p>' }}</td>
     </tr>
 {% endfor %}
 </table>

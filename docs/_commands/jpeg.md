@@ -31,11 +31,11 @@ inherited_options:
 - name: glob
   default_value: doublestar
   usage: |
-    How to expand [wildcards](/files.html) in file names [ doublestar &#x7c; golang &#x7c; none ]
+    How to expand [wildcards](/files.html) in file names [ doublestar | golang | none ]
 - name: output
   shorthand: o
   default_value: text
-  usage: Output format [ filenames &#x7c; json &#x7c; text ]
+  usage: Output format [ filenames | json | text ]
 - name: progress
   default_value: "true"
   usage: Show progress bar (default is false when stderr is piped)
@@ -44,10 +44,10 @@ inherited_options:
   usage: Show detailed data about each test
 - name: show-files
   default_value: none
-  usage: Show each file [ all &#x7c; failing &#x7c; none ]
+  usage: Show each file [ all | failing | none ]
 - name: show-tests
   default_value: failing
-  usage: Show each test [ all &#x7c; failing &#x7c; none ]
+  usage: Show each test [ all | failing | none ]
 - name: totals
   default_value: "true"
   usage: Show total files tested, passed and failed

@@ -42,7 +42,7 @@ func (ss *StringSet) HelpText() string {
 	retVal := "[ "
 	for i, k := range keys {
 		if i > 0 {
-			retVal += " &#x7c; "
+			retVal += " | "
 		}
 		retVal += k
 	}
