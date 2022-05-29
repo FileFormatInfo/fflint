@@ -32,6 +32,7 @@ func main() {
 	command.AddTextCommand(rootCmd)
 	command.AddVersionCommand(rootCmd, command.VersionInfo{})
 	command.AddXmlCommand(rootCmd)
+	command.AddYamlCommand(rootCmd)
 
 	manPage, mangoErr := mango.NewManPage(1, rootCmd)
 	if mangoErr != nil {

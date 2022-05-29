@@ -17,3 +17,10 @@ func NewErrorAtPosition(err error, pos int) *ErrorAtPosition {
 func (eap *ErrorAtPosition) Error() string {
 	return fmt.Sprintf("%s at %d", eap.Err, eap.Position)
 }
+
+func ErrString(maybeErr error) any {
+	if maybeErr == nil {
+		return nil
+	}
+	return maybeErr.Error()
+}

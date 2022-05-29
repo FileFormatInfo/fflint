@@ -1,15 +1,21 @@
 ---
-h1: The json Command
-title: 'json: Validate JSON files - Badger'
-name: badger json
-synopsis: Validate JSON files
-description: Check that your JSON files are valid
-usage: badger json [flags]
+h1: The yaml Command
+title: 'yaml: Validate YAML files - Badger'
+name: badger yaml
+synopsis: Validate YAML files
+description: Check that your YAML files are valid
+usage: badger yaml [flags]
 options:
 - name: help
   shorthand: h
   default_value: "false"
-  usage: help for json
+  usage: help for yaml
+- name: sorted
+  default_value: "false"
+  usage: Keys need to be in alphabetical order
+- name: stringkeys
+  default_value: "false"
+  usage: Keys need to be strings
 inherited_options:
 - name: config
   usage: config file (default is $HOME/.badger.yaml)

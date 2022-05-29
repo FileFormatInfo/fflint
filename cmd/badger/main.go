@@ -10,10 +10,10 @@ import (
 )
 
 var (
-	version = "(local)"
-	commit  string
-	date    string
-	builtBy string
+	version = "0.0.0"
+	commit  = "local"
+	date    = "local"
+	builtBy = "unknown"
 )
 
 func main() {
@@ -41,6 +41,7 @@ func main() {
 	command.AddTextCommand(rootCmd)
 	command.AddVersionCommand(rootCmd, command.VersionInfo{Commit: commit, Version: version, LastMod: date, Builder: builtBy})
 	command.AddXmlCommand(rootCmd)
+	command.AddYamlCommand(rootCmd)
 
 	if err := rootCmd.Execute(); err != nil {
 		fmt.Fprintf(os.Stderr, "ERROR: %v\n", err.Error())

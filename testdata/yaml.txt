@@ -1,0 +1,76 @@
+# basic parsing
+! exec badger yaml invalid.yaml
+exec badger yaml unsorted.yaml sorted.yaml
+
+# make sure --sort catches errors
+! exec badger yaml --sorted --show-detail unsorted.yaml
+! exec badger yaml --sorted --show-detail unsorted-level1.yaml
+! exec badger yaml --sorted --show-detail unsorted-level0.yaml
+
+# make sure --sort passes
+exec badger yaml --sorted sorted.yaml
+exec badger yaml --sorted sorted-level1.yaml
+
+# make sure --stringkeys catches errors
+! exec badger yaml --stringkeys badkeys.yaml
+! exec badger yaml --stringkeys badkeys-level1.yaml
+! exec badger yaml --stringkeys badkeys-level0.yaml
+
+-- invalid.yaml --
+top:
+  - inner
+  bad
+
+-- unsorted.yaml --
+a:
+b:
+x:
+c:
+
+-- unsorted-level1.yaml --
+top:
+  a:
+  b:
+  x:
+  c:
+
+-- unsorted-level0.yaml --
+top:
+  a:
+  b:
+  c:
+bottom:
+
+-- sorted.yaml --
+a:
+b:
+c:
+d:
+
+-- sorted-level1.yaml --
+top:
+  a:
+  b:
+  c:
+  d:
+
+-- badkeys.yaml --
+a:
+b:
+0:
+d:
+
+-- badkeys-level1.yaml --
+top:
+  a:
+  b:
+  0:
+  d:
+
+-- badkeys-level0.yaml --
+top:
+  a:
+  b:
+  c:
+  d:
+0:

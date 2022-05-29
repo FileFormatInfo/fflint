@@ -1,6 +1,5 @@
 *~
-.DS_Store
-Gemfile.lock
+./badger
 .cache
 cache/
 *.class
@@ -9,8 +8,10 @@ crash.log
 dist/
 docs/*/*.ico
 docs/*/*.json
+.DS_Store
 *.env
 foo
+Gemfile.lock
 .github/actions/badger-gha
 .idea/
 .jekyll-metadata

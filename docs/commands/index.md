@@ -51,4 +51,8 @@ title: Available Commands
 <td><a href="xml.html">xml</a></td>
 <td>Validate XML files</td>
 </tr>
+<tr>
+<td><a href="yaml.html">yaml</a></td>
+<td>Validate YAML files</td>
+</tr>
 </table>

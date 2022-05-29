@@ -111,7 +111,7 @@ func frontmatterCheck(f *shared.FileContext) {
 				})
 				continue
 			}
-			f.RecordResult("frontmatterSortedParse", previousKey < currentKey, map[string]interface{}{
+			f.RecordResult("frontmatterSorted", previousKey < currentKey, map[string]interface{}{
 				"previous": previousKey,
 				"current":  currentKey,
 			})
