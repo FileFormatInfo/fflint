@@ -177,6 +177,14 @@ github.com/mitchellh/go-homedir v1.1.0 h1:lukF9ziXFxDFPkA1vsr5zpc1XuPDn/wFntq5mG
 github.com/mitchellh/go-homedir v1.1.0/go.mod h1:SfyaCUpYCn1Vlf4IUYiD9fPX4A5wJrkLzIz1N1q0pr0=
 github.com/mitchellh/mapstructure v1.4.3 h1:OVowDSCllw/YjdLkam3/sm7wEtOy59d8ndGgCcyj8cs=
 github.com/mitchellh/mapstructure v1.4.3/go.mod h1:bFUtVrKA4DC2yAKiSyO/QUcy7e+RRV2QTWOzhPopBRo=
+github.com/muesli/mango v0.1.0 h1:DZQK45d2gGbql1arsYA4vfg4d7I9Hfx5rX/GCmzsAvI=
+github.com/muesli/mango v0.1.0/go.mod h1:5XFpbC8jY5UUv89YQciiXNlbi+iJgt29VDC5xbzrLL4=
+github.com/muesli/mango-cobra v1.1.0 h1:j/mM5omhC2Vw8pim716aMJVElIRln089XZJ2JY7Xjzc=
+github.com/muesli/mango-cobra v1.1.0/go.mod h1:lotV+49eKrAV0tTw/ONhLsiyKwM5uW5QP2OkYw4xlNc=
+github.com/muesli/mango-pflag v0.1.0 h1:UADqbYgpUyRoBja3g6LUL+3LErjpsOwaC9ywvBWe7Sg=
+github.com/muesli/mango-pflag v0.1.0/go.mod h1:YEQomTxaCUp8PrbhFh10UfbhbQrM/xJ4i2PB8VTLLW0=
+github.com/muesli/roff v0.1.0 h1:YD0lalCotmYuF5HhZliKWlIx7IEhiXeSfq7hNjFqGF8=
+github.com/muesli/roff v0.1.0/go.mod h1:pjAHQM9hdUUwm/krAfrLGgJkXJ+YuhtsfZ42kieB2Ig=
 github.com/nfnt/resize v0.0.0-20180221191011-83c6a9932646/go.mod h1:jpp1/29i3P1S/RLdc7JQKbRpFeM1dOBd8T9ki5s+AY8=
 github.com/pelletier/go-toml v1.9.4 h1:tjENF6MfZAg8e4ZmZTeWaWiT2vXtsoO6+iuOjFhECwM=
 github.com/pelletier/go-toml v1.9.4/go.mod h1:u1nR/EPcESfeI/szUZKdtJ0xRNbUoANCkoOuaOx1Y+c=

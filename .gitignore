@@ -4,6 +4,7 @@ Gemfile.lock
 .cache
 cache/
 *.class
+/completions/
 crash.log
 dist/
 docs/*/*.ico
@@ -15,6 +16,7 @@ foo
 .jekyll-metadata
 *.log
 /logos/
+/manpages/
 node_modules/
 *.pyc
 .sass-cache/

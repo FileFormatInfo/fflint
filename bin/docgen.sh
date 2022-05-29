@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# flush the CloudFlare CDN with cURL.
+# generation some of the pages in /docs
 #
 
 set -o errexit

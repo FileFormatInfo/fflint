@@ -6,26 +6,17 @@ import (
 
 	"github.com/fileformat/badger/internal/command"
 	"github.com/fileformat/badger/internal/shared"
+	mango "github.com/muesli/mango-cobra"
+	"github.com/muesli/roff"
 	"github.com/spf13/cobra"
-)
-
-var (
-	version = "(local)"
-	commit  string
-	date    string
-	builtBy string
 )
 
 func main() {
 	var rootCmd = &cobra.Command{
-		Use:           "badger",
-		Short:         "Badgers you if your file formats are invalid",
-		Long:          `See [www.badger.sh](https://www.badger.sh/) for detailed instructions`,
-		Version:       version,
-		SilenceErrors: true,
-		SilenceUsage:  true,
+		Use:   "badger",
+		Short: "Badgers you if your file formats are invalid",
+		Long:  `See [www.badger.sh](https://www.badger.sh/) for detailed instructions`,
 	}
-	rootCmd.CompletionOptions.HiddenDefaultCmd = true
 
 	shared.AddCommon(rootCmd)
 
@@ -39,11 +30,15 @@ func main() {
 	command.AddPngCommand(rootCmd)
 	command.AddSvgCommand(rootCmd)
 	command.AddTextCommand(rootCmd)
-	command.AddVersionCommand(rootCmd, command.VersionInfo{Commit: commit, Version: version, LastMod: date, Builder: builtBy})
+	command.AddVersionCommand(rootCmd, command.VersionInfo{})
 	command.AddXmlCommand(rootCmd)
 
-	if err := rootCmd.Execute(); err != nil {
-		fmt.Fprintf(os.Stderr, "ERROR: %v\n", err.Error())
+	manPage, mangoErr := mango.NewManPage(1, rootCmd)
+	if mangoErr != nil {
+		fmt.Fprintf(os.Stderr, "ERROR: unable to generate man page: %v", mangoErr)
 		os.Exit(1)
 	}
+
+	_, _ = fmt.Fprint(os.Stdout, manPage.Build(roff.NewDocument()))
+
 }

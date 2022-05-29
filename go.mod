@@ -11,6 +11,8 @@ require (
 	github.com/cheggaaa/pb/v3 v3.0.8
 	github.com/mattn/go-isatty v0.0.14
 	github.com/mitchellh/go-homedir v1.1.0
+	github.com/muesli/mango-cobra v1.1.0
+	github.com/muesli/roff v0.1.0
 	github.com/rogpeppe/go-internal v1.8.1
 	github.com/santhosh-tekuri/jsonschema/v5 v5.0.0
 	github.com/shopspring/decimal v1.3.1
@@ -39,6 +41,8 @@ require (
 	github.com/mattn/go-colorable v0.1.12 // indirect
 	github.com/mattn/go-runewidth v0.0.12 // indirect
 	github.com/mitchellh/mapstructure v1.4.3 // indirect
+	github.com/muesli/mango v0.1.0 // indirect
+	github.com/muesli/mango-pflag v0.1.0 // indirect
 	github.com/pelletier/go-toml v1.9.4 // indirect
 	github.com/pelletier/go-toml/v2 v2.0.0-beta.8 // indirect
 	github.com/pkg/diff v0.0.0-20210226163009-20ebb0f2a09e // indirect
