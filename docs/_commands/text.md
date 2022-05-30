@@ -39,10 +39,16 @@ inherited_options:
   default_value: doublestar
   usage: |
     How to expand [wildcards](/files.html) in file names [ doublestar | golang | none ]
+- name: ignore-dotfiles
+  default_value: "true"
+  usage: Ignore files/directory starting with a dot (.)
+- name: ignore-file
+  default_value: .gitignore
+  usage: ignore file
 - name: output
   shorthand: o
   default_value: text
-  usage: Output format [ filenames | json | text ]
+  usage: Output format [ filenames | json | markdown | text ]
 - name: progress
   default_value: "true"
   usage: Show progress bar (default is false when stderr is piped)

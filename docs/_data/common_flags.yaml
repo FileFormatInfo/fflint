@@ -18,10 +18,18 @@
   default_value: "doublestar"
   type: Globber
   usage: "How to expand [wildcards](/files.html) in file names [ doublestar | golang | none ]"
+- name: ignore-dotfiles
+  default_value: "true"
+  type: bool
+  usage: "Ignore files/directory starting with a dot (.)"
+- name: ignore-file
+  default_value: ".gitignore"
+  type: string
+  usage: "ignore file"
 - name: output
   default_value: "text"
   type: OutputFormat
-  usage: "Output format [ filenames | json | text ]"
+  usage: "Output format [ filenames | json | markdown | text ]"
 - name: progress
   default_value: "true"
   type: bool
