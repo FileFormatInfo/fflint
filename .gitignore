@@ -1,5 +1,5 @@
 *~
-./badger
+/badger
 .cache
 cache/
 *.class
