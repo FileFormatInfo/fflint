@@ -1,8 +1,9 @@
-name: "Badger /docs"
+name: "Dogfooding"
+
+# Why is this called "dogfooding"? https://en.wikipedia.org/wiki/Eating_your_own_dog_food
 
 on:
   push:
-  ##LATER: just /docs
 
   workflow_dispatch:
 
@@ -21,13 +22,18 @@ jobs:
           go-version: 1.18
 
       - name: Build
-        uses: goreleaser/goreleaser-action@v2
-        with:
-          distribution: goreleaser
-          version: latest
-          args: build --snapshot --single-target --output=./badger
+        run: |
+          go build -o ./badger cmd/badger/main.go
 
       - name: Check favicon.ico
         run: |
           ./badger ico --show-tests=all docs/favicon.ico
 
+      - name: Generate reports
+        run: |
+          echo "# Badgering the badger" >$GITHUB_STEP_SUMMARY
+          echo "## Extensions in use" >>$GITHUB_STEP_SUMMARY
+          ./badger ext --output=markdown "./**" >>$GITHUB_STEP_SUMMARY
+          echo "" >>$GITHUB_STEP_SUMMARY
+          echo "## Content types in use" >>$GITHUB_STEP_SUMMARY
+          ./badger markdown --output=markdown "./**" >>$GITHUB_STEP_SUMMARY
