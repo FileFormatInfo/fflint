@@ -6,7 +6,13 @@ noindex: true
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9"
 	xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-	<url>
-		<loc>https://www.badger.sh/index.html</loc>
-	</url>
+{%- for thePage in site.pages %}
+	{%- if thePage.noindex or thePage.draft or thePage.url == "/redirects.json" %}{% else %}
+		<url><loc>{{site.production_url}}{{ thePage.url }}</loc></url>
+	{%- endif %}
+{%- endfor %}
+{%- assign theCollection = site.collections | where: "label", "commands" | first %}
+{%- for thePage in theCollection.docs %}
+		<url><loc>{{site.production_url}}{{thePage.url}}"></loc></url>
+{%- endfor %}
 </urlset>

@@ -7,22 +7,24 @@ title: Flags
 
 These flags can be used with any [command](/commands/index.html).
 
-<table class="table table-striped table-bordered">
-    <tr>
-        <th>Flag</th>
-        <th>Type</th>
-        <th>Default</th>
-        <th>Description</th>
-    </tr>
+<div class="table-responsive">
+    <table class="table table-striped table-bordered">
+        <tr>
+            <th>Flag</th>
+            <th class="d-none d-md-table-cell">Type</th>
+            <th>Default</th>
+            <th>Description</th>
+        </tr>
 {%- for option in site.data.common_flags %}
-    <tr>
-        <td>{{option.name}}</td>
-        <td>{{option.type}}</td>
-        <td>{{option.default_value}}</td>
-        <td>{{option.usage | replace: "|", "&#x7c;" | markdownify | remove: '<p>' | remove: '</p>' }}</td>
-    </tr>
+        <tr>
+            <td>{{option.name}}</td>
+            <td class="d-none d-md-table-cell">{{option.type}}</td>
+            <td>{{option.default_value}}</td>
+            <td>{{option.usage | replace: "|", "&#x7c;" | markdownify | remove: '<p>' | remove: '</p>' }}</td>
+        </tr>
 {% endfor %}
-</table>
+    </table>
+</div>
 
 ## Custom Flag Types
 
