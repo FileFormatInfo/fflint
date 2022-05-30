@@ -3,7 +3,7 @@ h1: The jpeg Command
 title: 'jpeg: Validate JPEG images - Badger'
 name: badger jpeg
 synopsis: Validate JPEG images
-description: Validate that your JPEG files are valid
+description: Check that your JPEG files are valid
 usage: badger jpeg [flags]
 options:
 - name: height

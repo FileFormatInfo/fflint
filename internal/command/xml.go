@@ -40,3 +40,7 @@ func xmlCheck(f *shared.FileContext) {
 		return
 	}
 }
+
+//LATER: schema validation
+// https://github.com/lestrrat-go/libxml2 /xsd
+// https://github.com/terminalstatic/go-xsd-validate

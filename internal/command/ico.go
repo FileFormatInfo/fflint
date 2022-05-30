@@ -22,7 +22,7 @@ var icoCmd = &cobra.Command{
 	Args:    cobra.MinimumNArgs(1),
 	Use:     "ico [options] files...",
 	Short:   "Validate icons",
-	Long:    `Validate that your ico files are valid`,
+	Long:    `Check that your icons (.ico files) are valid`,
 	PreRunE: icoPrepare,
 	RunE:    shared.MakeFileCommand(icoCheck),
 }

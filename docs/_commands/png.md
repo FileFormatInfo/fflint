@@ -3,7 +3,7 @@ h1: The png Command
 title: 'png: Validate png images - Badger'
 name: badger png
 synopsis: Validate png images
-description: Validate that your png files are valid
+description: Check that your PNG files are valid
 usage: badger png [flags]
 options:
 - name: height

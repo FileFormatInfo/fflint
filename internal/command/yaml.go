@@ -26,7 +26,7 @@ func AddYamlCommand(rootCmd *cobra.Command) {
 	rootCmd.AddCommand(yamlCmd)
 
 	yamlCmd.Flags().BoolVar(&yamlSorted, "sorted", false, "Keys need to be in alphabetical order")
-	yamlCmd.Flags().BoolVar(&yamlStringKeys, "stringkeys", false, "Keys need to be strings")
+	yamlCmd.Flags().BoolVar(&yamlStringKeys, "stringkeys", true, "Keys need to be strings")
 	//LATER: schema
 	//LATER: string keys
 }

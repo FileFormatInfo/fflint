@@ -3,6 +3,7 @@ h1: The mimetype Command
 title: 'mimetype: Validate (or report) MIME content types - Badger'
 name: badger mimetype
 synopsis: Validate (or report) MIME content types
+description: Check and report on the MIME content types in use
 usage: badger mimetype [flags] files...
 options:
 - name: allowUnknown
@@ -50,6 +51,8 @@ inherited_options:
 - name: totals
   default_value: "true"
   usage: Show total files tested, passed and failed
+example: Content type detection uses the Go standard library [http.DetectContentType](https://golang.org/pkg/net/http/#DetectContentType)
+  function.
 see_also:
 - badger - Badgers you if your file formats are invalid
 ---

@@ -26,7 +26,7 @@ var extCmd = &cobra.Command{
 	Args:     cobra.MinimumNArgs(1),
 	Use:      "ext [flags] filespec [filespec...]",
 	Short:    "Validate (or report) file extensions",
-	Long:     ``,
+	Long:     `Check and report on the file extensions in use`,
 	PreRunE:  extensionReportInit,
 	RunE:     shared.MakeFileCommand(extCheck),
 	PostRunE: extensionReportRun,

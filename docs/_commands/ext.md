@@ -3,6 +3,7 @@ h1: The ext Command
 title: 'ext: Validate (or report) file extensions - Badger'
 name: badger ext
 synopsis: Validate (or report) file extensions
+description: Check and report on the file extensions in use
 usage: badger ext [flags] filespec [filespec...]
 options:
 - name: allowEmpty

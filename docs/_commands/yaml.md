@@ -14,7 +14,7 @@ options:
   default_value: "false"
   usage: Keys need to be in alphabetical order
 - name: stringkeys
-  default_value: "false"
+  default_value: "true"
   usage: Keys need to be strings
 inherited_options:
 - name: config

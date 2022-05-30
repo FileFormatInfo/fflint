@@ -3,7 +3,7 @@ h1: The ico Command
 title: 'ico: Validate icons - Badger'
 name: badger ico
 synopsis: Validate icons
-description: Validate that your ico files are valid
+description: Check that your icons (.ico files) are valid
 usage: badger ico [options] files... [flags]
 options:
 - name: help
