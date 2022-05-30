@@ -9,9 +9,8 @@ import (
 	"path/filepath"
 	"sort"
 
-	"github.com/mattn/go-isatty"
-
 	"github.com/bmatcuk/doublestar/v4"
+	"github.com/mattn/go-isatty"
 	"github.com/mitchellh/go-homedir"
 	"github.com/spf13/cobra"
 )
@@ -80,6 +79,10 @@ func doublestarExpander(args []string) ([]FileContext, error) {
 		}
 		for _, argfile := range argfiles {
 
+			if ignoreDotFiles && argfile[0] == '.' {
+				continue
+			}
+
 			fullpath := filepath.Join(basepath, argfile)
 
 			fc := FileContext{
@@ -141,6 +144,10 @@ func golangExpander(args []string) ([]FileContext, error) {
 		argfiles, _ := filepath.Glob(homedirExpand(arg))
 		for _, argfile := range argfiles {
 
+			if ignoreDotFiles && argfile[0] == '.' {
+				continue
+			}
+
 			fc := FileContext{
 				FilePath: argfile,
 			}
@@ -162,6 +169,14 @@ func golangExpander(args []string) ([]FileContext, error) {
 
 	return fcs, nil
 }
+
+/*
+func loadIgnoreFile() (*gitignore.Gitignore, error) {
+	ignorer, err := gitignore.CompileIgnoreFile(".gitignore")
+
+	return ignorer, err
+}
+*/
 
 func MakeFileCommand(checkFn func(*FileContext)) func(cmd *cobra.Command, args []string) error {
 

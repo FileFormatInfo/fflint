@@ -3,10 +3,14 @@ package command
 import (
 	"fmt"
 	"net/http"
+	"os"
 	"sort"
+	"strconv"
 
 	"github.com/fileformat/badger/internal/shared"
+	"github.com/olekukonko/tablewriter"
 	"github.com/spf13/cobra"
+	"golang.org/x/exp/maps"
 )
 
 var (
@@ -72,7 +76,7 @@ func mimetypeReportRun(cmd *cobra.Command, args []string) error {
 	if mimetypeReport {
 		if shared.OutputFormat.String() == "json" {
 			fmt.Printf("%s\n", shared.EncodeJSON(mimetypeCounterMap))
-		} else {
+		} else if shared.OutputFormat.String() == "text" {
 			keys := []string{}
 			maxKey := 0
 			maxValue := 0
@@ -92,7 +96,25 @@ func mimetypeReportRun(cmd *cobra.Command, args []string) error {
 			for _, key := range keys {
 				fmt.Printf(format, key, mimetypeCounterMap[key])
 			}
+		} else if shared.OutputFormat.String() == "markdown" {
+			keys := maps.Keys(mimetypeCounterMap)
+			sort.Strings(keys)
+			table := tablewriter.NewWriter(os.Stdout)
+			table.SetAutoFormatHeaders(false)
+			table.SetColumnAlignment([]int{tablewriter.ALIGN_LEFT, tablewriter.ALIGN_RIGHT})
+			table.SetBorders(tablewriter.Border{Left: true, Top: false, Right: true, Bottom: false})
+			table.SetCenterSeparator("|")
+
+			table.SetHeader([]string{"Content Type", "Count"})
+			total := 0
+			for _, key := range keys {
+				table.Append([]string{key, strconv.Itoa(mimetypeCounterMap[key])})
+				total += mimetypeCounterMap[key]
+			}
+			table.Append([]string{"Total:", strconv.Itoa(total)})
+			table.Render()
 		}
+
 	}
 
 	return nil

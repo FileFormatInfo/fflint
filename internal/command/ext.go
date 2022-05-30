@@ -4,11 +4,14 @@ import (
 	"fmt"
 	"os"
 	"sort"
+	"strconv"
 	"strings"
 
 	"github.com/fileformat/badger/internal/argtype"
 	"github.com/fileformat/badger/internal/shared"
+	"github.com/olekukonko/tablewriter"
 	"github.com/spf13/cobra"
+	"golang.org/x/exp/maps"
 )
 
 var (
@@ -104,8 +107,7 @@ func extensionReportRun(cmd *cobra.Command, args []string) error {
 	if extReport {
 		if shared.OutputFormat.String() == "json" {
 			fmt.Printf("%s\n", shared.EncodeJSON(counterMap))
-		} else {
-			//LATER: use https://github.com/olekukonko/tablewriter
+		} else if shared.OutputFormat.String() == "text" {
 			keys := []string{}
 			maxKey := 0
 			maxValue := 0
@@ -118,13 +120,35 @@ func extensionReportRun(cmd *cobra.Command, args []string) error {
 					maxValue = value
 				}
 			}
-
 			sort.Strings(keys)
 			format := fmt.Sprintf("%%-%ds: %%%dd\n", maxKey, len(fmt.Sprintf("%d", maxValue)))
 
 			for _, key := range keys {
 				fmt.Printf(format, key, counterMap[key])
 			}
+		} else if shared.OutputFormat.String() == "markdown" {
+			keys := maps.Keys(counterMap)
+			sort.Strings(keys)
+			table := tablewriter.NewWriter(os.Stdout)
+			table.SetAutoFormatHeaders(false)
+			table.SetColumnAlignment([]int{tablewriter.ALIGN_LEFT, tablewriter.ALIGN_RIGHT})
+			table.SetBorders(tablewriter.Border{Left: true, Top: false, Right: true, Bottom: false})
+			table.SetCenterSeparator("|")
+
+			table.SetHeader([]string{"Extension", "Count"})
+			total := 0
+			for _, key := range keys {
+				var niceKey string
+				if key == "" {
+					niceKey = "(empty)"
+				} else {
+					niceKey = fmt.Sprintf(".%s", key)
+				}
+				table.Append([]string{niceKey, strconv.Itoa(counterMap[key])})
+				total += counterMap[key]
+			}
+			table.Append([]string{"Total:", strconv.Itoa(total)})
+			table.Render()
 		}
 	}
 

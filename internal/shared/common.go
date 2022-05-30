@@ -14,17 +14,19 @@ import (
 )
 
 var (
-	cfgFile      string
-	Debug        bool
-	progress     bool
-	showTotal    bool
-	showFiles    = argtype.NewStringSet("Verbose", "none", []string{"all", "failing", "none"})
-	showTests    = argtype.NewStringSet("Verbose", "failing", []string{"all", "failing", "none"})
-	showDetail   bool
-	failFast     bool
-	OutputFormat = argtype.NewStringSet("OutputFormat", "text", []string{"text", "json", "filenames"})
-	fileSize     argtype.Range
-	globber      Globber
+	cfgFile        string
+	Debug          bool
+	progress       bool
+	showTotal      bool
+	showFiles      = argtype.NewStringSet("Verbose", "none", []string{"all", "failing", "none"})
+	showTests      = argtype.NewStringSet("Verbose", "failing", []string{"all", "failing", "none"})
+	showDetail     bool
+	failFast       bool
+	OutputFormat   = argtype.NewStringSet("OutputFormat", "text", []string{"text", "json", "markdown", "filenames"})
+	fileSize       argtype.Range
+	globber        Globber
+	ignoreFile     string
+	ignoreDotFiles bool
 )
 
 func AddCommon(rootCmd *cobra.Command) {
@@ -41,6 +43,8 @@ func AddCommon(rootCmd *cobra.Command) {
 	rootCmd.PersistentFlags().Var(&fileSize, "filesize", "Range of allowed file size")
 	globber.Set("doublestar")
 	rootCmd.PersistentFlags().Var(&globber, "glob", "How to expand [wildcards](/files.html) in file names [ doublestar | golang | none ]")
+	rootCmd.PersistentFlags().StringVar(&ignoreFile, "ignore-file", ".gitignore", "ignore file")
+	rootCmd.PersistentFlags().BoolVar(&ignoreDotFiles, "ignore-dotfiles", true, "Ignore files/directory starting with a dot (.)")
 
 	// Cobra also supports local flags, which will only run
 	// when this action is called directly.

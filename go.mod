@@ -13,6 +13,7 @@ require (
 	github.com/mitchellh/go-homedir v1.1.0
 	github.com/muesli/mango-cobra v1.1.0
 	github.com/muesli/roff v0.1.0
+	github.com/olekukonko/tablewriter v0.0.5
 	github.com/rogpeppe/go-internal v1.8.1
 	github.com/santhosh-tekuri/jsonschema/v5 v5.0.0
 	github.com/shopspring/decimal v1.3.1
