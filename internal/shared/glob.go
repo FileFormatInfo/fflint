@@ -72,10 +72,7 @@ func doublestarExpander(args []string) ([]FileContext, error) {
 		fsys := os.DirFS(basepath)
 		argfiles, dsErr := doublestar.Glob(fsys, pattern)
 		if dsErr != nil {
-			if Debug {
-				fmt.Fprintf(os.Stderr, "ERROR: doublestar error %s expanding %s at %s\n", dsErr, pattern, basepath)
-			}
-			return fcs, dsErr
+			return nil, fmt.Errorf("Unable to expand %s at %s (doublestarExpander %w)", pattern, basepath, dsErr)
 		}
 		for _, argfile := range argfiles {
 
@@ -91,11 +88,9 @@ func doublestarExpander(args []string) ([]FileContext, error) {
 
 			fi, statErr := fc.Stat()
 			if statErr != nil {
-				if Debug {
-					fmt.Fprintf(os.Stderr, "ERROR: unable to stat %s: %s\n", fullpath, statErr)
-				}
-				continue
+				return nil, fmt.Errorf("Unable to stat %s (doublestarExpander, %w)", arg, statErr)
 			}
+
 			if fi.IsDir() {
 				if Debug {
 					fmt.Fprintf(os.Stderr, "WARNING: doublestar returned a directory: %s\n", fullpath)
@@ -121,8 +116,7 @@ func noExpander(args []string) ([]FileContext, error) {
 
 		fi, statErr := fc.Stat()
 		if statErr != nil {
-			//LATER
-			continue
+			return nil, fmt.Errorf("Unable to stat %s (noExpander, %w)", arg, statErr)
 		}
 		if fi.IsDir() {
 			//LATER: or recurse?
@@ -141,7 +135,10 @@ func golangExpander(args []string) ([]FileContext, error) {
 	fcs := []FileContext{}
 
 	for _, arg := range args {
-		argfiles, _ := filepath.Glob(homedirExpand(arg))
+		argfiles, globErr := filepath.Glob(homedirExpand(arg))
+		if globErr != nil {
+			return nil, fmt.Errorf("Unable to glob %s (golangExpander, %w)", arg, globErr)
+		}
 		for _, argfile := range argfiles {
 
 			if ignoreDotFiles && argfile[0] == '.' {
@@ -224,6 +221,9 @@ func MakeFileCommand(checkFn func(*FileContext)) func(cmd *cobra.Command, args [
 		//LATER: handle @file, @-0 for names on stdin
 		if useGlobber {
 			fcs, _ = globFunctions[globber.String()](args)
+		}
+		if len(fcs) == 0 {
+			return fmt.Errorf("No files to badger")
 		}
 		if Debug {
 			fmt.Fprintf(os.Stderr, "DEBUG: %d files after arg expansion\n", len(fcs))

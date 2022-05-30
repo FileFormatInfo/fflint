@@ -1,0 +1,38 @@
+! exec badger xml unclosed.xml
+
+exec badger xml foo.xml
+
+exec badger xml sitemap.xml
+
+exec badger xml --schema=sitemap.xsd sitemap.xml
+
+exec badger xml --schema=siteindex.xsd siteindex.xml
+
+-- foo.xml --
+<foo></foo>
+
+-- unclosed.xml --
+<bad>
+
+-- sitemap.xml --
+<urlset
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9"
+		xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+		<url><loc>https://www.badger.sh/index.html</loc></url>
+		<url><loc>https://www.badger.sh/faq.html</loc></url>
+</urlset>
+
+-- siteindex.xml --
+<?xml version='1.0' encoding='UTF-8'?>
+<sitemapindex
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9"
+	xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+	<sitemap>
+		<loc>https://www.fileformat.info/info/charset/sitemap.xml</loc>
+	</sitemap>
+	<sitemap>
+		<loc>https://www.fileformat.info/info/unicode/version/sitemap.xml</loc>
+	</sitemap>
+</sitemapindex>
