@@ -1,16 +1,16 @@
 package command
 
 import (
-	"github.com/fileformat/badger/internal/schemas"
+	"bytes"
+
+	"github.com/antchfx/xmlquery"
 	"github.com/fileformat/badger/internal/shared"
-	"github.com/lestrrat-go/libxml2"
-	"github.com/lestrrat-go/libxml2/xsd"
 	"github.com/spf13/cobra"
 )
 
 var (
-	schema    string
-	xsdSchema *xsd.Schema
+	schema string
+	//xsdSchema *xsd.Schema
 )
 
 // xmlCmd represents the xml command
@@ -39,32 +39,32 @@ func xmlCheck(f *shared.FileContext) {
 		return
 	}
 
-	/*
-		_, parseErr := xmlquery.Parse(bytes.NewReader(data))
+	_, parseErr := xmlquery.Parse(bytes.NewReader(data))
 
-		if parseErr != nil {
-			f.RecordResult("xmlParse", false, map[string]interface{}{
-				"error": parseErr,
-			})
-			return
-		}
-	*/
-
-	doc, parseErr := libxml2.ParseString(string(data))
 	if parseErr != nil {
 		f.RecordResult("xmlParse", false, map[string]interface{}{
-			"error": shared.ErrString(parseErr),
+			"error": parseErr,
 		})
 		return
 	}
-	defer doc.Free()
 
-	if xsdSchema != nil {
-		xsdErr := xsdSchema.Validate(doc)
-		f.RecordResult("xmlSchema", xsdErr == nil, map[string]interface{}{
-			"error": shared.ErrString(xsdErr),
-		})
-	}
+	/*
+		doc, parseErr := libxml2.ParseString(string(data))
+		if parseErr != nil {
+			f.RecordResult("xmlParse", false, map[string]interface{}{
+				"error": shared.ErrString(parseErr),
+			})
+			return
+		}
+		defer doc.Free()
+
+		if xsdSchema != nil {
+			xsdErr := xsdSchema.Validate(doc)
+			f.RecordResult("xmlSchema", xsdErr == nil, map[string]interface{}{
+				"error": shared.ErrString(xsdErr),
+			})
+		}
+	*/
 }
 
 func xmlInit(cmd *cobra.Command, args []string) error {
@@ -72,28 +72,36 @@ func xmlInit(cmd *cobra.Command, args []string) error {
 	if schema == "" {
 		return nil
 	}
+	/*
+		data, getErr := schemas.GetXmlSchema(schema)
+		if getErr != nil {
+			return getErr
+		}
 
-	data, getErr := schemas.GetXmlSchema(schema)
-	if getErr != nil {
-		return getErr
-	}
-
-	var parseErr error
-	xsdSchema, parseErr = xsd.Parse(data)
-	if parseErr != nil {
-		return parseErr
-	}
+		var parseErr error
+		xsdSchema, parseErr = xsd.Parse(data)
+		if parseErr != nil {
+			return parseErr
+		}
+	*/
 	return nil
 }
 
 func xmlCleanup(cmd *cobra.Command, args []string) error {
-
-	if xsdSchema != nil {
-		xsdSchema.Free()
-	}
+	/*
+		if xsdSchema != nil {
+			xsdSchema.Free()
+		}
+	*/
 	return nil
 }
 
 //LATER: schema validation
+
+//NO: wrappers around libxml2 :(
 // https://github.com/lestrrat-go/libxml2 /xsd
 // https://github.com/terminalstatic/go-xsd-validate
+// https://github.com/krolaw/xsd
+
+// or generate for specific xsd's: https://github.com/xuri/xgen
+// https://github.com/droyo/go-xml
