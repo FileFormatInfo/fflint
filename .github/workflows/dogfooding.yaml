@@ -29,6 +29,12 @@ jobs:
         run: |
           ./badger ico --show-tests=all docs/favicon.ico
 
+      - name: Check markdown frontmatter
+        run: |
+          ./badger frontmatter --required=title "docs/**/*.md"
+
+      # LATER: build website w/Jekyll and test the generated files
+
       - name: Generate reports
         run: |
           echo "# Badgering the badger" >$GITHUB_STEP_SUMMARY
@@ -36,4 +42,4 @@ jobs:
           ./badger ext --output=markdown "./**" >>$GITHUB_STEP_SUMMARY
           echo "" >>$GITHUB_STEP_SUMMARY
           echo "## Content types in use" >>$GITHUB_STEP_SUMMARY
-          ./badger markdown --output=markdown "./**" >>$GITHUB_STEP_SUMMARY
+          ./badger mimetype --output=markdown "./**" >>$GITHUB_STEP_SUMMARY
