@@ -15,7 +15,6 @@
 - [ ] doc: upgrade bootstrap
 - [ ] frontmatter: report
 - [ ] til frontmatter: title,noindex,layout,draft,date,tags,created
-- [ ] handle .gitignore [go-gitignore](https://pkg.go.dev/github.com/sabhiram/go-gitignore)
 - [ ] github actions working
 - [ ] OptionalBool flag type: required/any/forbidden
 - [ ] Dimensions flag (ranges): WxH || N (=square)
@@ -26,7 +25,6 @@
 
 ## Docs
 
-- [ ] sitemap.xml
 - [ ] better description on home page
 - [ ] local contact page
 - [ ] command `Long` should include links to file format specifications
@@ -35,6 +33,7 @@
 - [ ] quick start
 - [ ] using in pre-commit hook, CI pipeline(s), etc.
 - [ ] examples: everything in an online sitemap.xml
+- [ ] add link to [ignorefile specs](https://git-scm.com/docs/gitignore)
 
 ## General work
 
@@ -111,7 +110,6 @@
 ## Globbing improvements
 
 - [ ] glob: alternative globber [mattn/go-zglob](https://github.com/mattn/go-zglob)
-- [ ] glob: flag to specify an ignore file (i.e. .gitignore or .dockerignore)
 - [ ] glob: --recursion flag and handle directories
 - [ ] glob: case insensitive sort of files before processing
 - [ ] support for filenames (on stdin) separated by 0x00 byte
@@ -181,3 +179,4 @@ https://github.com/jhspetersson/fselect
 https://github.com/github/super-linter#supported-linters
 https://htmlhint.com/docs/user-guide/list-rules
 https://stackoverflow.com/questions/29838185/how-to-detect-additional-mime-type-in-golang
+text/tabwriter

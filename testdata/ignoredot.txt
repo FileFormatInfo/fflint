@@ -1,0 +1,46 @@
+#
+# Testing --ignore-dotfiles with doublestar expander
+#
+exec badger --ignore-dotfiles=true --show-totals text *.txt
+stdout '^INFO: files tested: 1$'
+
+exec badger --ignore-dotfiles=false --show-totals text *.txt
+stdout '^INFO: files tested: 2$'
+
+exec badger --ignore-dotfiles=true --show-totals text **/*.txt
+stdout '^INFO: files tested: 2$'
+
+exec badger --ignore-dotfiles=false --show-totals text **/*.txt
+stdout '^INFO: files tested: 4$'
+
+#
+# Testing --ignore-dotfiles with golang expander
+#
+exec badger --ignore-dotfiles=true --show-totals --glob=golang text *.txt
+stdout '^INFO: files tested: 1$'
+
+exec badger --ignore-dotfiles=false --show-totals --glob=golang text *.txt
+stdout '^INFO: files tested: 2$'
+
+exec badger --ignore-dotfiles=true --show-totals --glob=golang text *.txt subdir/*.txt
+stdout '^INFO: files tested: 2$'
+
+exec badger --ignore-dotfiles=false --show-totals --glob=golang text *.txt subdir/*.txt
+stdout '^INFO: files tested: 4$'
+
+
+-- .dotfile.txt --
+
+A dotfile!
+
+-- standard.txt --
+
+Not a dot file
+
+-- subdir/.dotfile.txt --
+
+Dotfile in a subdirectory
+
+-- subdir/standard.txt --
+
+Not a dot file in a subdirectory

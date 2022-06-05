@@ -14,17 +14,18 @@ import (
 )
 
 var (
-	cfgFile        string
-	Debug          bool
-	progress       bool
-	showTotal      bool
-	showFiles      = argtype.NewStringSet("Verbose", "none", []string{"all", "failing", "none"})
-	showTests      = argtype.NewStringSet("Verbose", "failing", []string{"all", "failing", "none"})
-	showDetail     bool
-	failFast       bool
-	OutputFormat   = argtype.NewStringSet("OutputFormat", "text", []string{"text", "json", "markdown", "filenames"})
-	fileSize       argtype.Range
-	globber        Globber
+	cfgFile      string
+	Debug        bool
+	progress     bool
+	showTotal    bool
+	showFiles    = argtype.NewStringSet("Verbose", "none", []string{"all", "failing", "none"})
+	showTests    = argtype.NewStringSet("Verbose", "failing", []string{"all", "failing", "none"})
+	showDetail   bool
+	failFast     bool
+	OutputFormat = argtype.NewStringSet("OutputFormat", "text", []string{"text", "json", "markdown", "filenames"})
+	fileSize     argtype.Range
+	globber      Globber
+	//ignoreExact    []string
 	ignoreFile     string
 	ignoreDotFiles bool
 )
@@ -43,12 +44,13 @@ func AddCommon(rootCmd *cobra.Command) {
 	rootCmd.PersistentFlags().Var(&fileSize, "filesize", "Range of allowed file size")
 	globber.Set("doublestar")
 	rootCmd.PersistentFlags().Var(&globber, "glob", "How to expand [wildcards](/files.html) in file names [ doublestar | golang | none ]")
-	rootCmd.PersistentFlags().StringVar(&ignoreFile, "ignore-file", ".gitignore", "ignore file")
-	rootCmd.PersistentFlags().BoolVar(&ignoreDotFiles, "ignore-dotfiles", true, "Ignore files/directory starting with a dot (.)")
+	rootCmd.PersistentFlags().StringVar(&ignoreFile, "ignore-file", DEFAULT_IGNORE_FILE, "ignore file")
+	rootCmd.PersistentFlags().BoolVar(&ignoreDotFiles, "ignore-dotfiles", true, "Ignore files/directories starting with a dot (.)")
+	//rootCmd.PersistentFlags().StringSliceVar(&ignoreExact, "ignore", []string{".git"}, "Specific files to ignore")
 
 	// Cobra also supports local flags, which will only run
 	// when this action is called directly.
-	rootCmd.PersistentFlags().BoolVar(&showTotal, "totals", true, "Show total files tested, passed and failed")
+	rootCmd.PersistentFlags().BoolVar(&showTotal, "show-totals", true, "Show total files tested, passed and failed")
 	rootCmd.PersistentFlags().Var(&showFiles, "show-files", "Show each file "+showFiles.HelpText())
 	rootCmd.PersistentFlags().Var(&showTests, "show-tests", "Show each test "+showTests.HelpText())
 	rootCmd.PersistentFlags().BoolVar(&failFast, "fail-fast", false, "Stop as soon as any test fails")

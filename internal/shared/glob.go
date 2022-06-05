@@ -15,7 +15,7 @@ import (
 	"github.com/spf13/cobra"
 )
 
-type globFn = func(args []string) ([]FileContext, error)
+type globFn = func(ignorer ignoreFn, args []string) ([]FileContext, error)
 
 //LATER: regex-based globber
 //LATER: glob with https://github.com/gobwas/glob
@@ -61,7 +61,7 @@ func homedirExpand(arg string) string {
 	return expanded
 }
 
-func doublestarExpander(args []string) ([]FileContext, error) {
+func doublestarExpander(ignorer ignoreFn, args []string) ([]FileContext, error) {
 	fcs := []FileContext{}
 
 	for _, arg := range args {
@@ -76,7 +76,17 @@ func doublestarExpander(args []string) ([]FileContext, error) {
 		}
 		for _, argfile := range argfiles {
 
-			if ignoreDotFiles && argfile[0] == '.' {
+			if ignoreDotFiles {
+				_, fileName := filepath.Split(argfile)
+				if fileName[0] == '.' {
+					if Debug {
+						fmt.Fprintf(os.Stderr, "DEBUG: skipping dotfile %s\n", argfile)
+					}
+					continue
+				}
+			}
+
+			if ignorer(argfile) == true {
 				continue
 			}
 
@@ -105,11 +115,16 @@ func doublestarExpander(args []string) ([]FileContext, error) {
 	return fcs, nil
 }
 
-func noExpander(args []string) ([]FileContext, error) {
+func noExpander(ignorer ignoreFn, args []string) ([]FileContext, error) {
 
 	fcs := []FileContext{}
 
 	for _, arg := range args {
+
+		if ignorer(arg) == true {
+			continue
+		}
+
 		fc := FileContext{
 			FilePath: homedirExpand(arg),
 		}
@@ -130,7 +145,7 @@ func noExpander(args []string) ([]FileContext, error) {
 	return fcs, nil
 }
 
-func golangExpander(args []string) ([]FileContext, error) {
+func golangExpander(ignorer ignoreFn, args []string) ([]FileContext, error) {
 
 	fcs := []FileContext{}
 
@@ -141,7 +156,17 @@ func golangExpander(args []string) ([]FileContext, error) {
 		}
 		for _, argfile := range argfiles {
 
-			if ignoreDotFiles && argfile[0] == '.' {
+			if ignoreDotFiles {
+				_, fileName := filepath.Split(argfile)
+				if fileName[0] == '.' {
+					if Debug {
+						fmt.Fprintf(os.Stderr, "DEBUG: skipping dotfile %s\n", argfile)
+					}
+					continue
+				}
+			}
+
+			if ignorer(argfile) == true {
 				continue
 			}
 
@@ -167,14 +192,6 @@ func golangExpander(args []string) ([]FileContext, error) {
 	return fcs, nil
 }
 
-/*
-func loadIgnoreFile() (*gitignore.Gitignore, error) {
-	ignorer, err := gitignore.CompileIgnoreFile(".gitignore")
-
-	return ignorer, err
-}
-*/
-
 func MakeFileCommand(checkFn func(*FileContext)) func(cmd *cobra.Command, args []string) error {
 
 	return func(cmd *cobra.Command, args []string) error {
@@ -187,6 +204,7 @@ func MakeFileCommand(checkFn func(*FileContext)) func(cmd *cobra.Command, args [
 			fmt.Fprintf(os.Stderr, "DEBUG: %d args\n", len(args))
 		}
 
+		ignorer := loadIgnoreFile(ignoreFile)
 		fcs := []FileContext{}
 		useGlobber := true
 		if len(args) == 1 && args[0] == "-" {
@@ -216,11 +234,11 @@ func MakeFileCommand(checkFn func(*FileContext)) func(cmd *cobra.Command, args [
 				fmt.Fprintf(os.Stderr, "DEBUG: %d lines read from stdin\n", len(args))
 			}
 			useGlobber = false
-			fcs, _ = noExpander(args)
+			fcs, _ = noExpander(ignorer, args)
 		}
 		//LATER: handle @file, @-0 for names on stdin
 		if useGlobber {
-			fcs, _ = globFunctions[globber.String()](args)
+			fcs, _ = globFunctions[globber.String()](ignorer, args)
 		}
 		if len(fcs) == 0 {
 			return fmt.Errorf("No files to badger")
@@ -280,7 +298,9 @@ func MakeFileCommand(checkFn func(*FileContext)) func(cmd *cobra.Command, args [
 					"bad":   bad,
 				}))
 			} else if OutputFormat.String() == "text" {
-				fmt.Printf("INFO: %d files tested, %d good, %d bad\n", total, good, bad)
+				fmt.Printf("INFO: files tested: %d\n", total)
+				fmt.Printf("INFO: files good: %d\n", good)
+				fmt.Printf("INFO: files bad: %d\n", bad)
 			}
 		}
 		if bad > 0 {
