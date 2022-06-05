@@ -1,16 +1,12 @@
 package shared
 
 import (
-	"fmt"
 	"os"
 
 	"github.com/fileformat/badger/internal/argtype"
 	"github.com/mattn/go-isatty"
 
 	"github.com/spf13/cobra"
-
-	homedir "github.com/mitchellh/go-homedir"
-	"github.com/spf13/viper"
 )
 
 var (
@@ -61,30 +57,4 @@ func AddCommon(rootCmd *cobra.Command) {
 
 	//LATER: executable flag: OptionalBool
 
-}
-
-// initConfig reads in config file and ENV variables if set.
-func InitConfig() {
-	if cfgFile != "" {
-		// Use config file from the flag.
-		viper.SetConfigFile(cfgFile)
-	} else {
-		// Find home directory.
-		home, err := homedir.Dir()
-		if err != nil {
-			fmt.Fprintf(os.Stderr, "ERROR: unable to get home directory: %s\n", err.Error())
-			os.Exit(1)
-		}
-
-		// Search config in home directory with name ".badger" (without extension).
-		viper.AddConfigPath(home)
-		viper.SetConfigName(".badger")
-	}
-
-	viper.AutomaticEnv() // read in environment variables that match
-
-	// If a config file is found, read it in.
-	if err := viper.ReadInConfig(); err == nil {
-		fmt.Println("Using config file:", viper.ConfigFileUsed())
-	}
 }
