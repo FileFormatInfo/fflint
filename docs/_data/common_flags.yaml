@@ -21,7 +21,7 @@
 - name: ignore-dotfiles
   default_value: "true"
   type: bool
-  usage: "Ignore files/directory starting with a dot (.)"
+  usage: "Ignore files/directories starting with a dot (.)"
 - name: ignore-file
   default_value: ".gitignore"
   type: string
@@ -46,7 +46,7 @@
   default_value: "failing"
   type: Verbose
   usage: "Show each test [ all | failing | none ]"
-- name: totals
+- name: show-totals
   default_value: "true"
   type: bool
   usage: "Show total files tested, passed and failed"

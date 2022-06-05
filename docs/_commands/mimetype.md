@@ -34,7 +34,7 @@ inherited_options:
     How to expand [wildcards](/files.html) in file names [ doublestar | golang | none ]
 - name: ignore-dotfiles
   default_value: "true"
-  usage: Ignore files/directory starting with a dot (.)
+  usage: Ignore files/directories starting with a dot (.)
 - name: ignore-file
   default_value: .gitignore
   usage: ignore file
@@ -54,7 +54,7 @@ inherited_options:
 - name: show-tests
   default_value: failing
   usage: Show each test [ all | failing | none ]
-- name: totals
+- name: show-totals
   default_value: "true"
   usage: Show total files tested, passed and failed
 example: Content type detection uses the Go standard library [http.DetectContentType](https://golang.org/pkg/net/http/#DetectContentType)

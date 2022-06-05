@@ -18,6 +18,7 @@ var (
 	svgNamespace    bool
 	svgNamespaces   []string
 	svgNamespaceSet map[string]bool
+	svgText         bool
 )
 
 // svgCmd represents the svg command
@@ -38,6 +39,7 @@ func AddSvgCommand(rootCmd *cobra.Command) {
 	svgCmd.Flags().Var(&svgWidth, "width", "Range of allowed SVG widths")
 	svgCmd.Flags().BoolVar(&svgNamespace, "namespace", true, "Check namespaces")
 	svgCmd.Flags().StringSliceVar(&svgNamespaces, "namespaces", []string{}, "Additional namespaces allowed when checking namespaces (`*` for all)")
+	svgCmd.Flags().BoolVar(&svgText, "text", false, "Allow text nodes")
 	//LATER: no text
 	//LATER: raster inclusions: none/embedded/linked/any (https://github.com/svg/svgo/blob/main/plugins/removeRasterImages.js)
 	//LATER: off-canvas paths (https://github.com/svg/svgo/blob/main/plugins/removeOffCanvasPaths.js)
@@ -138,6 +140,31 @@ func svgCheck(f *shared.FileContext) {
 			}
 		}
 	}
+
+	if svgText == false {
+		textNodes := rootElement.FindAll("text")
+		if len(textNodes) > 0 {
+			f.RecordResult("svgText", false, map[string]interface{}{
+				"textNodeCount": len(textNodes),
+				"textContent":   getContent(textNodes),
+			})
+		}
+	}
+}
+
+func getContent(elist []*svgparser.Element) string {
+	if len(elist) == 0 {
+		return ""
+	}
+
+	retVal := []string{}
+
+	for _, el := range elist {
+		retVal = append(retVal, el.Content)
+		retVal = append(retVal, getContent(el.Children))
+	}
+
+	return strings.Join(retVal, " ")
 }
 
 func svgPrepare(cmd *cobra.Command, args []string) error {
