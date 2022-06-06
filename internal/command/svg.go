@@ -19,6 +19,8 @@ var (
 	svgNamespaces   []string
 	svgNamespaceSet map[string]bool
 	svgText         bool
+	svgForeign      bool
+	svgImage        = argtype.NewStringSet("Images", "none", []string{"any", "embedded", "external", "none"})
 )
 
 // svgCmd represents the svg command
@@ -40,7 +42,8 @@ func AddSvgCommand(rootCmd *cobra.Command) {
 	svgCmd.Flags().BoolVar(&svgNamespace, "namespace", true, "Check namespaces")
 	svgCmd.Flags().StringSliceVar(&svgNamespaces, "namespaces", []string{}, "Additional namespaces allowed when checking namespaces (`*` for all)")
 	svgCmd.Flags().BoolVar(&svgText, "text", false, "Allow text nodes")
-	//LATER: no text
+	svgCmd.Flags().BoolVar(&svgForeign, "foreign", false, "Allow foreign objects")
+	svgCmd.Flags().Var(&svgImage, "images", "Embedded image control "+svgImage.HelpText())
 	//LATER: raster inclusions: none/embedded/linked/any (https://github.com/svg/svgo/blob/main/plugins/removeRasterImages.js)
 	//LATER: off-canvas paths (https://github.com/svg/svgo/blob/main/plugins/removeOffCanvasPaths.js)
 	//LATER: external links: OptionalBool
@@ -146,25 +149,60 @@ func svgCheck(f *shared.FileContext) {
 		if len(textNodes) > 0 {
 			f.RecordResult("svgText", false, map[string]interface{}{
 				"textNodeCount": len(textNodes),
-				"textContent":   getContent(textNodes),
+				"textContent":   getLimitedContent(textNodes, 80),
 			})
 		}
 	}
+
+	/* doesn't seem to work??? */
+	if svgForeign == false {
+		foNodes := rootElement.FindAll("foreignObject")
+		if len(foNodes) > 0 {
+			f.RecordResult("svgForeignObject", false, map[string]interface{}{
+				"foreignObjectNodeCount": len(foNodes),
+			})
+		}
+	}
+
+	if svgImage.String() != "any" {
+		imageNodes := rootElement.FindAll("image")
+		if len(imageNodes) > 0 {
+			if svgImage.String() == "none" {
+				f.RecordResult("svgImage", false, map[string]interface{}{
+					"imageNodeCount": len(imageNodes),
+				})
+			}
+		}
+
+	}
 }
 
-func getContent(elist []*svgparser.Element) string {
-	if len(elist) == 0 {
-		return ""
+//LATER: limit total length of content add ellipsis
+func getContent(contentCache []string, elist []*svgparser.Element) []string {
+	if contentCache == nil {
+		contentCache = []string{}
 	}
 
-	retVal := []string{}
+	if len(elist) == 0 {
+		return contentCache
+	}
 
 	for _, el := range elist {
-		retVal = append(retVal, el.Content)
-		retVal = append(retVal, getContent(el.Children))
+		contentCache = append(contentCache, el.Content)
+		contentCache = getContent(contentCache, el.Children)
 	}
 
-	return strings.Join(retVal, " ")
+	return contentCache
+}
+func getLimitedContent(elist []*svgparser.Element, limit int) string {
+
+	content := getContent(nil, elist)
+
+	retVal := strings.Join(content, " ") //LATER: custom loop with early break
+	if len(retVal) > limit {
+		retVal = retVal[:limit-1] + "\u2026"
+	}
+	return retVal
 }
 
 func svgPrepare(cmd *cobra.Command, args []string) error {
