@@ -1,0 +1,67 @@
+name: deploy
+
+on:
+  push:
+    # run only against tags
+    tags:
+      - '*'
+
+  workflow_dispatch:
+
+# Environment variables available to all jobs and steps in this workflow
+# NOTE: these aren't really secret, but there aren't non-secret settings
+env:
+  RUN_PROJECT: ${{ secrets.RUN_PROJECT }}
+  RUN_REGION: ${{ secrets.RUN_REGION }}
+  RUN_SERVICE: ${{ secrets.RUN_SERVICE }}
+
+jobs:
+  deploy:
+    name: Deploy to CloudRun
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+
+      - name: gcloud auth
+        id: 'auth'
+        uses: 'google-github-actions/auth@v0'
+        with:
+          credentials_json: '${{ secrets.GCP_SA_KEY }}'
+
+      # Setup gcloud CLI
+      - name: gcloud setup
+        uses: google-github-actions/setup-gcloud@v0
+
+      - name: gcloud docker-auth
+        run: gcloud auth configure-docker
+
+      # Build and push image to Google Container Registry
+      - name: Build
+        run: |
+          docker build \
+            --build-arg COMMIT=${GITHUB_SHA:0:7} \
+            --build-arg LASTMOD=$(date -u +%Y-%m-%dT%H:%M:%SZ) \
+            --build-arg BUILTBY=github-actions \
+            --build-arg VERSION=${GITHUB_REF_NAME} \
+            --tag gcr.io/${RUN_PROJECT}/${RUN_SERVICE}:$GITHUB_SHA \
+            .
+
+      - name: GCloud auth to docker
+        run: |
+          gcloud auth configure-docker
+
+      - name: Push to registry
+        run: |
+          docker push gcr.io/${RUN_PROJECT}/${RUN_SERVICE}:$GITHUB_SHA
+
+      # Deploy image to Cloud Run
+      - name: Deploy
+        run: |
+          gcloud run deploy ${RUN_SERVICE} \
+            --allow-unauthenticated \
+            --image gcr.io/${RUN_PROJECT}/${RUN_SERVICE}:$GITHUB_SHA \
+            --platform managed \
+            --project ${RUN_PROJECT} \
+            --region ${RUN_REGION}

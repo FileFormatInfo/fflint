@@ -1,0 +1,6 @@
+# robots.txt for badger.sh online API
+#
+# Just a single page, but feel free to index it!
+#
+User-Agent: *
+Allow: /
