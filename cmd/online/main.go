@@ -3,12 +3,15 @@ package main
 import (
 	"bufio"
 	"bytes"
+	"embed"
 	"encoding/json"
 	"fmt"
+	"io/fs"
 	"io/ioutil"
 	"net/http"
 	"os"
 	"os/exec"
+	"runtime"
 	"strings"
 	"time"
 
@@ -23,17 +26,64 @@ var (
 	builtBy  = "unknown"
 	port     int
 	bindHost string
+	//go:embed assets
+	embeddedFiles embed.FS
 )
 
 func main() {
 
 	flag.IntVar(&port, "port", 4000, "port")
-	flag.StringVar(&bindHost, "bindhost", "", "bindHost")
+	flag.StringVar(&bindHost, "bind", "", "IP address to bind to (localhost to avoid MacOS popup)")
+	flag.Parse()
 
 	mux := http.NewServeMux()
 	mux.HandleFunc("/api/", command_handler)
+	mux.HandleFunc("/status.json", status_handler)
 
+	fsys, err := fs.Sub(embeddedFiles, "assets")
+	if err != nil {
+		panic(err)
+	}
+
+	mux.Handle("/", http.FileServer(http.FS(fsys)))
 	http.ListenAndServe(fmt.Sprintf("%s:%d", bindHost, port), mux)
+}
+
+type statusResponse struct {
+	Success   bool   `json:"success"`
+	Message   string `json:"message"`
+	Timestamp string `json:"timestamp"`
+	Commit    string `json:"commit"`
+	LastMod   string `json:"lastmod"`
+	Tech      string `json:"tech"`
+	BuiltBy   string `json:"builtby"`
+	Version   string `json:"version"`
+	Getwd     string `json:"os.Getwd()"`
+	//Hostname  string `json:"os.Hostname()"`
+	//TempDir   string `json:"os.TempDir()"`
+}
+
+func status_handler(w http.ResponseWriter, r *http.Request) {
+
+	var status = statusResponse{
+		Success:   true,
+		Message:   "OK",
+		Timestamp: time.Now().UTC().Format(time.RFC3339),
+		Commit:    commit,
+		LastMod:   date,
+		Version:   version,
+		BuiltBy:   builtBy,
+		Tech:      runtime.Version(),
+	}
+
+	wd, err := os.Getwd()
+	if err != nil {
+		status.Getwd = "ERROR: " + err.Error()
+	} else {
+		status.Getwd = wd
+	}
+
+	online.WriteJsonp(w, r, status)
 }
 
 type errorResponse struct {
@@ -97,9 +147,7 @@ func command_handler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Get a reference to the fileHeaders.
-	// They are accessible only after ParseMultipartForm is called
-	_, fileHeader, fileErr := r.FormFile("file")
+	_, fileHeader, fileErr := r.FormFile("file") //LATER: loop through multiple files
 	if fileErr != nil {
 		online.WriteJsonp(w, r, errorResponse{
 			Success:   false,
