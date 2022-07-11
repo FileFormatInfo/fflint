@@ -1,0 +1,24 @@
+
+! exec badger frontmatter --show-tests=all missing.md
+
+exec badger frontmatter --show-tests=all test.md
+
+! exec badger frontmatter --show-tests=all test.sql
+
+exec badger frontmatter --delimiters=/***,***/ --debug --show-tests=all test.sql
+
+-- test.md --
+---
+title: Markdown with frontmatter
+---
+Content
+
+-- missing.md --
+Content
+
+-- test.sql --
+/***
+title: SQL with custom delimiters
+***/
+SELECT * FROM examples
+

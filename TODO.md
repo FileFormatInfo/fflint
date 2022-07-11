@@ -22,6 +22,15 @@
 - [ ] SignedRange (i.e. handle negative numbers: -10-10, -20--10, --10, -10-)
 - [ ] Range: take a comma-separated list of acceptable values
 
+## Online
+
+- [ ] logging (not per-page, since that is done by CloudRun)
+- [ ] disclaimer in all responses
+- [ ] verbose flag
+- [ ] pass flags to badger
+- [ ] forms (in docs)
+- [ ] api.html (in docs)
+- [ ] links to forms from /index.html
 
 ## Docs
 

@@ -18,7 +18,7 @@ var (
 
 // textCmd represents the text command
 var textCmd = &cobra.Command{
-	Use:   "text",
+	Use:   "text [options] files...",
 	Short: "Validate plain text files",
 	Long:  `Checks that plain text files really are plain text, have the correct line endings and more`,
 	RunE:  shared.MakeFileCommand(textCheck),

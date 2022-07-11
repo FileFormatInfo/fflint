@@ -23,18 +23,15 @@ var (
 	svgImage        = argtype.NewStringSet("Images", "none", []string{"any", "embedded", "external", "none"})
 )
 
-// svgCmd represents the svg command
-var svgCmd = &cobra.Command{
-	Args:    cobra.MinimumNArgs(1),
-	Use:     "svg",
-	Short:   "Validate SVG images",
-	Long:    `Check that SVG files are error free and (optionally) don't have any undesirable things in them.`,
-	PreRunE: svgPrepare,
-	RunE:    shared.MakeFileCommand(svgCheck),
-}
-
 func AddSvgCommand(rootCmd *cobra.Command) {
-	rootCmd.AddCommand(svgCmd)
+	var svgCmd = &cobra.Command{
+		Args:    cobra.MinimumNArgs(1),
+		Use:     "svg [options] files...",
+		Short:   "Validate SVG images",
+		Long:    `Check that SVG files are error free and (optionally) don't have any undesirable things in them.`,
+		PreRunE: svgPrepare,
+		RunE:    shared.MakeFileCommand(svgCheck),
+	}
 
 	svgCmd.Flags().Var(&svgHeight, "height", "Range of allowed SVG heights")
 	svgCmd.Flags().Var(&svgViewBox, "viewbox", "Ranges of allowed SVG viewBox values")
@@ -57,6 +54,7 @@ func AddSvgCommand(rootCmd *cobra.Command) {
 	//LATER: meta
 	//LATER: optimized (and/or pretty?)
 
+	rootCmd.AddCommand(svgCmd)
 }
 
 func svgCheck(f *shared.FileContext) {

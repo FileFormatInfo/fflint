@@ -11,7 +11,7 @@ import (
 // jsonCmd represents the json command
 var jsonCmd = &cobra.Command{
 	Args:  cobra.MinimumNArgs(1),
-	Use:   "json",
+	Use:   "json [options] files...",
 	Short: "Validate JSON files",
 	Long:  `Check that your JSON files are valid`,
 	RunE:  shared.MakeFileCommand(jsonCheck),

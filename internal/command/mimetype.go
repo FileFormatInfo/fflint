@@ -23,7 +23,7 @@ var (
 var mimetypeCmd = &cobra.Command{
 	Aliases:  []string{"mt", "filetype"},
 	Args:     cobra.MinimumNArgs(1),
-	Use:      "mimetype [flags] files...",
+	Use:      "mimetype [options] files...",
 	Short:    "Validate (or report) MIME content types",
 	Long:     `Check and report on the MIME content types in use`,
 	Example:  `Content type detection uses the Go standard library [http.DetectContentType](https://golang.org/pkg/net/http/#DetectContentType) function.`,

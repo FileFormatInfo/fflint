@@ -16,7 +16,7 @@ var (
 // xmlCmd represents the xml command
 var xmlCmd = &cobra.Command{
 	Args:     cobra.MinimumNArgs(1),
-	Use:      "xml",
+	Use:      "xml [options] files...",
 	Short:    "Validate XML files",
 	Long:     `Checks that your XML files are valid`,
 	PreRunE:  xmlInit,

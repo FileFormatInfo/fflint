@@ -15,7 +15,7 @@ var (
 )
 var yamlCmd = &cobra.Command{
 	Args:    cobra.MinimumNArgs(1),
-	Use:     "yaml",
+	Use:     "yaml [options] files...",
 	Short:   "Validate YAML files",
 	Long:    `Check that your YAML files are valid`,
 	PreRunE: yamlPrepare,

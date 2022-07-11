@@ -17,7 +17,7 @@ var (
 // jpegCmd represents the jpeg command
 var jpegCmd = &cobra.Command{
 	Args:  cobra.MinimumNArgs(1),
-	Use:   "jpeg",
+	Use:   "jpeg [options] files...",
 	Short: "Validate JPEG images",
 	Long:  `Check that your JPEG files are valid`,
 	RunE:  shared.MakeFileCommand(jpegCheck),

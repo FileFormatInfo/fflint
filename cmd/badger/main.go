@@ -29,19 +29,8 @@ func main() {
 
 	shared.AddCommon(rootCmd)
 
-	command.AddExtCommand(rootCmd)
-	command.AddFrontmatterCommand(rootCmd)
-	command.AddHtmlCommand(rootCmd)
-	command.AddIcoCommand(rootCmd)
-	command.AddJpegCommand(rootCmd)
-	command.AddJsonCommand(rootCmd)
-	command.AddMimeTypeCommand(rootCmd)
-	command.AddPngCommand(rootCmd)
-	command.AddSvgCommand(rootCmd)
-	command.AddTextCommand(rootCmd)
+	command.AddAllCommands(rootCmd)
 	command.AddVersionCommand(rootCmd, command.VersionInfo{Commit: commit, Version: version, LastMod: date, Builder: builtBy})
-	command.AddXmlCommand(rootCmd)
-	command.AddYamlCommand(rootCmd)
 
 	if err := rootCmd.Execute(); err != nil {
 		fmt.Fprintf(os.Stderr, "ERROR: %v\n", err.Error())

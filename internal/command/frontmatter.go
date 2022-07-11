@@ -3,6 +3,7 @@ package command
 import (
 	"bytes"
 	"fmt"
+	"os"
 
 	"github.com/adrg/frontmatter"
 	"github.com/fileformat/badger/internal/shared"
@@ -11,17 +12,18 @@ import (
 )
 
 var (
-	fmReport    bool
-	fmStrict    bool
-	fmStrictSet map[string]bool
-	fmSorted    bool
-	fmRequired  []string
-	fmOptional  []string
-	fmForbidden []string
+	fmReport     bool
+	fmStrict     bool
+	fmStrictSet  map[string]bool
+	fmSorted     bool
+	fmRequired   []string
+	fmOptional   []string
+	fmForbidden  []string
+	fmDelimiters []string
 )
 var frontmatterCmd = &cobra.Command{
 	Args:    cobra.MinimumNArgs(1),
-	Use:     "frontmatter",
+	Use:     "frontmatter [options] files...",
 	Short:   "Validate frontmatter",
 	Long:    `Checks that the frontmatter in your files is valid`,
 	PreRunE: frontmatterPrepare,
@@ -36,7 +38,8 @@ func AddFrontmatterCommand(rootCmd *cobra.Command) {
 	frontmatterCmd.Flags().StringSliceVar(&fmForbidden, "forbidden", []string{}, "Forbidden keys")
 	frontmatterCmd.Flags().BoolVar(&fmStrict, "strict", false, "Strict (keys must be in `--required` or `--optional`)")
 	frontmatterCmd.Flags().BoolVar(&fmSorted, "sorted", false, "Keys need to be in alphabetical order")
-	//LATER: content: required/optional/forbidden
+	frontmatterCmd.Flags().StringSliceVar(&fmDelimiters, "delimiters", []string{}, "Custom delimiters (if other than `---`, `+++` and `;;;`)")
+
 	//LATER: report
 	//LATER: schema
 }
@@ -53,12 +56,25 @@ func frontmatterCheck(f *shared.FileContext) {
 
 	yamlData := make(map[interface{}]interface{})
 
-	_, parseErr := frontmatter.Parse(bytes.NewReader(data), &yamlData)
+	var formats []*frontmatter.Format
 
+	if len(fmDelimiters) > 0 {
+		var end = fmDelimiters[0]
+		if len(fmDelimiters) > 1 {
+			end = fmDelimiters[1]
+		}
+		formats = append(formats, frontmatter.NewFormat(fmDelimiters[0], end, yaml.Unmarshal))
+		if shared.Debug {
+			fmt.Fprintf(os.Stderr, "DEBUG: using custom delimiters '%s' and '%s'\n", fmDelimiters[0], end)
+		}
+	}
+
+	_, parseErr := frontmatter.MustParse(bytes.NewReader(data), &yamlData, formats...)
+
+	f.RecordResult("frontmatterParse", parseErr == nil, map[string]interface{}{
+		"error": shared.ErrString(parseErr),
+	})
 	if parseErr != nil {
-		f.RecordResult("frontmatterParse", false, map[string]interface{}{
-			"error": parseErr,
-		})
 		return
 	}
 
@@ -129,6 +145,11 @@ func frontmatterPrepare(cmd *cobra.Command, args []string) error {
 		for _, key := range fmOptional {
 			fmStrictSet[key] = true
 		}
+	}
+
+	if len(fmDelimiters) > 2 {
+		fmt.Fprintf(os.Stderr, "ERROR: delimiter count must be <=2 (passed %d)", len(fmDelimiters))
+		os.Exit(7)
 	}
 	return nil
 }
