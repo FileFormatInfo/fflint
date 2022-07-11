@@ -1,0 +1,41 @@
+exec badger json string.json
+
+! exec badger json toosmall.json
+
+exec badger json object.json
+exec badger json something.json
+! exec badger json trailingcomma.json
+
+exec badger json --schema=object.schema.json object.json --show-tests=all --debug
+exec badger json --schema=object.schema.json --show-tests=all string.json --debug
+
+
+-- toosmall.json --
+{
+
+-- string.json --
+""
+
+-- object.json --
+{}
+
+-- something.json --
+{
+    "ab": true,
+    "cd": false
+}
+
+-- trailingcomma.json --
+{
+    "ab": true,
+    "cd": false,
+}
+
+-- object.schema.json --
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.com/product.schema.json",
+  "title": "Product",
+  "description": "A product in the catalog",
+  "type": "object"
+}
