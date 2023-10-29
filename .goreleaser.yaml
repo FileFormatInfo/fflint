@@ -1,10 +1,12 @@
-# documentation lives at https://goreleaser.com
+# This is an example .goreleaser.yml file with some sensible defaults.
+# Make sure to check the documentation at https://goreleaser.com
 before:
   hooks:
     - go mod tidy
     - ./bin/completions.sh
     - ./bin/manpages.sh
-    #- go generate ./...
+    # you may remove this if you don't need go generate
+    - go generate ./...
 builds:
   - env:
       - CGO_ENABLED=0
@@ -12,38 +14,21 @@ builds:
       - linux
       - windows
       - darwin
-    main: ./cmd/badger
+
 archives:
-  - replacements:
-      darwin: Darwin
-      linux: Linux
-      windows: Windows
-      386: i386
-      amd64: x86_64
+  - format: tar.gz
+    # this name template makes the OS and Arch compatible with the results of uname.
+    name_template: >-
+      {{ .ProjectName }}_
+      {{- title .Os }}_
+      {{- if eq .Arch "amd64" }}x86_64
+      {{- else if eq .Arch "386" }}i386
+      {{- else }}{{ .Arch }}{{ end }}
+      {{- if .Arm }}v{{ .Arm }}{{ end }}
+    # use zip for windows archives
     format_overrides:
-      - goos: windows
-        format: zip
-    files:
-      - README.md
-      - LICENSE.txt
-      - completions/*
-      - manpages/*
-brews:
-# - tap:
-#     owner: fileformat
-#     name: homebrew-tap
-#   folder: Formula
-#   homepage: https://www.badger.sh
-#   description: badger is file format linter for SVG, markdown, frontmatter, JSON and more.
-#   license: AGPL-3.0
-#   test: |
-#     system "#{bin}/badger -v"
-#   install: |-
-#     bin.install "badger"
-#     bash_completion.install "completions/badger.bash" => "badger"
-#     zsh_completion.install "completions/badger.zsh" => "_badger"
-#     fish_completion.install "completions/badger.fish"
-#     man1.install "manpages/badger.1.gz"
+    - goos: windows
+      format: zip
 checksum:
   name_template: 'checksums.txt'
 snapshot:
@@ -52,6 +37,10 @@ changelog:
   sort: asc
   filters:
     exclude:
-      - '^chore:'
       - '^docs:'
       - '^test:'
+
+# The lines beneath this are called `modelines`. See `:help modeline`
+# Feel free to remove those if you don't want/use them.
+# yaml-language-server: $schema=https://goreleaser.com/static/schema.json
+# vim: set ts=2 sw=2 tw=0 fo=cnqoj
