@@ -11,7 +11,6 @@ docs/*/*.json
 .DS_Store
 *.env
 foo
-Gemfile.lock
 .github/actions/badger-gha
 .idea/
 .jekyll-metadata
