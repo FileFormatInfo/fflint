@@ -1,5 +1,5 @@
 #
-# _config.yml for www.badger.sh
+# _config.yml for www.fflint.dev
 #
 
 collections:
@@ -7,8 +7,8 @@ collections:
     output: true
 exclude: [ "CNAME" ]
 permalink: /blog/:year/:month/:day/:title/index.:output_ext
-production_url: https://www.badger.sh
-title: Badger
+production_url: https://www.fflint.dev
+title: FFLint
 kramdown:
   input: GFM
   auto_ids: true

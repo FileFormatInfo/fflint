@@ -1,8 +1,8 @@
 ---
-title: "File Format Badger: make sure your files are valid!"
-h1: File Format Badger
+title: "FFLint - a linter to make sure your files are valid!"
+h1: File Format Lint
 ---
-Badger is a linter <a class="badge rounded-pill bg-dark link-light text-decoration-none" href="https://en.wikipedia.org/wiki/Lint_(software)">?</a> for file formats. Are your files:
+FFLint is a  <a href="https://en.wikipedia.org/wiki/Lint_(software)">linter</a> for file formats. Are your files:
 
  * in the correct format?
  * with the correct extension?

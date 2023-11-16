@@ -1,5 +1,8 @@
 #
-# robots.txt for badger
+# robots.txt for fflint
 #
+
+Sitemap: https://www.fflint.dev/sitemap.xml
+
 User-Agent: *
 Disallow: /honeypot.txt

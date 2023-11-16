@@ -6,6 +6,7 @@ import (
 	"embed"
 	"encoding/json"
 	"fmt"
+	"io"
 	"io/fs"
 	"io/ioutil"
 	"net/http"
@@ -178,7 +179,7 @@ func command_handler(w http.ResponseWriter, r *http.Request) {
 
 	defer f.Close()
 
-	data, readErr := ioutil.ReadAll(f)
+	data, readErr := io.ReadAll(f)
 	if readErr != nil {
 		online.WriteJsonp(w, r, errorResponse{
 			Success:   false,

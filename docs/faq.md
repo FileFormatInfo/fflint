@@ -1,32 +1,32 @@
 ---
-title: FAQ - Badger
+title: FAQ - FFLint
 h1: Frequently Asked Questions
 faq:
   - q: How can I edit just the files with errors?
   - a: |
         Use `--output=filenames` to get a list of files that failed.
 
+        ##### Some examples
+
         Open the files in an editor (`vi` in this example):
         ```bash
-        badger frontmatter --required=title --output=filenames --progress=false "./docs/**/*.md" | xargs vi
+        fflint frontmatter --required=title --output=filenames --progress=false "./docs/**/*.md" | xargs vi
         ```
 
         Optimize every SVG files that has extra namespaces:
         ```bash
-        badger svg --namespace --output=filenames --progress=false "**/*.svg" | xargs svgo
+        fflint svg --namespace --output=filenames --progress=false "**/*.svg" | xargs svgo
         ```
 
-  - q: My company does not allow AGPL licensed software.  How can I use it?
-    a: No problem!  See the [pricing](/pricing.html) page for affordable non-AGPL licenses.
+  - q: "How can I contact you?"
+    a: "[Github issues](https://github.com/FileFormatInfo/fflint/issues)"
 
 later:
-  - q: "How can I contact you?"
-    a: "[Github issues](), [contact page](), [paid support]()"
-
+  - add paid support
 ---
 
 {% for entry in page.faq %}
 <h4>{{entry.q}}</h4>
-<p>{{entry.a | markdownify}}</p>
+<div class="ms-3 mb-3">{{entry.a | markdownify}}</div>
 {% endfor %}
 
