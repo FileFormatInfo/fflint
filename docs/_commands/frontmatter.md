@@ -30,7 +30,7 @@ options:
       usage: Strict (keys must be in `--required` or `--optional`)
 inherited_options:
     - name: config
-      usage: config file (default is $HOME/.badger.yaml)
+      usage: config file (default is $HOME/.fflint.yaml)
     - name: debug
       default_value: "false"
       usage: Debugging output

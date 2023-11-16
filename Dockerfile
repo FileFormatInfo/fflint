@@ -16,18 +16,18 @@ RUN \
     -a \
     -installsuffix cgo \
     -ldflags "-X main.commit=$COMMIT -X main.date=$LASTMOD -X main.version=$VERSION -X main.builtBy=$BUILTBY -extldflags '-static'" \
-    -o badger-online cmd/online/main.go
+    -o fflint-online cmd/online/main.go
 
 RUN \
     CGO_ENABLED=0 GOOS=linux go build \
     -a \
     -installsuffix cgo \
     -ldflags "-X main.commit=$COMMIT -X main.date=$LASTMOD -X main.version=$VERSION -X main.builtBy=$BUILTBY -extldflags '-static'" \
-    -o badger cmd/badger/main.go
+    -o fflint cmd/fflint/main.go
 
 FROM scratch
-COPY --from=builder /build/badger /app/
-COPY --from=builder /build/badger-online /app/
+COPY --from=builder /build/fflint /app/
+COPY --from=builder /build/fflint-online /app/
 WORKDIR /app
 ENV PORT 4000
-ENTRYPOINT ["./badger-online"]
+ENTRYPOINT ["./fflint-online"]

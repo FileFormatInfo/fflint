@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/fileformat/badger/internal/command"
-	"github.com/fileformat/badger/internal/shared"
+	"github.com/FileFormatInfo/fflint/internal/command"
+	"github.com/FileFormatInfo/fflint/internal/shared"
 	mango "github.com/muesli/mango-cobra"
 	"github.com/muesli/roff"
 	"github.com/spf13/cobra"
@@ -13,9 +13,9 @@ import (
 
 func main() {
 	var rootCmd = &cobra.Command{
-		Use:   "badger",
-		Short: "Badgers you if your file formats are invalid",
-		Long:  `See [www.badger.sh](https://www.badger.sh/) for detailed instructions`,
+		Use:   "fflint",
+		Short: "A linter to make sure your files are valid",
+		Long:  `See [www.fflint.org](https://www.fflint.org/) for detailed instructions`,
 	}
 
 	shared.AddCommon(rootCmd)

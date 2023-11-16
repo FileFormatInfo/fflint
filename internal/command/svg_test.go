@@ -3,13 +3,13 @@ package command
 import (
 	"testing"
 
-	"github.com/fileformat/badger/internal/shared"
+	"github.com/FileFormatInfo/fflint/internal/shared"
 )
 
 func TestSvg(t *testing.T) {
 
 	var fc = shared.FileContext{
-		FilePath: "../../testdata/badger128.svg",
+		FilePath: "../../testdata/fflint128.svg",
 	}
 	//silent = true
 
@@ -66,7 +66,7 @@ func TestSvg(t *testing.T) {
 		t.Errorf("viewBox should not work for 64")
 	}
 
-	fc.FilePath = "../../testdata/badger128.png"
+	fc.FilePath = "../../testdata/fflint128.png"
 	svgCheck(&fc)
 	if fc.Success() {
 		t.Errorf("invalid format")

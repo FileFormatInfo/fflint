@@ -1,8 +1,8 @@
 ---
 h1: The version Command
-title: 'version: Prints badger version information - FFLint'
+title: 'version: Prints fflint version information - FFLint'
 name: fflint version
-synopsis: Prints badger version information
+synopsis: Prints fflint version information
 usage: fflint version [flags]
 options:
     - name: help
@@ -11,7 +11,7 @@ options:
       usage: help for version
 inherited_options:
     - name: config
-      usage: config file (default is $HOME/.badger.yaml)
+      usage: config file (default is $HOME/.fflint.yaml)
     - name: debug
       default_value: "false"
       usage: Debugging output

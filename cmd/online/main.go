@@ -8,7 +8,6 @@ import (
 	"fmt"
 	"io"
 	"io/fs"
-	"io/ioutil"
 	"net/http"
 	"os"
 	"os/exec"
@@ -17,7 +16,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/fileformat/badger/internal/online"
+	"github.com/FileFormatInfo/fflint/internal/online"
 	flag "github.com/spf13/pflag"
 )
 
@@ -104,7 +103,7 @@ type errorResponse struct {
 
 var MAX_UPLOAD_SIZE int64 = 10 * 1024 * 1024 //LATER: from param
 
-type badgerResponse struct {
+type fflintResponse struct {
 	Success   bool          `json:"success"`
 	Code      string        `json:"code"`
 	Message   string        `json:"message"`
@@ -202,7 +201,7 @@ func command_handler(w http.ResponseWriter, r *http.Request) {
 	args = append(args, "--output=json")
 	args = append(args, "-")
 
-	cmd := exec.Command("./badger", args...)
+	cmd := exec.Command("./fflint", args...)
 
 	cmd.Stdin = bytes.NewReader(data)
 
@@ -233,7 +232,7 @@ func command_handler(w http.ResponseWriter, r *http.Request) {
 		message = runErr.Error()
 	}
 
-	online.WriteJsonp(w, r, badgerResponse{
+	online.WriteJsonp(w, r, fflintResponse{
 		Success:   runErr == nil,
 		Message:   message,
 		Timestamp: time.Now().UTC().Format(time.RFC3339),

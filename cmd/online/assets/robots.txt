@@ -1,4 +1,4 @@
-# robots.txt for badger.sh online API
+# robots.txt for fflint.org online API
 #
 # Just a single page, but feel free to index it!
 #

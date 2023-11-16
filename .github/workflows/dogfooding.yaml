@@ -23,23 +23,23 @@ jobs:
 
       - name: Build
         run: |
-          go build -o ./badger cmd/badger/main.go
+          go build -o ./fflint cmd/fflint/main.go
 
       - name: Check favicon.ico
         run: |
-          ./badger ico --show-tests=all docs/favicon.ico
+          ./fflint ico --show-tests=all docs/favicon.ico
 
       - name: Check markdown frontmatter
         run: |
-          ./badger frontmatter --required=title "docs/**/*.md"
+          ./fflint frontmatter --required=title "docs/**/*.md"
 
       # LATER: build website w/Jekyll and test the generated files
 
       - name: Generate reports
         run: |
-          echo "# Badgering the badger" >$GITHUB_STEP_SUMMARY
+          echo "# Dogfooding FFLint" >$GITHUB_STEP_SUMMARY
           echo "## Extensions in use" >>$GITHUB_STEP_SUMMARY
-          ./badger ext --output=markdown "./**" >>$GITHUB_STEP_SUMMARY
+          ./fflint ext --output=markdown "./**" >>$GITHUB_STEP_SUMMARY
           echo "" >>$GITHUB_STEP_SUMMARY
           echo "## Content types in use" >>$GITHUB_STEP_SUMMARY
-          ./badger mimetype --output=markdown "./**" >>$GITHUB_STEP_SUMMARY
+          ./fflint mimetype --output=markdown "./**" >>$GITHUB_STEP_SUMMARY

@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/fileformat/badger/internal/shared"
+	"github.com/FileFormatInfo/fflint/internal/shared"
 	"github.com/spf13/cobra"
 	"github.com/zyxar/image2ascii/ico"
 )

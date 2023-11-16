@@ -3,8 +3,8 @@ package command
 import (
 	"bytes"
 
+	"github.com/FileFormatInfo/fflint/internal/shared"
 	"github.com/antchfx/xmlquery"
-	"github.com/fileformat/badger/internal/shared"
 	"github.com/spf13/cobra"
 )
 

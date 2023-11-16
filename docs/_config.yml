@@ -1,5 +1,5 @@
 #
-# _config.yml for www.fflint.dev
+# _config.yml for www.fflint.org
 #
 
 collections:
@@ -7,7 +7,7 @@ collections:
     output: true
 exclude: [ "CNAME" ]
 permalink: /blog/:year/:month/:day/:title/index.:output_ext
-production_url: https://www.fflint.dev
+production_url: https://www.fflint.org
 title: FFLint
 kramdown:
   input: GFM

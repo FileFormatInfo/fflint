@@ -2,7 +2,7 @@
 
 - [ ] doc: [svg role and title](https://www.smashingmagazine.com/2021/05/accessible-svg-patterns-comparison/)
 - [ ] doc and README: share links
-- [ ] workflow: run badger on the badger.sh website
+- [ ] workflow: run fflint on the fflint.org website
 - [ ] workflow: go test
 - [ ] test without ./main.go
 - [ ] shared/ImageFlags.go
@@ -27,7 +27,7 @@
 - [ ] logging (not per-page, since that is done by CloudRun)
 - [ ] disclaimer in all responses
 - [ ] verbose flag
-- [ ] pass flags to badger
+- [ ] pass flags to fflint
 - [ ] forms (in docs)
 - [ ] api.html (in docs)
 - [ ] links to forms from /index.html
@@ -164,7 +164,7 @@
 
 ## Bad file names
 
-- separate program in Rust (badger-bfn)
+- separate program in Rust (namelint)
 - takes directory names only (possibly multiple, default to current directory)
 - recursively (optional) scans the directory looking for bad file names
 - option: specify list of codepoints allowed
@@ -176,13 +176,6 @@
 - maybe: profile for a given language
 - maybe: note hidden files, leading dot files, bad modes, etc
 - separate utility program to list all codepoints used (with first few files containing each)
-
-## domains
-
-- badger.sh
-- badger-ci.com/badgerci.com
-- badger.ci
-- fflint.dev
 
 https://github.com/jhspetersson/fselect
 https://github.com/github/super-linter#supported-linters

@@ -45,7 +45,7 @@ title: Available Commands
 </tr>
 <tr>
 <td><a href="version.html">version</a></td>
-<td>Prints badger version information</td>
+<td>Prints fflint version information</td>
 </tr>
 <tr>
 <td><a href="xml.html">xml</a></td>

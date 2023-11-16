@@ -1,5 +1,5 @@
 *~
-/badger
+/fflint
 .cache
 cache/
 *.class
@@ -11,7 +11,7 @@ docs/*/*.json
 .DS_Store
 *.env
 foo
-.github/actions/badger-gha
+.github/actions/fflint-gha
 .idea/
 .jekyll-metadata
 *.log

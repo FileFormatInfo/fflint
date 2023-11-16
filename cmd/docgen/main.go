@@ -7,8 +7,8 @@ import (
 	"os"
 	"strings"
 
-	"github.com/fileformat/badger/internal/command"
-	"github.com/fileformat/badger/internal/shared"
+	"github.com/FileFormatInfo/fflint/internal/command"
+	"github.com/FileFormatInfo/fflint/internal/shared"
 	"github.com/spf13/cobra"
 	"github.com/spf13/cobra/doc"
 	"github.com/spf13/pflag"
@@ -47,9 +47,9 @@ func getFirstWord(s string) string {
 
 func main() {
 	var rootCmd = &cobra.Command{
-		Use:   "badger",
-		Short: "Badgers you if your file formats are invalid",
-		Long:  `See [www.badger.sh](https://www.badger.sh/) for detailed instructions`,
+		Use:   "fflint",
+		Short: "A linter to make sure your files are valid",
+		Long:  `See [www.fflint.org](https://www.fflint.org/) for detailed instructions`,
 	}
 
 	shared.AddCommon(rootCmd)
@@ -92,7 +92,7 @@ func main() {
 		w := bufio.NewWriter(f)
 		w.WriteString("---\n")
 		w.WriteString(fmt.Sprintf("h1: The %s Command\n", cmdName))
-		w.WriteString(fmt.Sprintf("title: '%s: %s - Badger'\n", cmdName, c.Short))
+		w.WriteString(fmt.Sprintf("title: '%s: %s - FFLint'\n", cmdName, c.Short))
 		w.WriteString(buf.String())
 		w.WriteString("---\n")
 		w.WriteString(noteLine)
@@ -114,7 +114,6 @@ func main() {
 	w.WriteString(noteLine)
 	w.WriteString("\n<table class=\"table table-bordered table-striped\">")
 	for _, ie := range indexEntries {
-		//LATER: make this into a table
 		w.WriteString(fmt.Sprintf("<tr>\n<td><a href=\"%s.html\">%s</a></td>\n<td>%s</td>\n</tr>\n", ie.Name, ie.Name, ie.Description))
 	}
 	w.WriteString("</table>\n")

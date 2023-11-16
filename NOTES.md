@@ -1,6 +1,6 @@
 # Notes
 
-Random tidbits that I need to remember for working on badger
+Random tidbits that I need to remember for working on fflint
 
 
 ## Releasing

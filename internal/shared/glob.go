@@ -241,7 +241,7 @@ func MakeFileCommand(checkFn func(*FileContext)) func(cmd *cobra.Command, args [
 			fcs, _ = globFunctions[globber.String()](ignorer, args)
 		}
 		if len(fcs) == 0 {
-			return fmt.Errorf("No files to badger")
+			return fmt.Errorf("No files to lint")
 		}
 		if Debug {
 			fmt.Fprintf(os.Stderr, "DEBUG: %d files after arg expansion\n", len(fcs))

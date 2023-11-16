@@ -1,7 +1,7 @@
 - name: config
   default_value: ""
   type: string
-  usage: "config file (default is $HOME/.badger.yaml)"
+  usage: "config file (default is $HOME/.fflint.yaml)"
 - name: debug
   default_value: "false"
   type: bool

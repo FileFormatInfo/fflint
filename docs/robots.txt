@@ -2,7 +2,7 @@
 # robots.txt for fflint
 #
 
-Sitemap: https://www.fflint.dev/sitemap.xml
+Sitemap: https://www.fflint.org/sitemap.xml
 
 User-Agent: *
 Disallow: /honeypot.txt

@@ -5,9 +5,9 @@ import (
 	"strconv"
 	"strings"
 
+	"github.com/FileFormatInfo/fflint/internal/argtype"
+	"github.com/FileFormatInfo/fflint/internal/shared"
 	"github.com/JoshVarga/svgparser"
-	"github.com/fileformat/badger/internal/argtype"
-	"github.com/fileformat/badger/internal/shared"
 	"github.com/spf13/cobra"
 )
 
@@ -175,7 +175,7 @@ func svgCheck(f *shared.FileContext) {
 	}
 }
 
-//LATER: limit total length of content add ellipsis
+// LATER: limit total length of content add ellipsis
 func getContent(contentCache []string, elist []*svgparser.Element) []string {
 	if contentCache == nil {
 		contentCache = []string{}

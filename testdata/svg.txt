@@ -1,16 +1,16 @@
 unbase64
 
-exec badger svg smallest.svg
+exec fflint svg smallest.svg
 
-! exec badger svg toosmall.svg
+! exec fflint svg toosmall.svg
 
-exec badger svg --height=64 64x64.svg
-exec badger svg --width=64 64x64.svg
-! exec badger svg --height=32 64x64.svg
-! exec badger svg --width=32 64x64.svg
+exec fflint svg --height=64 64x64.svg
+exec fflint svg --width=64 64x64.svg
+! exec fflint svg --height=32 64x64.svg
+! exec fflint svg --width=32 64x64.svg
 
-exec badger svg --text=true text.svg
-! exec badger svg --text=false text.svg
+exec fflint svg --text=true text.svg
+! exec fflint svg --text=false text.svg
 
 -- toosmall.svg --
 <svg/>

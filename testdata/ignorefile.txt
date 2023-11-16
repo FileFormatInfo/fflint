@@ -1,31 +1,31 @@
 #
 # Testing --ignore-file with doublestar expander
 #
-exec badger --show-totals text *.txt
+exec fflint --show-totals text *.txt
 stdout '^INFO: files tested: 1$'
 
-exec badger --ignore-file= --show-totals text *.txt
+exec fflint --ignore-file= --show-totals text *.txt
 stdout '^INFO: files tested: 2$'
 
-exec badger --show-totals text **/*.txt
+exec fflint --show-totals text **/*.txt
 stdout '^INFO: files tested: 2$'
 
-exec badger --ignore-file= --show-totals text **/*.txt
+exec fflint --ignore-file= --show-totals text **/*.txt
 stdout '^INFO: files tested: 4$'
 
 #
 # Testing --ignore-file with golang expander
 #
-exec badger --show-totals --glob=golang text *.txt
+exec fflint --show-totals --glob=golang text *.txt
 stdout '^INFO: files tested: 1$'
 
-exec badger --ignore-file= --show-totals --glob=golang text *.txt
+exec fflint --ignore-file= --show-totals --glob=golang text *.txt
 stdout '^INFO: files tested: 2$'
 
-exec badger --show-totals --glob=golang text *.txt */*.txt
+exec fflint --show-totals --glob=golang text *.txt */*.txt
 stdout '^INFO: files tested: 2$'
 
-exec badger --ignore-file= --show-totals --glob=golang text *.txt */*.txt
+exec fflint --ignore-file= --show-totals --glob=golang text *.txt */*.txt
 stdout '^INFO: files tested: 4$'
 
 -- .gitignore --

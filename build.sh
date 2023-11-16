@@ -8,5 +8,5 @@ set -o pipefail
 set -o nounset
 
 rm -rf dist
-rm -f ./badger
-goreleaser build --snapshot --single-target --output=./badger
+rm -f ./fflint
+goreleaser build --snapshot --single-target --output=./fflint

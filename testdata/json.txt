@@ -1,13 +1,13 @@
-exec badger json string.json
+exec fflint json string.json
 
-! exec badger json toosmall.json
+! exec fflint json toosmall.json
 
-exec badger json object.json
-exec badger json something.json
-! exec badger json trailingcomma.json
+exec fflint json object.json
+exec fflint json something.json
+! exec fflint json trailingcomma.json
 
-exec badger json --schema=object.schema.json object.json --show-tests=all --debug
-exec badger json --schema=object.schema.json --show-tests=all string.json --debug
+exec fflint json --schema=object.schema.json object.json --show-tests=all --debug
+exec fflint json --schema=object.schema.json --show-tests=all string.json --debug
 
 
 -- toosmall.json --

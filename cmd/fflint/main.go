@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/fileformat/badger/internal/command"
-	"github.com/fileformat/badger/internal/shared"
+	"github.com/FileFormatInfo/fflint/internal/command"
+	"github.com/FileFormatInfo/fflint/internal/shared"
 	"github.com/spf13/cobra"
 )
 
@@ -18,9 +18,9 @@ var (
 
 func main() {
 	var rootCmd = &cobra.Command{
-		Use:           "badger",
-		Short:         "Badgers you if your file formats are invalid",
-		Long:          `See [www.badger.sh](https://www.badger.sh/) for detailed instructions`,
+		Use:           "fflint",
+		Short:         "A linter to make sure your files are valid",
+		Long:          `See [www.fflint.org](https://www.fflint.org/) for detailed instructions`,
 		Version:       version,
 		SilenceErrors: true,
 		SilenceUsage:  true,

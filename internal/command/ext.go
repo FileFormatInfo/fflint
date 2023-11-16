@@ -7,8 +7,8 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/fileformat/badger/internal/argtype"
-	"github.com/fileformat/badger/internal/shared"
+	"github.com/FileFormatInfo/fflint/internal/argtype"
+	"github.com/FileFormatInfo/fflint/internal/shared"
 	"github.com/olekukonko/tablewriter"
 	"github.com/spf13/cobra"
 	"golang.org/x/exp/maps"

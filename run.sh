@@ -7,8 +7,8 @@ set -o errexit
 set -o pipefail
 set -o nounset
 
-rm -rf ./badger
-go build -o ./badger cmd/badger/main.go
+rm -rf ./fflint
+go build -o ./fflint cmd/fflint/main.go
 export PATH=$PATH:$(pwd)
-badger version
-go test -timeout 30s -run "^TestBadger$" github.com/fileformat/badger/cmd/badger
+fflint version
+go test -timeout 30s -run "^TestBadger$" github.com/FileFormatInfo/fflint/cmd/fflint

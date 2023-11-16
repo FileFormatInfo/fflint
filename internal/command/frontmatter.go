@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"os"
 
+	"github.com/FileFormatInfo/fflint/internal/shared"
 	"github.com/adrg/frontmatter"
-	"github.com/fileformat/badger/internal/shared"
 	"github.com/spf13/cobra"
 	"gopkg.in/yaml.v2"
 )

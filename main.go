@@ -1,4 +1,4 @@
-package badger
+package fflint
 
 func main() {
 	//rootCmd.Execute()

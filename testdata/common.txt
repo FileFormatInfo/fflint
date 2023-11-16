@@ -1,7 +1,7 @@
 
-! exec badger text --filesize=100 tenlines.txt
+! exec fflint text --filesize=100 tenlines.txt
 
-exec badger text --filesize=100-120 tenlines.txt
+exec fflint text --filesize=100-120 tenlines.txt
 
 
 -- tenlines.txt --

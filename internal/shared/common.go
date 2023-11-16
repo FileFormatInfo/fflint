@@ -3,7 +3,7 @@ package shared
 import (
 	"os"
 
-	"github.com/fileformat/badger/internal/argtype"
+	"github.com/FileFormatInfo/fflint/internal/argtype"
 	"github.com/mattn/go-isatty"
 
 	"github.com/spf13/cobra"
@@ -33,7 +33,7 @@ func AddCommon(rootCmd *cobra.Command) {
 	// Cobra supports persistent flags, which, if defined here,
 	// will be global for your application.
 
-	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.badger.yaml)")
+	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.fflint.yaml)")
 
 	//rootCmd.PersistentFlags().Int64Var(&minSize, "min", 0, "Minimum file size")
 	//rootCmd.PersistentFlags().Int64Var(&maxSize, "max", 9999999999999, "Maximum file size")

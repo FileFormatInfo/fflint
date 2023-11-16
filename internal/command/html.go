@@ -7,7 +7,7 @@ import (
 	"io"
 	"os"
 
-	"github.com/fileformat/badger/internal/shared"
+	"github.com/FileFormatInfo/fflint/internal/shared"
 	"github.com/spf13/cobra"
 	"golang.org/x/net/html"
 )

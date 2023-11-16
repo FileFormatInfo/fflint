@@ -25,7 +25,7 @@ options:
       usage: Must be valid UTF-8
 inherited_options:
     - name: config
-      usage: config file (default is $HOME/.badger.yaml)
+      usage: config file (default is $HOME/.fflint.yaml)
     - name: debug
       default_value: "false"
       usage: Debugging output

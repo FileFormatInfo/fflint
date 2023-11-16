@@ -1,11 +1,11 @@
 
-! exec badger frontmatter --show-tests=all missing.md
+! exec fflint frontmatter --show-tests=all missing.md
 
-exec badger frontmatter --show-tests=all test.md
+exec fflint frontmatter --show-tests=all test.md
 
-! exec badger frontmatter --show-tests=all test.sql
+! exec fflint frontmatter --show-tests=all test.sql
 
-exec badger frontmatter --delimiters=/***,***/ --debug --show-tests=all test.sql
+exec fflint frontmatter --delimiters=/***,***/ --debug --show-tests=all test.sql
 
 -- test.md --
 ---

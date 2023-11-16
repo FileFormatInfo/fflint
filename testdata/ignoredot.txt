@@ -1,31 +1,31 @@
 #
 # Testing --ignore-dotfiles with doublestar expander
 #
-exec badger --ignore-dotfiles=true --show-totals text *.txt
+exec fflint --ignore-dotfiles=true --show-totals text *.txt
 stdout '^INFO: files tested: 1$'
 
-exec badger --ignore-dotfiles=false --show-totals text *.txt
+exec fflint --ignore-dotfiles=false --show-totals text *.txt
 stdout '^INFO: files tested: 2$'
 
-exec badger --ignore-dotfiles=true --show-totals text **/*.txt
+exec fflint --ignore-dotfiles=true --show-totals text **/*.txt
 stdout '^INFO: files tested: 2$'
 
-exec badger --ignore-dotfiles=false --show-totals text **/*.txt
+exec fflint --ignore-dotfiles=false --show-totals text **/*.txt
 stdout '^INFO: files tested: 4$'
 
 #
 # Testing --ignore-dotfiles with golang expander
 #
-exec badger --ignore-dotfiles=true --show-totals --glob=golang text *.txt
+exec fflint --ignore-dotfiles=true --show-totals --glob=golang text *.txt
 stdout '^INFO: files tested: 1$'
 
-exec badger --ignore-dotfiles=false --show-totals --glob=golang text *.txt
+exec fflint --ignore-dotfiles=false --show-totals --glob=golang text *.txt
 stdout '^INFO: files tested: 2$'
 
-exec badger --ignore-dotfiles=true --show-totals --glob=golang text *.txt subdir/*.txt
+exec fflint --ignore-dotfiles=true --show-totals --glob=golang text *.txt subdir/*.txt
 stdout '^INFO: files tested: 2$'
 
-exec badger --ignore-dotfiles=false --show-totals --glob=golang text *.txt subdir/*.txt
+exec fflint --ignore-dotfiles=false --show-totals --glob=golang text *.txt subdir/*.txt
 stdout '^INFO: files tested: 4$'
 
 

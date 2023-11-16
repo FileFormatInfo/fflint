@@ -17,7 +17,7 @@ rm -rf "${COMPLETIONS_DIR}"
 mkdir "${COMPLETIONS_DIR}"
 for sh in bash zsh fish; do
 	echo "INFO: generating completions for $sh..."
-	go run "${REPO_HOME}/cmd/badger" completion "$sh" >""${COMPLETIONS_DIR}"/badger.$sh"
+	go run "${REPO_HOME}/cmd/fflint" completion "$sh" >""${COMPLETIONS_DIR}"/fflint.$sh"
 done
 
 echo "INFO: completions complete at $(date -u +%Y-%m-%dT%H:%M:%SZ)"

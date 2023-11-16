@@ -2,8 +2,8 @@ root = "."
 tmp_dir = "tmp"
 
 [build]
-  bin = "./tmp/badger-online --bind=localhost"
-  cmd = "go build -o ./tmp/badger-online ./cmd/online/main.go"
+  bin = "./tmp/fflint-online --bind=localhost"
+  cmd = "go build -o ./tmp/fflint-online ./cmd/online/main.go"
   delay = 1000
   exclude_dir = ["assets", "tmp", "vendor"]
   exclude_file = []

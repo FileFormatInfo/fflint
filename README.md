@@ -1,10 +1,10 @@
-# Badger [<img alt="badger logo" src="docs/favicon.svg" height="90" align="right" />](https://www.badger.sh/)
+# FFLint [<img alt="FFLint logo" src="docs/favicon.svg" height="90" align="right" />](https://www.fflint.org/)
 
 [![build](https://github.com/FileFormatInfo/fflint/actions/workflows/build.yaml/badge.svg)](https://github.com/FileFormatInfo/fflint/actions/workflows/build.yaml)
 [![release](https://github.com/FileFormatInfo/fflintactions/workflows/release.yaml/badge.svg)](https://github.com/FileFormatInfo/fflint/actions/workflows/release.yaml)
 [![dogfooding](https://github.com/FileFormatInfo/fflint/actions/workflows/dogfooding.yaml/badge.svg)](https://github.com/FileFormatInfo/fflint/actions/workflows/dogfooding.yaml)
 
-Badger is a linter for file formats. Are your files:
+FFLint is a linter for file formats. Are your files:
 * in the correct format?
 * with the correct extension?
 * with the correct image dimensions?
@@ -14,18 +14,18 @@ Badger is a linter for file formats. Are your files:
 
 Perfect for your CI/CD pipeline to make sure bad files don't get committed.
 
-[**Documentation**](https://www.fflint.dev/)
+[**Documentation**](https://www.fflint.org/)
 
 ## Installation
 
-The [latest releases](https://github.com/FileFormatInfo/fflint/releases/latest) are available on Github. [Detailed instructions](https://www.badger.sh/install.html).
+The [latest releases](https://github.com/FileFormatInfo/fflint/releases/latest) are available on Github. [Detailed instructions](https://www.fflint.org/install.html).
 
 ## Usage
 
 General command syntax is:
 
 ```bash
-badger CMD [options...] files...
+fflint CMD [options...] files...
 ```
 
 * `CMD` is the command to run
@@ -33,9 +33,9 @@ badger CMD [options...] files...
 * `files...` are the files to check
 
 More:
-* Complete documentation is on [**www.badger.sh**](https://www.badger.sh)
-* Run `badger help` to see a list of available commands
-* Run `--help` for any command to see options specific to that command.  Example: `badger svg --help`
+* Complete documentation is on [**www.fflint.org**](https://www.fflint.org)
+* Run `fflint help` to see a list of available commands
+* Run `--help` for any command to see options specific to that command.  Example: `fflint svg --help`
 
 ## License
 

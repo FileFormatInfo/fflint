@@ -1,4 +1,4 @@
-module github.com/fileformat/badger
+module github.com/FileFormatInfo/fflint
 
 go 1.18
 

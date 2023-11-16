@@ -7,8 +7,8 @@ import (
 	"os"
 	"path/filepath"
 
+	"github.com/FileFormatInfo/fflint/internal/shared"
 	"github.com/antchfx/jsonquery"
-	"github.com/fileformat/badger/internal/shared"
 	"github.com/spf13/cobra"
 	"github.com/xeipuuv/gojsonschema"
 )

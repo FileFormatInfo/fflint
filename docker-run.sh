@@ -13,6 +13,6 @@ docker build \
 	--build-arg LASTMOD=$(date -u +%Y-%m-%dT%H:%M:%SZ) \
 	--build-arg BUILTBY=docker-run \
     --build-arg VERSION=local \
-	-t badger-online .
+	-t fflint-online .
 
-docker run -it -p 4000:4000 badger-online
+docker run -it -p 4000:4000 fflint-online

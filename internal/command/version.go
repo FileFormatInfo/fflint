@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/fileformat/badger/internal/shared"
+	"github.com/FileFormatInfo/fflint/internal/shared"
 	"github.com/spf13/cobra"
 )
 
@@ -21,7 +21,7 @@ type VersionInfo struct {
 var versionCmd = &cobra.Command{
 	Args:  cobra.NoArgs,
 	Use:   "version",
-	Short: "Prints badger version information",
+	Short: "Prints fflint version information",
 	Run: func(cmd *cobra.Command, args []string) {
 		if shared.OutputFormat.String() == "json" {
 			versionJSON, _ := json.Marshal(vi)
