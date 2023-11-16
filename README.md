@@ -1,8 +1,8 @@
 # Badger [<img alt="badger logo" src="docs/favicon.svg" height="90" align="right" />](https://www.badger.sh/)
 
-[![build](https://github.com/fileformat/badger/actions/workflows/build.yaml/badge.svg)](https://github.com/fileformat/badger/actions/workflows/build.yaml)
-[![release](https://github.com/fileformat/badger/actions/workflows/release.yaml/badge.svg)](https://github.com/fileformat/badger/actions/workflows/release.yaml)
-[![dogfooding](https://github.com/fileformat/badger/actions/workflows/dogfooding.yaml/badge.svg)](https://github.com/fileformat/badger/actions/workflows/dogfooding.yaml)
+[![build](https://github.com/FileFormatInfo/fflint/actions/workflows/build.yaml/badge.svg)](https://github.com/FileFormatInfo/fflint/actions/workflows/build.yaml)
+[![release](https://github.com/FileFormatInfo/fflintactions/workflows/release.yaml/badge.svg)](https://github.com/FileFormatInfo/fflint/actions/workflows/release.yaml)
+[![dogfooding](https://github.com/FileFormatInfo/fflint/actions/workflows/dogfooding.yaml/badge.svg)](https://github.com/FileFormatInfo/fflint/actions/workflows/dogfooding.yaml)
 
 Badger is a linter for file formats. Are your files:
 * in the correct format?
@@ -14,11 +14,11 @@ Badger is a linter for file formats. Are your files:
 
 Perfect for your CI/CD pipeline to make sure bad files don't get committed.
 
-[**Documentation**](https://www.badger.sh)
+[**Documentation**](https://www.fflint.dev/)
 
 ## Installation
 
-The [latest releases](https://github.com/fileformat/badger/releases/latest) are available on Github. [Detailed instructions](https://www.badger.sh/install.html).
+The [latest releases](https://github.com/FileFormatInfo/fflint/releases/latest) are available on Github. [Detailed instructions](https://www.badger.sh/install.html).
 
 ## Usage
 
@@ -55,4 +55,4 @@ For anyone who cannot use AGPL software, an inexpensive commercial license is av
 * [GoReleaser](https://goreleaser.com/)
 * [mathiasbynens/small](https://github.com/mathiasbynens/small) - sample files for testing
 
-* See [`go.mod`](https://github.com/fileformat/badger/blob/main/go.mod) for the GoLang modules used
+* See [`go.mod`](https://github.com/FileFormatInfo/fflint/blob/main/go.mod) for the GoLang modules used
