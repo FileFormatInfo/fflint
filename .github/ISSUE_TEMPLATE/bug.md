@@ -8,6 +8,6 @@ Expected output:
 
 Actual output:
 
-OS and Badger versions:
+OS and FFLint versions:
 
 Please attach sample files needed to replicate

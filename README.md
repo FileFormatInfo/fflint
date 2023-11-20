@@ -54,5 +54,7 @@ For anyone who cannot use AGPL software, an inexpensive commercial license is av
 
 * [GoReleaser](https://goreleaser.com/)
 * [mathiasbynens/small](https://github.com/mathiasbynens/small) - sample files for testing
-
+* [svgrepo](https:svgrepo.com) - [flint hand axe icon](https://www.svgrepo.com/svg/156483/hand-axe)
+* IconFinder alternate icon: [flint hammer](https://www.iconfinder.com/icons/3286710/caveman_flint_hammer_prehistoric_stone_tribal_weapon_icon) (purchased)
+* IconFinder alternate icon: [flint axe](https://www.iconfinder.com/icons/11293805/stone_weapon_age_ancient_ax_icon) (purchased)
 * See [`go.mod`](https://github.com/FileFormatInfo/fflint/blob/main/go.mod) for the GoLang modules used

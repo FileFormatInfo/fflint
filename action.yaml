@@ -1,5 +1,5 @@
-name: 'File Format Badger'
-description: 'Badger you about your file formats''
+name: 'File Format Lint'
+description: 'Checks your file formats'
 inputs:
   cmd:
     description: 'command to run'

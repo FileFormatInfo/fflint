@@ -27,7 +27,7 @@ var versionCmd = &cobra.Command{
 			versionJSON, _ := json.Marshal(vi)
 			fmt.Println(string(versionJSON))
 		} else if shared.OutputFormat.String() == "text" {
-			fmt.Printf("Badger v%s (%s)\n", vi.Version, vi.LastMod)
+			fmt.Printf("FFLint v%s (%s)\n", vi.Version, vi.LastMod)
 			if shared.Debug {
 				fmt.Printf("\tCommit: %s\n\tBuilder: %s\n", vi.Commit, vi.Builder)
 			}
