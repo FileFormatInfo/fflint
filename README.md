@@ -1,8 +1,9 @@
 # fflint [<img alt="fflint logo" src="docs/favicon.svg" height="90" align="right" />](https://www.fflint.org/)
 
 [![build](https://github.com/FileFormatInfo/fflint/actions/workflows/build.yaml/badge.svg)](https://github.com/FileFormatInfo/fflint/actions/workflows/build.yaml)
-[![release](https://github.com/FileFormatInfo/fflintactions/workflows/release.yaml/badge.svg)](https://github.com/FileFormatInfo/fflint/actions/workflows/release.yaml)
+[![release](https://github.com/FileFormatInfo/fflint/actions/workflows/release.yaml/badge.svg)](https://github.com/FileFormatInfo/fflint/actions/workflows/release.yaml)
 [![dogfooding](https://github.com/FileFormatInfo/fflint/actions/workflows/dogfooding.yaml/badge.svg)](https://github.com/FileFormatInfo/fflint/actions/workflows/dogfooding.yaml)
+[![deploy](https://github.com/FileFormatInfo/fflint/actions/workflows/gcr-deploy.yaml/badge.svg)](https://github.com/FileFormatInfo/fflint/actions/workflows/gcr-deploy.yaml)
 
 fflint is a linter for file formats. Are your files:
 * in the correct format?

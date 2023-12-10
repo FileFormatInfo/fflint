@@ -3,3 +3,6 @@
         <title>{% if page.h1 %}{{page.title}}{% else %}{{page.title}} - {{site.title}}{% endif %}</title>
         <link rel="stylesheet" href="/css/style.css?{{site.time | date: "%s"}}" />
         <script>if (window.top.location != window.location) { window.top.location.href = document.location.href; }</script>
+        {%-if page.url == '/'%}
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        {%- endif %}

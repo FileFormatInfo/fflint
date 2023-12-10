@@ -2,6 +2,7 @@
 layout: none
 noindex: true
 ---
+<?xml-stylesheet type="text/xsl" href="https://www.sitemap.style/xslt/vanilla-water.xslt" ?>
 <urlset
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9"
