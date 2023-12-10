@@ -1,14 +1,40 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
-<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
-	 viewBox="0 0 460 460" xml:space="preserve">
-<g id="XMLID_1085_">
-	<polygon id="XMLID_1086_" style="fill:#CB9851;" points="30,264.039 130,460 230,294.039 230,264.039 130,244.039 	"/>
-	<polygon id="XMLID_1087_" style="fill:#624950;" points="330,460 430,264.039 330,244.039 230,264.039 230,294.039 	"/>
-	<polygon id="XMLID_1088_" style="fill:#967151;" points="130,460 330,460 230,264.039 	"/>
-	<polygon id="XMLID_1089_" style="fill:#CB9851;" points="430,264.039 230,0 210,132.02 230,264.039 	"/>
-	<polygon id="XMLID_1090_" style="fill:#FFC052;" points="230,264.039 230,0 30,264.039 	"/>
-	<rect id="XMLID_1091_" x="170" y="144.039" style="fill:#CB9851;" width="30" height="30"/>
-	<rect id="XMLID_1092_" x="120" y="204.039" style="fill:#CB9851;" width="30" height="30"/>
-</g>
+
+<svg
+   version="1.1"
+   id="Layer_1"
+   viewBox="0 0 460 460"
+   xml:space="preserve"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"><defs
+   id="defs13" />
+<polygon
+   id="XMLID_1086_"
+   style="fill:#9daeb1;fill-opacity:1"
+   points="230,294.039 230,264.039 130,244.039 30,264.039 130,460 " /><polygon
+   id="XMLID_1087_"
+   style="fill:#425060;fill-opacity:1"
+   points="330,244.039 230,264.039 230,294.039 330,460 430,264.039 " /><polygon
+   id="XMLID_1088_"
+   style="fill:#525f70;fill-opacity:1"
+   points="230,264.039 130,460 330,460 " /><polygon
+   id="XMLID_1089_"
+   style="fill:#9daeb1;fill-opacity:1"
+   points="210,132.02 230,264.039 430,264.039 230,0 " /><polygon
+   id="XMLID_1090_"
+   style="fill:#b4c1c7;fill-opacity:1"
+   points="30,264.039 230,264.039 230,0 " /><rect
+   id="XMLID_1091_"
+   x="170"
+   y="144.039"
+   style="fill:#525f70;fill-opacity:1"
+   width="30"
+   height="30" /><rect
+   id="XMLID_1092_"
+   x="120"
+   y="204.039"
+   style="fill:#525f70;fill-opacity:1"
+   width="30"
+   height="30" />
 </svg>
