@@ -90,10 +90,7 @@ func IsAsciiBytes(bytes []byte) error {
 }
 
 func IsAscii(b byte) bool {
-	if b > unicode.MaxASCII {
-		return false
-	}
-	return true
+	return b <= unicode.MaxASCII && !IsBadControl(b)
 }
 
 func IsBadControl(b byte) bool {

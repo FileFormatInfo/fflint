@@ -12,7 +12,6 @@ import (
 )
 
 var (
-	fmReport     bool
 	fmStrict     bool
 	fmStrictSet  map[string]bool
 	fmSorted     bool

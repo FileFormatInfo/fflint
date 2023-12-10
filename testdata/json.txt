@@ -6,8 +6,8 @@ exec fflint json object.json
 exec fflint json something.json
 ! exec fflint json trailingcomma.json
 
-exec fflint json --schema=object.schema.json object.json --show-tests=all --debug
-exec fflint json --schema=object.schema.json --show-tests=all string.json --debug
+exec fflint json --schema=object.schema.json --show-tests=all --debug object.json 
+! exec fflint json --schema=object.schema.json --show-tests=all --debug string.json
 
 
 -- toosmall.json --

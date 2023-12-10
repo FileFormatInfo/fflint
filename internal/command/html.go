@@ -3,13 +3,14 @@ package command
 import (
 	"bytes"
 	"encoding/xml"
-	"fmt"
+
+	//"fmt"
 	"io"
-	"os"
+	//"os"
 
 	"github.com/FileFormatInfo/fflint/internal/shared"
 	"github.com/spf13/cobra"
-	"golang.org/x/net/html"
+	//"golang.org/x/net/html"
 )
 
 // htmlCmd represents the html command
@@ -71,6 +72,7 @@ func validateHTML(r *bytes.Reader) error {
 	}
 }
 
+/*
 func hasErrorNodes(node *html.Node) bool {
 	if shared.Debug {
 		fmt.Fprintf(os.Stderr, "Node type=%d text=%d doc=%d\n", node.Type, html.TextNode, html.DocumentNode)
@@ -91,3 +93,4 @@ func hasErrorNodes(node *html.Node) bool {
 	}
 	return false
 }
+*/

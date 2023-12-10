@@ -142,7 +142,7 @@ func svgCheck(f *shared.FileContext) {
 		}
 	}
 
-	if svgText == false {
+	if !svgText {
 		textNodes := rootElement.FindAll("text")
 		if len(textNodes) > 0 {
 			f.RecordResult("svgText", false, map[string]interface{}{
@@ -153,7 +153,7 @@ func svgCheck(f *shared.FileContext) {
 	}
 
 	/* doesn't seem to work??? */
-	if svgForeign == false {
+	if !svgForeign {
 		foNodes := rootElement.FindAll("foreignObject")
 		if len(foNodes) > 0 {
 			f.RecordResult("svgForeignObject", false, map[string]interface{}{
