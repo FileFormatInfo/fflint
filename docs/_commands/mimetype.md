@@ -1,6 +1,6 @@
 ---
 h1: The mimetype Command
-title: 'mimetype: Validate (or report) MIME content types - FFLint'
+title: 'mimetype: Validate (or report) MIME content types - fflint'
 name: fflint mimetype
 synopsis: Validate (or report) MIME content types
 description: Check and report on the MIME content types in use

@@ -1,6 +1,6 @@
 ---
 h1: The xml Command
-title: 'xml: Validate XML files - FFLint'
+title: 'xml: Validate XML files - fflint'
 name: fflint xml
 synopsis: Validate XML files
 description: Checks that your XML files are valid

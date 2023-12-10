@@ -8,7 +8,7 @@ collections:
 exclude: [ "CNAME" ]
 permalink: /blog/:year/:month/:day/:title/index.:output_ext
 production_url: https://www.fflint.org
-title: FFLint
+title: fflint
 kramdown:
   input: GFM
   auto_ids: true

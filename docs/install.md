@@ -1,6 +1,6 @@
 ---
-title: Installation - FFLint
-h1: Installing FFLint
+title: Installation - fflint
+h1: Installing fflint
 ---
 
 The [latest releases](https://github.com/FileFormatInfo/fflint/releases/latest) are on Github.

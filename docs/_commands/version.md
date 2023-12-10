@@ -1,6 +1,6 @@
 ---
 h1: The version Command
-title: 'version: Prints fflint version information - FFLint'
+title: 'version: Prints fflint version information - fflint'
 name: fflint version
 synopsis: Prints fflint version information
 usage: fflint version [flags]

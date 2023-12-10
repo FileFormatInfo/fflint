@@ -80,7 +80,7 @@ func TestMain(m *testing.M) {
 	os.Exit(exitVal)
 }
 
-func TestFFLint(t *testing.T) {
+func Testfflint(t *testing.T) {
 	testscript.Run(t, testscript.Params{
 		Dir: "../../testdata",
 	})

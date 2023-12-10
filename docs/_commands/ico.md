@@ -1,6 +1,6 @@
 ---
 h1: The ico Command
-title: 'ico: Validate icons - FFLint'
+title: 'ico: Validate icons - fflint'
 name: fflint ico
 synopsis: Validate icons
 description: Check that your icons (.ico files) are valid

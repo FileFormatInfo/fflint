@@ -1,5 +1,5 @@
 ---
-title: FAQ - FFLint
+title: FAQ - fflint
 h1: Frequently Asked Questions
 faq:
   - q: How can I edit just the files with errors?

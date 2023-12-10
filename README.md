@@ -1,10 +1,10 @@
-# FFLint [<img alt="FFLint logo" src="docs/favicon.svg" height="90" align="right" />](https://www.fflint.org/)
+# fflint [<img alt="fflint logo" src="docs/favicon.svg" height="90" align="right" />](https://www.fflint.org/)
 
 [![build](https://github.com/FileFormatInfo/fflint/actions/workflows/build.yaml/badge.svg)](https://github.com/FileFormatInfo/fflint/actions/workflows/build.yaml)
 [![release](https://github.com/FileFormatInfo/fflintactions/workflows/release.yaml/badge.svg)](https://github.com/FileFormatInfo/fflint/actions/workflows/release.yaml)
 [![dogfooding](https://github.com/FileFormatInfo/fflint/actions/workflows/dogfooding.yaml/badge.svg)](https://github.com/FileFormatInfo/fflint/actions/workflows/dogfooding.yaml)
 
-FFLint is a linter for file formats. Are your files:
+fflint is a linter for file formats. Are your files:
 * in the correct format?
 * with the correct extension?
 * with the correct image dimensions?

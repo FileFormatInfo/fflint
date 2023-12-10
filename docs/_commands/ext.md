@@ -1,6 +1,6 @@
 ---
 h1: The ext Command
-title: 'ext: Validate (or report) file extensions - FFLint'
+title: 'ext: Validate (or report) file extensions - fflint'
 name: fflint ext
 synopsis: Validate (or report) file extensions
 description: Check and report on the file extensions in use

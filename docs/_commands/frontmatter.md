@@ -1,6 +1,6 @@
 ---
 h1: The frontmatter Command
-title: 'frontmatter: Validate frontmatter - FFLint'
+title: 'frontmatter: Validate frontmatter - fflint'
 name: fflint frontmatter
 synopsis: Validate frontmatter
 description: Checks that the frontmatter in your files is valid

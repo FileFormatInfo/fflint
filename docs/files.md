@@ -15,14 +15,14 @@ fflint svg *.svg
 
 ## Use fflint's built-in expander
 
-FFLint can expand wildcards similar to a shell, but with the addition of `**` to support zero or more directories (see [patterns](https://github.com/bmatcuk/doublestar/tree/v4#patterns) for details).
+fflint can expand wildcards similar to a shell, but with the addition of `**` to support zero or more directories (see [patterns](https://github.com/bmatcuk/doublestar/tree/v4#patterns) for details).
 
 Example (note the double quotes):
 ```
 fflint svg "./**/*.svg"
 ```
 
-If FFLint's built-in expand is causing conflicts, you can use the `--glob` flag to change it:
+If fflint's built-in expand is causing conflicts, you can use the `--glob` flag to change it:
 * `--glob=golang` - use an expander based on Go's `filepath.Glob`
 * `--glob=none` - do not do any expansion
 

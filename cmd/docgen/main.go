@@ -92,7 +92,7 @@ func main() {
 		w := bufio.NewWriter(f)
 		w.WriteString("---\n")
 		w.WriteString(fmt.Sprintf("h1: The %s Command\n", cmdName))
-		w.WriteString(fmt.Sprintf("title: '%s: %s - FFLint'\n", cmdName, c.Short))
+		w.WriteString(fmt.Sprintf("title: '%s: %s - fflint'\n", cmdName, c.Short))
 		w.WriteString(buf.String())
 		w.WriteString("---\n")
 		w.WriteString(noteLine)

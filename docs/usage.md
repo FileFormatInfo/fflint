@@ -2,7 +2,7 @@
 title: Usage
 ---
 
-See [installation](install.html) for how to download and install FFLint.
+See [installation](install.html) for how to download and install *fflint*.
 
 See [commands](/commands/index.html) for the list of supported file formats.
 

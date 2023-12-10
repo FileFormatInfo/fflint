@@ -1,6 +1,6 @@
 ---
 h1: The jpeg Command
-title: 'jpeg: Validate JPEG images - FFLint'
+title: 'jpeg: Validate JPEG images - fflint'
 name: fflint jpeg
 synopsis: Validate JPEG images
 description: Check that your JPEG files are valid

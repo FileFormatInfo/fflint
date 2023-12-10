@@ -1,6 +1,6 @@
 ---
 h1: The yaml Command
-title: 'yaml: Validate YAML files - FFLint'
+title: 'yaml: Validate YAML files - fflint'
 name: fflint yaml
 synopsis: Validate YAML files
 description: Check that your YAML files are valid

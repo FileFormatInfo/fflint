@@ -1,6 +1,6 @@
 ---
 h1: The svg Command
-title: 'svg: Validate SVG images - FFLint'
+title: 'svg: Validate SVG images - fflint'
 name: fflint svg
 synopsis: Validate SVG images
 description: |

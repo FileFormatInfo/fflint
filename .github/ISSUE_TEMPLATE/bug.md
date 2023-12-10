@@ -8,6 +8,6 @@ Expected output:
 
 Actual output:
 
-OS and FFLint versions:
+OS and fflint versions:
 
 Please attach sample files needed to replicate

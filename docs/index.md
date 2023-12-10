@@ -1,8 +1,8 @@
 ---
-title: "FFLint - a linter to make sure your files are valid!"
+title: "fflint - a linter to make sure your files are valid!"
 h1: File Format Lint
 ---
-FFLint is a  <a href="https://en.wikipedia.org/wiki/Lint_(software)">linter</a> for file formats. Are your files:
+*fflint* is a  <a href="https://en.wikipedia.org/wiki/Lint_(software)">linter</a> for file formats. Are your files:
 
  * in the correct format?
  * with the correct extension?

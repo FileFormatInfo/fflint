@@ -1,6 +1,6 @@
 ---
 h1: The json Command
-title: 'json: Validate JSON files - FFLint'
+title: 'json: Validate JSON files - fflint'
 name: fflint json
 synopsis: Validate JSON files
 description: Check that your JSON files are valid

@@ -1,6 +1,6 @@
 ---
 h1: The png Command
-title: 'png: Validate png images - FFLint'
+title: 'png: Validate png images - fflint'
 name: fflint png
 synopsis: Validate png images
 description: Check that your PNG files are valid

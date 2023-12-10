@@ -1,6 +1,6 @@
 ---
 h1: The text Command
-title: 'text: Validate plain text files - FFLint'
+title: 'text: Validate plain text files - fflint'
 name: fflint text
 synopsis: Validate plain text files
 description: |

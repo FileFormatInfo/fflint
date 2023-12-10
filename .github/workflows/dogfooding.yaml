@@ -37,7 +37,7 @@ jobs:
 
       - name: Generate reports
         run: |
-          echo "# Dogfooding FFLint" >$GITHUB_STEP_SUMMARY
+          echo "# Dogfooding fflint" >$GITHUB_STEP_SUMMARY
           echo "## Extensions in use" >>$GITHUB_STEP_SUMMARY
           ./fflint ext --output=markdown "./**" >>$GITHUB_STEP_SUMMARY
           echo "" >>$GITHUB_STEP_SUMMARY

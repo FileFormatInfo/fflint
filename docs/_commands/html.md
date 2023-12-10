@@ -1,6 +1,6 @@
 ---
 h1: The html Command
-title: 'html: Validate HTML files - FFLint'
+title: 'html: Validate HTML files - fflint'
 name: fflint html
 synopsis: Validate HTML files
 description: Check HTML files for errors

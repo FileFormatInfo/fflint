@@ -3,10 +3,12 @@ package online
 import (
 	"encoding/json"
 	"net/http"
+	"regexp"
 )
 
-func WriteJsonp(w http.ResponseWriter, r *http.Request, v interface{}) {
+var cbRegex = regexp.MustCompile(`^[a-zA-Z_$]+[a-zA-Z0-9_$]*$`)
 
+func WriteJsonp(w http.ResponseWriter, r *http.Request, v interface{}) {
 	callback := r.URL.Query().Get("callback")
 
 	var b []byte
@@ -16,7 +18,8 @@ func WriteJsonp(w http.ResponseWriter, r *http.Request, v interface{}) {
 		b = []byte("{\"success\":false,\"message\":\"json.Marshal failed\"}")
 	}
 
-	if callback > "" {
+	// Check for valid callback name
+	if cbRegex.MatchString(callback) {
 		w.Header().Set("Content-Type", "application/javascript")
 		w.Write([]byte(callback))
 		w.Write([]byte("("))
