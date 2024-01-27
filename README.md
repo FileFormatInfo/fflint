@@ -40,9 +40,7 @@ More:
 
 ## License
 
-[GNU Affero General Public License v3.0](LICENSE.txt)
-
-For anyone who cannot use AGPL software, an inexpensive commercial license is available.<!-- LATER: link to pricing page on website -->
+[MIT](LICENSE.txt)
 
 ## Credits
 
@@ -52,6 +50,9 @@ For anyone who cannot use AGPL software, an inexpensive commercial license is av
 [![golang](https://www.vectorlogo.zone/logos/golang/golang-ar21.svg)](https://golang.org/ "Programming language")
 [![Google Noto Emoji](https://www.vectorlogo.zone/logos/google/google-ar21.svg)](https://github.com/googlefonts/noto-emoji/blob/5628587386c78161f87aa2ca9ddee37c2e8ea212/svg/emoji_u1f9a1.svg "Logo")
 [![Jekyll](https://www.vectorlogo.zone/logos/jekyllrb/jekyllrb-ar21.svg)](https://www.jekyllrb.com/ "Website")
+[![NodePing](https://www.vectorlogo.zone/logos/nodeping/nodeping-ar21.svg)](https://nodeping.com?rid=201109281250J5K3P "Uptime monitoring")
+[![SimpleShare.dev](https://www.vectorlogo.zone/logos/simplesharedev/simplesharedev-ar21.svg)](http://simpleshare.dev/ "Privacy-friendly sharing links")
+[![VectorLogoZone](https://www.vectorlogo.zone/logos/vectorlogozone/vectorlogozone-ar21.svg)](https://www.vectorlogo.zone/ "Logos")
 
 * [GoReleaser](https://goreleaser.com/)
 * [mathiasbynens/small](https://github.com/mathiasbynens/small) - sample files for testing
