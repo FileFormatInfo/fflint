@@ -1,8 +1,7 @@
+# robots.txt for fflint.dev
 #
-# robots.txt for fflint
+# Documentation for fflint: everything is indexable
 #
-
-Sitemap: https://www.fflint.org/sitemap.xml
-
 User-Agent: *
+Allow: /
 Disallow: /honeypot.txt

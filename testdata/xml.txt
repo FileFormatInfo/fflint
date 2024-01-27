@@ -19,8 +19,8 @@ exec fflint xml --schema=siteindex.xsd siteindex.xml
 		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 		xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9"
 		xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-		<url><loc>https://www.fflint.org/index.html</loc></url>
-		<url><loc>https://www.fflint.org/faq.html</loc></url>
+		<url><loc>https://www.fflint.dev/index.html</loc></url>
+		<url><loc>https://www.fflint.dev/faq.html</loc></url>
 </urlset>
 
 -- siteindex.xml --

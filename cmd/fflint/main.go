@@ -20,7 +20,7 @@ func main() {
 	var rootCmd = &cobra.Command{
 		Use:           "fflint",
 		Short:         "A linter to make sure your files are valid",
-		Long:          `See [www.fflint.org](https://www.fflint.org/) for detailed instructions`,
+		Long:          `See [www.fflint.dev](https://www.fflint.dev/) for detailed instructions`,
 		Version:       version,
 		SilenceErrors: true,
 		SilenceUsage:  true,

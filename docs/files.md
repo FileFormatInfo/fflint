@@ -41,7 +41,7 @@ This is useful if you are downloading or generating a file and do not need to st
 
 Example:
 ```
-curl --silent https://www.fflint.org/favicon.ico | fflint ico -
+curl --silent https://www.fflint.dev/favicon.ico | fflint ico -
 ```
 
 If you have a directory named `-` (i.e. a single dash), you can force non-stdin mode by prefixing it with `./`:

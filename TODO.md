@@ -2,7 +2,7 @@
 
 - [ ] doc: [svg role and title](https://www.smashingmagazine.com/2021/05/accessible-svg-patterns-comparison/)
 - [ ] doc and README: share links
-- [ ] workflow: run fflint on the fflint.org website
+- [ ] workflow: run fflint on the fflint.dev website
 - [ ] workflow: go test
 - [ ] test without ./main.go
 - [ ] shared/ImageFlags.go

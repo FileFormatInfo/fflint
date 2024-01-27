@@ -1,4 +1,4 @@
-# fflint [<img alt="fflint logo" src="docs/favicon.svg" height="90" align="right" />](https://www.fflint.org/)
+# fflint [<img alt="fflint logo" src="docs/favicon.svg" height="90" align="right" />](https://www.fflint.dev/)
 
 [![build](https://github.com/FileFormatInfo/fflint/actions/workflows/build.yaml/badge.svg)](https://github.com/FileFormatInfo/fflint/actions/workflows/build.yaml)
 [![release](https://github.com/FileFormatInfo/fflint/actions/workflows/release.yaml/badge.svg)](https://github.com/FileFormatInfo/fflint/actions/workflows/release.yaml)
@@ -15,11 +15,11 @@ fflint is a linter for file formats. Are your files:
 
 Perfect for your CI/CD pipeline to make sure bad files don't get committed.
 
-[**Documentation**](https://www.fflint.org/)
+[**Documentation**](https://www.fflint.dev/)
 
 ## Installation
 
-The [latest releases](https://github.com/FileFormatInfo/fflint/releases/latest) are available on Github. [Detailed instructions](https://www.fflint.org/install.html).
+The [latest releases](https://github.com/FileFormatInfo/fflint/releases/latest) are available on Github. [Detailed instructions](https://www.fflint.dev/install.html).
 
 ## Usage
 
@@ -34,7 +34,7 @@ fflint CMD [options...] files...
 * `files...` are the files to check
 
 More:
-* Complete documentation is on [**www.fflint.org**](https://www.fflint.org)
+* Complete documentation is on [**www.fflint.dev**](https://www.fflint.dev)
 * Run `fflint help` to see a list of available commands
 * Run `--help` for any command to see options specific to that command.  Example: `fflint svg --help`
 

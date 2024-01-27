@@ -1,6 +1,7 @@
-# robots.txt for fflint.org online API
+# robots.txt for fflint.dev online API
 #
-# Just a single page, but feel free to index it!
+# everything is indexable!
 #
 User-Agent: *
 Allow: /
+Disallow: /honeypot.txt
