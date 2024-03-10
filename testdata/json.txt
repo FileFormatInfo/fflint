@@ -6,9 +6,23 @@ exec fflint json object.json
 exec fflint json something.json
 ! exec fflint json trailingcomma.json
 
-exec fflint json --schema=object.schema.json --show-tests=all --debug object.json 
+# object schema tests
+exec fflint json --schema=object.schema.json --show-tests=all --debug object.json
 ! exec fflint json --schema=object.schema.json --show-tests=all --debug string.json
+! exec fflint json --schema=object.schema.json --show-tests=all --debug number.json
+exec fflint json --schema=object.schema.json --show-tests=all --debug something.json
 
+# string schema tests
+! exec fflint json --schema=string.schema.json --show-tests=all --debug object.json
+exec fflint json --schema=string.schema.json --show-tests=all --debug string.json
+! exec fflint json --schema=string.schema.json --show-tests=all --debug number.json
+! exec fflint json --schema=string.schema.json --show-tests=all --debug something.json
+
+# number schema tests
+! exec fflint json --schema=number.schema.json --show-tests=all --debug object.json
+! exec fflint json --schema=number.schema.json --show-tests=all --debug string.json
+exec fflint json --schema=number.schema.json --show-tests=all --debug number.json
+! exec fflint json --schema=number.schema.json --show-tests=all --debug something.json
 
 -- toosmall.json --
 {
@@ -31,6 +45,9 @@ exec fflint json --schema=object.schema.json --show-tests=all --debug object.jso
     "cd": false,
 }
 
+-- number.json --
+123
+
 -- object.schema.json --
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
@@ -38,4 +55,22 @@ exec fflint json --schema=object.schema.json --show-tests=all --debug object.jso
   "title": "Product",
   "description": "A product in the catalog",
   "type": "object"
+}
+
+-- string.schema.json --
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.com/product.schema.json",
+  "title": "Strings",
+  "description": "A string",
+  "type": "string"
+}
+
+-- number.schema.json --
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.com/product.schema.json",
+  "title": "Numbers",
+  "description": "A number",
+  "type": "number"
 }

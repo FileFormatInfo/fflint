@@ -7,6 +7,28 @@ exec fflint frontmatter --show-tests=all test.md
 
 exec fflint frontmatter --delimiters=/***,***/ --debug --show-tests=all test.sql
 
+# anyobject schema
+exec fflint frontmatter --glob=none --show-tests=all --debug --schema=anyobject.schema.json test.md
+exec fflint frontmatter --glob=none --schema=anyobject.schema.json emptytitle.md
+exec fflint frontmatter --glob=none --schema=anyobject.schema.json notitle.md
+
+# title schema
+exec fflint frontmatter --glob=none --schema=title.schema.json test.md
+! exec fflint frontmatter --show-tests=all --debug --glob=none --schema=title.schema.json emptytitle.md
+! exec fflint frontmatter --glob=none --schema=title.schema.json notitle.md
+
+# title-optional schema
+exec fflint frontmatter --glob=none --schema=title-optional.schema.json test.md
+exec fflint frontmatter --glob=none --schema=title-optional.schema.json emptytitle.md
+exec fflint frontmatter --glob=none --schema=title-optional.schema.json notitle.md
+
+# nested
+exec fflint frontmatter --glob=none --debug --schema=nested.schema.json nested-json-good.md
+exec fflint frontmatter --glob=none --debug --schema=nested.schema.json nested-good.md
+! exec fflint frontmatter --glob=none --debug --schema=nested.schema.json nested-bad.md
+
+# nested objects in schema
+
 -- test.md --
 ---
 title: Markdown with frontmatter
@@ -22,3 +44,101 @@ title: SQL with custom delimiters
 ***/
 SELECT * FROM examples
 
+-- emptytitle.md --
+---
+title: ''
+---
+The content.
+
+-- notitle.md --
+---
+notitle: ''
+---
+The content.
+
+
+-- nested-json-good.md --
+---
+{ "title": "Some JSON", "font": { "name": "Comic json" }}
+---
+Content
+
+-- nested-good.md --
+---
+title: Something
+font:
+  name: Comic Sans
+---
+Content
+
+-- nested-bad.md --
+---
+title: Something
+font:
+  face: Comic Sans
+---
+Content
+
+-- anyobject.schema.json --
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.com/product.schema.json",
+  "title": "Any",
+  "description": "Any object in frontmatter",
+  "type": "object"
+}
+
+-- title.schema.json --
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.com/product.schema.json",
+  "title": "Title in frontmatter",
+  "description": "Frontmatter must have title",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string",
+      "minLength": 1
+    }
+  },
+  "required": [
+    "title"
+  ]
+}
+
+-- title-optional.schema.json --
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.com/product.schema.json",
+  "title": "Title in frontmatter",
+  "description": "Frontmatter must have title",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string"
+    }
+  }
+}
+
+-- nested.schema.json --
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.com/product.schema.json",
+  "title": "Title in frontmatter",
+  "description": "Frontmatter must have title",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string"
+    },
+    "font": {
+        "type": "object",
+        "properties": {
+            "name": {
+                "type": "string"
+            }
+        },
+        "required": [ "name" ]
+    }
+  }
+}

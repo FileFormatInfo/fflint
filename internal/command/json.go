@@ -1,21 +1,16 @@
 package command
 
 import (
-	"bytes"
-	"fmt"
-	"net/url"
-	"os"
-	"path/filepath"
+	"encoding/json"
 
 	"github.com/FileFormatInfo/fflint/internal/shared"
-	"github.com/antchfx/jsonquery"
+	//"github.com/antchfx/jsonquery"
 	"github.com/spf13/cobra"
-	"github.com/xeipuuv/gojsonschema"
 )
 
 var (
-	jsonSchemaLocation string
-	jsonSchema         *gojsonschema.Schema
+	jsonSchemaValidator shared.SchemaOptions
+	jsonSchemaLocation  string
 )
 
 // jsonCmd represents the json command
@@ -31,10 +26,8 @@ var jsonCmd = &cobra.Command{
 func AddJsonCommand(rootCmd *cobra.Command) {
 	rootCmd.AddCommand(jsonCmd)
 
-	jsonCmd.Flags().StringVar(&jsonSchemaLocation, "schema", "", "JSON Schema to validate against") //LATER: link to docs about embedded ones
-
+	jsonSchemaValidator.AddFlags(jsonCmd)
 	//LATER: whitespace: canonical/none/any
-	//LATER: schema (https://github.com/xeipuuv/gojsonschema)
 }
 
 func jsonCheck(f *shared.FileContext) {
@@ -47,59 +40,25 @@ func jsonCheck(f *shared.FileContext) {
 		return
 	}
 
-	_, parseErr := jsonquery.Parse(bytes.NewReader(data))
+	var jsonData any
+	parseErr := json.Unmarshal(data, &jsonData)
 
+	f.RecordResult("jsonParse", parseErr == nil, map[string]interface{}{
+		"error": parseErr,
+	})
 	if parseErr != nil {
-		f.RecordResult("jsonParse", false, map[string]interface{}{
-			"error": parseErr,
-		})
 		return
 	}
 
-	if jsonSchema != nil {
-		result, validateErr := jsonSchema.Validate(gojsonschema.NewStringLoader(string(data)))
-		if validateErr != nil {
-			f.RecordResult("jsonSchemaRun", false, map[string]interface{}{
-				"error": validateErr.Error(),
-			})
-		} else {
-			f.RecordResult("jsonSchemaValidate", result.Valid(), map[string]interface{}{
-				"errors": result.Errors(),
-			})
-		}
-	}
-
+	jsonSchemaValidator.Validate(f, jsonData)
 }
 
 func jsonInit(cmd *cobra.Command, args []string) error {
 
-	if jsonSchemaLocation == "" {
-		return nil
+	prepErr := jsonSchemaValidator.Prepare()
+	if prepErr != nil {
+		return prepErr
 	}
 
-	// work with local file urls
-	jsonUrl, urlParseErr := url.Parse(jsonSchemaLocation)
-	if urlParseErr != nil {
-		return urlParseErr
-	}
-
-	// allow relative local file schemas
-	if jsonUrl.Scheme == "" {
-		jsonUrl.Scheme = "file"
-		jsonPath, pathErr := filepath.Abs(jsonUrl.Path)
-		if pathErr != nil {
-			return pathErr
-		}
-		jsonUrl.Path = jsonPath
-		newLocation := jsonUrl.String()
-		if shared.Debug {
-			fmt.Fprintf(os.Stderr, "DEBUG: canonicalizing schema path from '%s' to '%s'\n", jsonSchemaLocation, newLocation)
-		}
-		jsonSchemaLocation = newLocation
-	}
-
-	jsonSchemaLoader := gojsonschema.NewReferenceLoader(jsonSchemaLocation)
-	var schemaErr error
-	jsonSchema, schemaErr = gojsonschema.NewSchema(jsonSchemaLoader)
-	return schemaErr
+	return nil
 }
