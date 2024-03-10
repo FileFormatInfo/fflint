@@ -8,6 +8,7 @@ import (
 	"github.com/FileFormatInfo/fflint/internal/shared"
 	"github.com/adrg/frontmatter"
 	"github.com/spf13/cobra"
+	yamlv2 "gopkg.in/yaml.v2"
 	"gopkg.in/yaml.v3"
 )
 
@@ -68,7 +69,7 @@ func frontmatterCheck(f *shared.FileContext) {
 		}
 	}
 
-	yamlRawData := make(map[string]any)
+	yamlRawData := make(map[any]any)
 	//LATER: maybe flag to require contents?
 	_, parseErr := frontmatter.MustParse(bytes.NewReader(data), &yamlRawData, formats...)
 
@@ -116,8 +117,19 @@ func frontmatterCheck(f *shared.FileContext) {
 	}
 
 	if fmSorted {
+		sortedData := yamlv2.MapSlice{}
+
+		frontmatter.Parse(bytes.NewReader(data), &sortedData)
 		previousKey := ""
-		for currentKey := range yamlData {
+		for _, item := range sortedData {
+			currentKey, strErr := item.Key.(string)
+			if !strErr {
+				f.RecordResult("frontmatterSortedParse", false, map[string]interface{}{
+					"err": "key is not a string",
+					"key": fmt.Sprintf("%v", item.Key),
+				})
+				continue
+			}
 			f.RecordResult("frontmatterSorted", previousKey < currentKey, map[string]interface{}{
 				"previous": previousKey,
 				"current":  currentKey,
