@@ -55,6 +55,8 @@ func htmlCheck(f *shared.FileContext) {
 func validateHTML(r *bytes.Reader) error {
 	d := xml.NewDecoder(r)
 
+	path := []string{}
+
 	//LATER: alternate parser [tdewolff/parse](https://github.com/tdewolff/parse)
 
 	// Configure the decoder for HTML; leave off strict and autoclose for XHTML
@@ -62,13 +64,23 @@ func validateHTML(r *bytes.Reader) error {
 	d.AutoClose = xml.HTMLAutoClose
 	d.Entity = xml.HTMLEntity
 	for {
-		_, err := d.Token()
+		theToken, err := d.Token()
 		if err != nil {
 			if err == io.EOF {
 				return nil
 			}
+			//fmt.Printf("err %T path=%v\n", err, path)
 			return err
 		}
+		switch typedToken := theToken.(type) {
+		case xml.StartElement:
+			path = append(path, typedToken.Name.Local)
+		case xml.EndElement:
+			path = path[:len(path)-1]
+		default:
+			// ignore
+		}
+
 	}
 }
 
