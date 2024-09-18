@@ -5,6 +5,7 @@ import "github.com/spf13/cobra"
 func AddAllCommands(rootCmd *cobra.Command) {
 
 	AddExtCommand(rootCmd)
+	AddFeedCommand(rootCmd)
 	AddFrontmatterCommand(rootCmd)
 	AddHtmlCommand(rootCmd)
 	AddIcoCommand(rootCmd)
