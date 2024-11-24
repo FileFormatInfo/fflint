@@ -1,0 +1,65 @@
+exec fflint feed good.xml
+! exec fflint feed no-self.xml
+
+-- good.xml --
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xml:base="https://blog.publicidentity.org/">
+    <channel>
+        <atom:link href="https://www.fflint.dev/doesnotexist.xml" rel="self" type="application/rss+xml" />
+        <copyright>Copyright © 2024 by Andrew Marcuse<!-- COPYRIGHTYEAR --></copyright>
+        <description>FFLint Test #1</description>
+        <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
+        <generator>GoTesting</generator>
+        <image>
+            <link>https://www.fflint.dev/</link>
+            <title>FFLint</title>
+            <url>https://www.fflint.dev//favicon.png</url>
+        </image>
+        <language>en</language>
+        <lastBuildDate>Tue, 01 Oct 2024 21:07:09 +0000</lastBuildDate>
+        <link>https://www.fflint.dev/</link>
+        <managingEditor>testing@fflint.dev (FFLint I. Sawesome)</managingEditor>
+        <pubDate>Tue, 01 Oct 2024 21:07:09 +0000</pubDate>
+        <title>FFLint</title>
+        <ttl>1440</ttl>
+        <webMaster>testing@fflint.dev (FFLint I. Sawesome)</webMaster>
+        <item>
+            <guid>7BDFF282-FC33-4FE3-B22E-80CBBF05AD6E</guid>
+            <link>https://blog.publicidentity.org/blog/2024/2024-09-15-vs-linkedin.html</link>
+            <pubDate>Sun, 15 Sep 2024 00:00:00 -0600</pubDate>
+            <title>LinkedIn Comparison</title>
+            <description><![CDATA[<p>Random HTML goes here</p>]]></description>
+        </item>
+    </channel>
+</rss>
+
+-- no-self.xml --
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xml:base="https://www.fflint.dev/">
+    <channel>
+        <copyright>Copyright © 2024 by Andrew Marcuse<!-- COPYRIGHTYEAR --></copyright>
+        <description>FFLint Test #1</description>
+        <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
+        <generator>GoTesting</generator>
+        <image>
+            <link>https://www.fflint.dev/</link>
+            <title>FFLint</title>
+            <url>https://www.fflint.dev//favicon.png</url>
+        </image>
+        <language>en</language>
+        <lastBuildDate>Tue, 01 Oct 2024 21:07:09 +0000</lastBuildDate>
+        <link>https://www.fflint.dev/</link>
+        <managingEditor>testing@fflint.dev (FFLint I. Sawesome)</managingEditor>
+        <pubDate>Tue, 01 Oct 2024 21:07:09 +0000</pubDate>
+        <title>FFLint</title>
+        <ttl>1440</ttl>
+        <webMaster>testing@fflint.dev (FFLint I. Sawesome)</webMaster>
+        <item>
+            <guid>7BDFF282-FC33-4FE3-B22E-80CBBF05AD6E</guid>
+            <link>https://blog.publicidentity.org/blog/2024/2024-09-15-vs-linkedin.html</link>
+            <pubDate>Sun, 15 Sep 2024 00:00:00 -0600</pubDate>
+            <title>LinkedIn Comparison</title>
+            <description><![CDATA[<p>Random HTML goes here</p>]]></description>
+        </item>
+    </channel>
+</rss>

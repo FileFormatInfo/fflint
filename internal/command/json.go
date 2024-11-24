@@ -10,7 +10,7 @@ import (
 
 var (
 	jsonSchemaValidator shared.SchemaOptions
-	jsonSchemaLocation  string
+	//jsonSchemaLocation  string
 )
 
 // jsonCmd represents the json command

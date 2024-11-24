@@ -93,8 +93,8 @@ func feedCheck(f *shared.FileContext) {
 	}
 
 	if feed.Description == "" {
-		f.RecordResult("feedTitle", false, map[string]interface{}{
-			"error": "Missing title",
+		f.RecordResult("feedDescription", false, map[string]interface{}{
+			"error": "Missing description",
 		})
 	}
 
@@ -112,21 +112,29 @@ func feedCheck(f *shared.FileContext) {
 		})
 	}
 
-	if feed.Updated != "" && feed.UpdatedParsed == nil {
+	if feed.Updated == "" {
 		f.RecordResult("feedUpdated", false, map[string]interface{}{
+			"error": "Missing updated date",
+		})
+	} else if feed.UpdatedParsed == nil {
+		f.RecordResult("feedUpdatedInvalid", false, map[string]interface{}{
 			"error":   "Invalid updated date",
 			"rawdate": feed.Updated,
 		})
 	}
 
-	if feed.Published != "" && feed.PublishedParsed == nil {
+	if feed.Published == "" {
 		f.RecordResult("feedPublished", false, map[string]interface{}{
+			"error": "Missing published date",
+		})
+	} else if feed.PublishedParsed == nil {
+		f.RecordResult("feedPublishedInvalid", false, map[string]interface{}{
 			"error":   "Invalid published date",
 			"rawdate": feed.Published,
 		})
 	}
 
-	if feed.Items == nil || len(feed.Items) == 0 {
+	if len(feed.Items) == 0 {
 		f.RecordResult("feedItems", false, map[string]interface{}{
 			"error": "No items found",
 		})
