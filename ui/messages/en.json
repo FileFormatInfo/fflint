@@ -1,0 +1,35 @@
+{
+  "_404": {
+    "h1": "File not found",
+    "home": "Go to home page",
+    "message_html": "The file you requested (<code>{{html .Path}}</code>) was not found.",
+    "title": "404: File Not Found - server.fflint.dev"
+  },
+  "common": {
+    "cancel_btn": "Cancel",
+    "contact": "Contact",
+    "documentation": "Documentation",
+    "language": "Language",
+    "login": "Login",
+    "logout": "Logout",
+    "name": "fflint",
+    "raw": "Raw details",
+    "save_btn": "Save",
+    "title": "server.fflint.dev"
+  },
+  "errors": {
+    "no_file": "You did not upload a file!"
+  },
+  "index": {
+    "h1": "Online File Format Lint",
+    "title": "fflint.dev: Your online file format linting tool"
+  },
+  "language": {
+    "changed": "Language changed to English",
+    "current": "en",
+    "en": "English",
+    "es": "Spanish (Español)",
+    "fr": "French (Français)",
+    "title": "Choose your language"
+  }
+}

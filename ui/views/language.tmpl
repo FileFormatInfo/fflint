@@ -1,0 +1,21 @@
+{{template "above" .}}
+
+
+<form method="post" action="/language.html">
+	<input type="hidden" name="next" value="{{.Next}}">
+	<div class="mb-3">
+{{range .Languages}}
+		<div class="form-check">
+			<input class="form-check-input" type="radio" name="lang" id="lang{{.Code}}" value="{{.Code}}" {{if .IsCurrent}}checked{{end}}>
+			<label class="form-check-label" for="lang{{.Code}}">
+				{{.Name}}
+			</label>
+		</div>
+{{end}}
+	</div>
+	<button type="submit" class="btn btn-primary">{{call .T "common.save_btn"}}</button>
+	<a href="{{.Next}}" class="btn btn-secondary">{{call .T "common.cancel_btn"}}</a>
+</form>
+
+
+{{template "below" .}}

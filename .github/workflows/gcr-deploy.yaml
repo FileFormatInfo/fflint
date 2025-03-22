@@ -1,10 +1,9 @@
-name: deploy
+name: gcr-deploy
 
 on:
   push:
-    # run only against tags
-    tags:
-      - '*'
+    branches:
+    - main
 
   workflow_dispatch:
 
@@ -32,7 +31,7 @@ jobs:
 
       # Setup gcloud CLI
       - name: gcloud setup
-        uses: google-github-actions/setup-gcloud@v1
+        uses: google-github-actions/setup-gcloud@v2
 
       - name: gcloud docker-auth
         run: gcloud auth configure-docker
@@ -43,8 +42,6 @@ jobs:
           docker build \
             --build-arg COMMIT=${GITHUB_SHA:0:7} \
             --build-arg LASTMOD=$(date -u +%Y-%m-%dT%H:%M:%SZ) \
-            --build-arg BUILTBY=github-actions \
-            --build-arg VERSION=${GITHUB_REF_NAME} \
             --tag gcr.io/${RUN_PROJECT}/${RUN_SERVICE}:$GITHUB_SHA \
             .
 

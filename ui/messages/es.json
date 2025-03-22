@@ -1,0 +1,35 @@
+{
+  "_404": {
+    "h1": "Archivo no encontrado",
+    "home": "Ir a la página de inicio",
+    "message_html": "El archivo que solicitaste (<code>{{html .Path}}</code>) no fue encontrado.",
+    "title": "404: Archivo No Encontrado - server.fflint.dev"
+  },
+  "common": {
+    "cancel_btn": "Cancelar",
+    "contact": "Contacto",
+    "documentation": "Documentación",
+    "language": "Idioma",
+    "login": "Iniciar Sesión",
+    "logout": "Cerrar Sesión",
+    "name": "fflint",
+    "raw": "Detalles en bruto",
+    "save_btn": "Guardar",
+    "title": "server.fflint.dev"
+  },
+  "errors": {
+    "no_file": "¡No subiste un archivo!"
+  },
+  "index": {
+    "h1": "Verificador de formato de archivo en línea",
+    "title": "fflint.dev: Tu herramienta de verificación de formato de archivo en línea"
+  },
+  "language": {
+    "changed": "Idioma cambiado a Español",
+    "current": "es",
+    "en": "Inglés (English)",
+    "es": "Español",
+    "fr": "Francés (Français)",
+    "title": "Elige tu idioma"
+  }
+}

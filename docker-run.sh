@@ -8,11 +8,31 @@ set -o pipefail
 set -o nounset
 
 
-docker build \
-	--build-arg COMMIT=$(git rev-parse --short HEAD) \
-	--build-arg LASTMOD=$(date -u +%Y-%m-%dT%H:%M:%SZ) \
-	--build-arg BUILTBY=docker-run \
-    --build-arg VERSION=local \
-	-t fflint-online .
+APP_NAME="fflint-server"
 
-docker run -it -p 4000:4000 fflint-online
+ENVFILE=${1:-.env}
+
+if [ ! -r "${ENVFILE}" ]
+then
+    echo "ERROR: no .env file '${ENVFILE}'!"
+    exit 1
+fi
+
+echo "INFO: building docker image..."
+docker build \
+    --build-arg COMMIT=local@$(git rev-parse --short HEAD) \
+    --build-arg LASTMOD=$(date -u +%Y-%m-%dT%H:%M:%SZ) \
+    --progress=plain \
+    --tag "${APP_NAME}" \
+    .
+
+docker run \
+    --env-file "./.env" \
+	--env ADDRESS=0.0.0.0 \
+    --interactive \
+    --name "${APP_NAME}" \
+    --publish "4000:4000" \
+    --rm \
+    --tty \
+    "${APP_NAME}"
+
