@@ -4,7 +4,7 @@ import (
 	"bufio"
 	"errors"
 	"fmt"
-	"io/ioutil"
+	"io"
 	"os"
 	"path/filepath"
 	"sort"
@@ -17,8 +17,8 @@ import (
 
 type globFn = func(ignorer ignoreFn, args []string) ([]FileContext, error)
 
-//LATER: regex-based globber
-//LATER: glob with https://github.com/gobwas/glob
+// LATER: regex-based globber
+// LATER: glob with https://github.com/gobwas/glob
 var globFunctions = map[string]globFn{
 	"":           doublestarExpander,
 	"doublestar": doublestarExpander,
@@ -39,7 +39,7 @@ func (g *Globber) String() string {
 func (g *Globber) Set(newValue string) error {
 
 	if globFunctions[newValue] == nil {
-		return fmt.Errorf("Invalid glob algorithm '%s'", newValue)
+		return fmt.Errorf("invalid glob algorithm '%s'", newValue)
 	}
 	g.value = newValue
 	return nil
@@ -72,7 +72,7 @@ func doublestarExpander(ignorer ignoreFn, args []string) ([]FileContext, error) 
 		fsys := os.DirFS(basepath)
 		argfiles, dsErr := doublestar.Glob(fsys, pattern)
 		if dsErr != nil {
-			return nil, fmt.Errorf("Unable to expand %s at %s (doublestarExpander %w)", pattern, basepath, dsErr)
+			return nil, fmt.Errorf("unable to expand %s at %s (doublestarExpander %w)", pattern, basepath, dsErr)
 		}
 		for _, argfile := range argfiles {
 
@@ -86,7 +86,7 @@ func doublestarExpander(ignorer ignoreFn, args []string) ([]FileContext, error) 
 				}
 			}
 
-			if ignorer(argfile) == true {
+			if ignorer(argfile) {
 				continue
 			}
 
@@ -98,7 +98,7 @@ func doublestarExpander(ignorer ignoreFn, args []string) ([]FileContext, error) 
 
 			fi, statErr := fc.Stat()
 			if statErr != nil {
-				return nil, fmt.Errorf("Unable to stat %s (doublestarExpander, %w)", arg, statErr)
+				return nil, fmt.Errorf("unable to stat %s (doublestarExpander, %w)", arg, statErr)
 			}
 
 			if fi.IsDir() {
@@ -121,7 +121,7 @@ func noExpander(ignorer ignoreFn, args []string) ([]FileContext, error) {
 
 	for _, arg := range args {
 
-		if ignorer(arg) == true {
+		if ignorer(arg) {
 			continue
 		}
 
@@ -131,7 +131,7 @@ func noExpander(ignorer ignoreFn, args []string) ([]FileContext, error) {
 
 		fi, statErr := fc.Stat()
 		if statErr != nil {
-			return nil, fmt.Errorf("Unable to stat %s (noExpander, %w)", arg, statErr)
+			return nil, fmt.Errorf("unable to stat %s (noExpander, %w)", arg, statErr)
 		}
 		if fi.IsDir() {
 			//LATER: or recurse?
@@ -152,7 +152,7 @@ func golangExpander(ignorer ignoreFn, args []string) ([]FileContext, error) {
 	for _, arg := range args {
 		argfiles, globErr := filepath.Glob(homedirExpand(arg))
 		if globErr != nil {
-			return nil, fmt.Errorf("Unable to glob %s (golangExpander, %w)", arg, globErr)
+			return nil, fmt.Errorf("unable to glob %s (golangExpander, %w)", arg, globErr)
 		}
 		for _, argfile := range argfiles {
 
@@ -166,7 +166,7 @@ func golangExpander(ignorer ignoreFn, args []string) ([]FileContext, error) {
 				}
 			}
 
-			if ignorer(argfile) == true {
+			if ignorer(argfile) {
 				continue
 			}
 
@@ -210,9 +210,9 @@ func MakeFileCommand(checkFn func(*FileContext)) func(cmd *cobra.Command, args [
 		if len(args) == 1 && args[0] == "-" {
 			useGlobber = false
 			if isatty.IsTerminal(os.Stdin.Fd()) {
-				return errors.New("Attempt to read stdin from terminal")
+				return errors.New("attempt to read stdin from terminal")
 			}
-			data, stdinReadErr := ioutil.ReadAll(os.Stdin) //LATER: does this work on Windows w/binary files
+			data, stdinReadErr := io.ReadAll(os.Stdin) //LATER: does this work on Windows w/binary files
 			if stdinReadErr != nil {
 				return fmt.Errorf("unable to read stdin: %w", stdinReadErr)
 			}
@@ -222,7 +222,7 @@ func MakeFileCommand(checkFn func(*FileContext)) func(cmd *cobra.Command, args [
 			})
 		} else if len(args) == 1 && args[0] == "@-" {
 			if isatty.IsTerminal(os.Stdin.Fd()) {
-				return errors.New("Attempt to read stdin from terminal")
+				return errors.New("attempt to read stdin from terminal")
 			}
 			scanner := bufio.NewScanner(os.Stdin)
 			args = args[:0]
@@ -241,7 +241,7 @@ func MakeFileCommand(checkFn func(*FileContext)) func(cmd *cobra.Command, args [
 			fcs, _ = globFunctions[globber.String()](ignorer, args)
 		}
 		if len(fcs) == 0 {
-			return fmt.Errorf("No files to lint")
+			return fmt.Errorf("no files to lint")
 		}
 		if Debug {
 			fmt.Fprintf(os.Stderr, "DEBUG: %d files after arg expansion\n", len(fcs))

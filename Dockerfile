@@ -22,5 +22,5 @@ FROM scratch
 COPY --from=builder /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/
 COPY --from=builder /build/fflint-server /app/
 WORKDIR /app
-ENV PORT 4000
+ENV PORT=4000
 ENTRYPOINT ["./fflint-server"]
