@@ -9,7 +9,6 @@ require (
 	github.com/adrg/frontmatter v0.2.0
 	github.com/antchfx/xmlquery v1.4.4
 	github.com/bmatcuk/doublestar/v4 v4.8.1
-	github.com/cevaris/ordered_map v0.0.0-20220813181356-34664b69742b
 	github.com/cheggaaa/pb/v3 v3.1.7
 	github.com/gorilla/sessions v1.4.0
 	github.com/mattn/go-isatty v0.0.20
