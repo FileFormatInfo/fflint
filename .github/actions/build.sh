@@ -25,7 +25,7 @@ echo "INFO: building"
 go build \
     -a \
     -trimpath \
-    -ldflags "-s -w -extldflags '-static' -X github.com/FileFormatInfo/fflint/cmd.COMMIT=$GITHUB_SHA -X github.com/FileFormatInfo/fflint/cmd.LASTMOD=$LASTMOD -X github.com/FileFormatInfo/fflint/cmd.VERSION=$VERSION" \
+    -ldflags "-s -w -extldflags '-static' -X main.COMMIT=$GITHUB_SHA -X main.LASTMOD=$LASTMOD -X main.VERSION=$VERSION -X main.BUILTBY=build.sh" \
     -installsuffix cgo \
     -tags netgo \
     -o "${APP_HOME}/dist/fflint" \
