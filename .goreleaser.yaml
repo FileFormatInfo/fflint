@@ -1,5 +1,5 @@
-# This is an example .goreleaser.yml file with some sensible defaults.
-# Make sure to check the documentation at https://goreleaser.com
+version: 2
+
 before:
   hooks:
     - go mod tidy
@@ -11,7 +11,12 @@ builds:
   - env:
       - CGO_ENABLED=0
     ldflags:
-      -  -s -w -X main.version={{.Version}} -X main.commit={{.Commit}} -X main.date={{.Date}} -X main.builtBy=goreleaser
+      - -s
+      - -w
+      - -X main.VERSION={{.Version}}
+      - -X main.LASTMOD={{.Timestamp}}
+      - -X main.COMMIT={{.ShortCommit}}
+      - -X main.BUILTBY=goreleaser
     main: ./cmd/fflint/main.go
     goos:
       - linux
@@ -19,7 +24,7 @@ builds:
       - darwin
 
 archives:
-  - format: tar.gz
+  - formats: [ tar.gz ]
     # this name template makes the OS and Arch compatible with the results of uname.
     name_template: >-
       {{ .ProjectName }}_
@@ -30,12 +35,36 @@ archives:
       {{- if .Arm }}v{{ .Arm }}{{ end }}
     # use zip for windows archives
     format_overrides:
-    - goos: windows
-      format: zip
+      - goos: windows
+        formats: [ zip ]
+    files:
+      - src: README.md
+        info:
+          owner: root
+          group: root
+          mtime: "{{ .CommitDate }}"
+      - src: LICENSE.md
+        info:
+          owner: root
+          group: root
+          mtime: "{{ .CommitDate }}"
+      - src: completions/*
+        info:
+          owner: root
+          group: root
+          mtime: "{{ .CommitDate }}"
+      - src: manpages/*
+        info:
+          owner: root
+          group: root
+          mtime: "{{ .CommitDate }}"
+
 checksum:
   name_template: 'checksums.txt'
+
 snapshot:
-  name_template: "{{ incpatch .Version }}-next"
+  version_template: "{{ incpatch .Version }}-next"
+
 changelog:
   sort: asc
   filters:
@@ -43,7 +72,30 @@ changelog:
       - '^docs:'
       - '^test:'
 
-# The lines beneath this are called `modelines`. See `:help modeline`
-# Feel free to remove those if you don't want/use them.
-# yaml-language-server: $schema=https://goreleaser.com/static/schema.json
-# vim: set ts=2 sw=2 tw=0 fo=cnqoj
+homebrew_casks:
+  - name: fflint
+    binaries:
+      - fflint
+    manpages:
+      - manpages/fflint.1.gz
+    completions:
+      bash: completions/fflint.bash
+      zsh: completions/fflint.zsh
+      fish: completions/fflint.fish
+    directory: Casks
+    skip_upload: false
+    description: "File formt linter"
+    homepage: "https://www.fflint.dev/"
+    license: "MIT"
+    repository:
+      owner: FileFormatInfo
+      name: homebrew-tap
+      branch: main
+      token: "{{ .Env.HOMEBREW_TOKEN }}"
+    hooks:
+      post:
+        install: |
+          if OS.mac?
+            system_command "/usr/bin/xattr", args: ["-dr", "com.apple.quarantine", "#{staged_path}/fflint"]
+          end
+
