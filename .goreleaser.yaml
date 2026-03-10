@@ -43,7 +43,30 @@ changelog:
       - '^docs:'
       - '^test:'
 
-# The lines beneath this are called `modelines`. See `:help modeline`
-# Feel free to remove those if you don't want/use them.
-# yaml-language-server: $schema=https://goreleaser.com/static/schema.json
-# vim: set ts=2 sw=2 tw=0 fo=cnqoj
+homebrew_casks:
+  - name: fflint
+    binaries:
+      - fflint
+    manpages:
+      - manpages/fflint.1.gz
+    completions:
+      bash: completions/fflint.bash
+      zsh: completions/fflint.zsh
+      fish: completions/fflint.fish
+    directory: Casks
+    skip_upload: false
+    description: "File formt linter"
+    homepage: "https://www.fflint.dev/"
+    license: "MIT"
+    repository:
+      owner: FileFormatInfo
+      name: homebrew-tap
+      branch: main
+      token: "{{ .Env.HOMEBREW_TOKEN }}"
+    hooks:
+      post:
+        install: |
+          if OS.mac?
+            system_command "/usr/bin/xattr", args: ["-dr", "com.apple.quarantine", "#{staged_path}/fflint"]
+          end
+
