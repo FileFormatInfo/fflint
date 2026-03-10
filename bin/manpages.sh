@@ -17,7 +17,7 @@ rm -rf "${MANPAGES_DIR}"
 mkdir "${MANPAGES_DIR}"
 
 echo "INFO: generating manpages"
-go run "${REPO_HOME}/cmd/mangen" man
-#| gzip -c -9 >"${MANPAGES_DIR}/fflint.1.gz"
+go run "${REPO_HOME}/cmd/mangen" man \
+    | gzip -c -9 >"${MANPAGES_DIR}/fflint.1.gz"
 
 echo "INFO: manpages complete at $(date -u +%Y-%m-%dT%H:%M:%SZ)"
